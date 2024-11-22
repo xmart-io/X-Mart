@@ -1,18 +1,18 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "TRD docs ",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#ff2e49",
+    "light": "#ff2e49",
+    "dark": "#f47f8e",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#ff2e49",
+      "to": "#ff2e49"
     }
   },
   "topbarLinks": [
@@ -51,11 +51,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
+      "pages": ["introduction", "quickstart", "development"]
     },
     {
       "group": "Essentials",
@@ -70,22 +66,36 @@
     },
     {
       "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
+      "pages": ["api-reference/introduction"]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Endpoints",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        {
+          "group": "Auth",
+          "pages": ["api-reference/authentication/login/post"]
+        },
+        {
+          "group": "Tiendas y Canales de venta",
+          "pages": [
+            "api-reference/v3/stores/get",
+            "api-reference/v3/channels-stores/post",
+            "api-reference/v3/stores/getId",
+            "api-reference/v3/stores/put"
+          ]
+        },
+        {
+          "group": "Listas",
+          "pages": ["api-reference/v3/lists/get",
+            "api-reference/v3/lists/getinfo",
+            "api-reference/v3/lists/getsystem"]
+        }
       ]
     }
   ],
   "footerSocials": {
     "x": "https://x.com/mintlify",
     "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "linkedin": "https://www.linkedin.com/company/mintsearch"
   }
 }

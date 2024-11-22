@@ -1,22 +1,36 @@
 ---
-title: Introduction
-description: 'Welcome to the home of your new documentation'
+title: X-Mart
+description: 'Welcome to X-Mart’s documentation!'
 ---
 
 <img
-  className="block dark:hidden"
-  src="/images/hero-light.svg"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.svg"
-  alt="Hero Dark"
+  className="custom-image-class"
+  src="https://s3.us-east-2.amazonaws.com/admin.artisncore.dev/products/logo_xmart.jpeg"
+  alt="Hero Ligth"
 />
 
-## Setting up
 
-The first step to world-class documentation is setting up your editing environments.
+## What is X-Mart?
+
+X-Mart is a microservices ecosystem designed to efficiently manage operations related to orders, menus, and notifications within the platform. Its modular architecture optimizes key processes and provides a seamless experience for both customers and administrators. The integration between these services ensures scalability, high availability, and adaptability, positioning X-Mart as a robust solution to meet user demands.
+
+## Main Features
+
+Admin: 
+
+This microservice specializes in the synchronization, processing, and storage of our clients' menus in our database. By implementing advanced data integration and management techniques, Admin ensures efficient and accurate menu updates, enabling optimized real-time information management.
+
+Transactional:
+
+This microservice is dedicated to generating payment requests towards payment buttons. This service manages and coordinates payment requests efficiently and securely, ensuring the proper execution of financial transactions within our platform. Thanks to its robust architecture, it optimizes the flow of payments and facilitates integration with various payment systems.
+
+Fulfillment:
+
+This microservice specializes in managing state changes and complements the notification service, allowing customers to receive real-time updates on the status of their orders. Thanks to its efficient integration, it ensures smooth and accurate communication, enhancing the end-user experience and optimizing order tracking.
+
+Notifications:
+
+This microservice is responsible for sending real-time notifications to customers, allowing them to instantly and accurately view the status of their orders. Thanks to its efficient integration, it ensures that users are always informed about the progress of their orders, significantly enhancing the customer experience.
 
 <CardGroup cols={2}>
   <Card

@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
+    "title": "Api V3 documentación",
     "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
     "license": {
       "name": "MIT"
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://api.artisn.desarrollo-redbrand.com/api"
     }
   ],
   "security": [
@@ -19,9 +19,316 @@
     }
   ],
   "paths": {
+    "/authentication/login": {
+      "post": {
+        "description": "Este endpoint permite obtener el token de acceso para clientes OAuth2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "respuesta al inciar sesión",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string",
+                      "description": "El token de acceso que se utilizará en la API. ¡NO EXPONGA ESTE TOKEN AL CLIENTE!",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "error de autorización",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/v3/stores": {
+      "get": {
+        "description": "Este endpoint permite listar las tiendas de una marca registradas en el sistema.",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "description": "Identificador único de la marca",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Store response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StoreResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v3/channels-stores": {
+      "post": {
+        "description": "Este endpoint permite registrar tiendas y canales de venta en el sistema. Importante!: Cada request enviado se procesa como una nueva configuración, por lo que si una tienda, canal de venta, bodega, ... no es enviado toda su configuración será eliminada.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "stores": {
+                    "type": "array",
+                    "description": "Listado de tiendas a crear",
+                    "items": {
+                      "$ref": "#/components/schemas/Store"
+                    }
+                  },
+                  "channels": {
+                    "type": "array",
+                    "description": "Listado de canales de venta a crear",
+                    "items": {
+                      "$ref": "#/components/schemas/Channel"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "respuesta al inciar sesión",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string",
+                      "description": "El token de acceso que se utilizará en la API. ¡NO EXPONGA ESTE TOKEN AL CLIENTE!",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "error de autorización",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/v3/stores/{storeId}": {
+      "get": {
+        "description": "Este endpoint permite obtener la información de una tienda registrada en el sistema.",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "description": "Identificador único de la marca",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Identificador único de la tienda",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Store response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoreResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Este endpoint cambiar el estado de una tienda del sistema.",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "description": "dentificador único de la marca.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Identificador único de la tienda",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "active": {
+                    "type": "boolean",
+                    "description": "Estado al cual se actualizará la tienda"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Store response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoreResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v3/lists": {
+      "get": {
+        "description": "Este endpoint permite listar las tiendas de una marca registradas en el sistema.",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "description": "Identificador único de la marca",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lists response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/List"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v3/lists/{listId}": {
+      "get": {
+        "description": "Este endpoint permite obtener la información básica de una lista registrada en el sistema.",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "description": "Identificador único de la marca",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lists response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/List"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        }
+      }
+    },
+    
     "/plants": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "description": "Returns alllll plants from the system that the user has access to",
         "parameters": [
           {
             "name": "limit",
@@ -132,10 +439,308 @@
   },
   "components": {
     "schemas": {
+      "AuthBody": {
+        "required": ["client_id", "client_secret", "grant_type"],
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "description": "Identificador unico del cliente",
+            "type": "string"
+          },
+          "client_secret": {
+            "description": "Secreto unico del cliente",
+            "type": "string"
+          },
+          "grant_type": {
+            "description": "Tipo de acceso",
+            "type": "string"
+          }
+        }
+      },
+      "Store": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Nueva tienda 805"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "storeId": {
+            "type": "integer",
+            "example": 805
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            }
+          },
+          "vendorId": {
+            "description": "Identificador único de la marca. *Este identificador es suministrado por Trade.",
+            "type": "integer",
+            "example": 16
+          },
+          "schedulesByChannel": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SchedulesByChannel"
+            }
+          },
+          "storeCode": {
+            "type": "string",
+            "example": "T005"
+          },
+          "taxesInfo": {
+            "$ref": "#/components/schemas/TaxesInfo"
+          },
+          "contactInfo": {
+            "$ref": "#/components/schemas/ContactInfo"
+          },
+          "deliveryInfo": {
+            "$ref": "#/components/schemas/DeliveryInfo"
+          },
+          "locationInfo": {
+            "$ref": "#/components/schemas/LocationInfo"
+          },
+          "storeChannels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "0F049503-85CF-E511-80C6-000D3A3261F3"
+            }
+          }
+        }
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "DELIVERY"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "SchedulesByChannel": {
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "example": "0F049503-85CF-E511-80C6-000D3A3261F3"
+          },
+          "schedules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Schedule"
+            }
+          }
+        }
+      },
+      "Schedule": {
+        "type": "object",
+        "properties": {
+          "day": {
+            "type": "string",
+            "example": "FRIDAY"
+          },
+          "endTime": {
+            "type": "string",
+            "example": "22:30"
+          },
+          "startTime": {
+            "type": "string",
+            "example": "10:00"
+          }
+        }
+      },
+      "TaxesInfo": {
+        "type": "object",
+        "properties": {
+          "taxRate": {
+            "type": "number",
+            "example": 0
+          },
+          "vatRatePercentage": {
+            "type": "number",
+            "example": 12
+          }
+        }
+      },
+      "ContactInfo": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "example": "23955400"
+          },
+          "address": {
+            "type": "string",
+            "example": "PICHINCHA / QUITO / INAQUITO / AV. AMERICA N37-288 Y VILLALENGUA"
+          }
+        }
+      },
+      "DeliveryInfo": {
+        "type": "object",
+        "properties": {
+          "cookTime": {
+            "type": "string",
+            "example": "10"
+          },
+          "deliveryId": {
+            "type": "integer",
+            "example": 46356
+          },
+          "minimumOrder": {
+            "type": "string",
+            "example": "0.00"
+          },
+          "shippingCost": {
+            "type": "number",
+            "example": 1.99
+          }
+        }
+      },
+      "LocationInfo": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "example": "QUITO"
+          },
+          "latitude": {
+            "type": "string",
+            "example": "-0.17250869436401206"
+          },
+          "longitude": {
+            "type": "string",
+            "example": "-78.49125266075134"
+          }
+        }
+      },
+      "Channel": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "channel": {
+            "type": "string",
+            "example": "Llevar"
+          },
+          "vendorId": {
+            "type": "integer",
+            "example": 16
+          },
+          "channelId": {
+            "type": "string",
+            "example": "0E049503-85CF-E511-80C6-000D3A3261F3"
+          },
+          "additionalInfo": {
+            "$ref": "#/components/schemas/AdditionalInfo"
+          },
+          "channelReferenceName": {
+            "type": "string",
+            "example": "Llevar PICKUP"
+          }
+        }
+      },
+      "AdditionalInfo": {
+        "type": "object",
+        "properties": {
+          "mediaId": {
+            "type": "string",
+            "example": "E683B6FE-65A9-4D01-B07B-FA1A3C8BCA8D"
+          },
+          "mediaName": {
+            "type": "string",
+            "example": "PICKUP"
+          },
+          "relatedLists": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedList"
+            }
+          }
+        }
+      },
+      "RelatedList": {
+        "type": "object",
+        "properties": {
+          "listId": {
+            "type": "string",
+            "example": "42203FD3-0194-EA11-80EE-000D3A019254"
+          },
+          "listName": {
+            "type": "string",
+            "example": "PICKUP ECOMMERCE T"
+          }
+        }
+      },
+
+      "StoreResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Store"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "storeImage": {
+                "description": "Imagen de la tienda",
+                "type": "array"
+              },
+              "paymentMethodAvailability": {
+                "description": "",
+                "type": "string"
+              },
+              "paymentMethodInfo": {
+                "description": "",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "List": {
+        "type": "object",
+        "properties": {
+          "listId": {
+            "type": "string",
+            "example": "1"
+          },
+          "name": {
+            "type": "string",
+            "example": "MENU DOMICILIO"
+          },
+          "active": {
+            "type": "boolean",
+            "example": "true | false"
+          }
+        }
+      },
+
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "description": "Codigo de error de autenticación.",
+            "type": "string"
+          },
+          "message": {
+            "description": "Mensaje de error.",
+            "type": "string"
+          }
+        }
+      },
       "Plant": {
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "type": "object",
         "properties": {
           "name": {
@@ -154,9 +759,7 @@
             "$ref": "#/components/schemas/Plant"
           },
           {
-            "required": [
-              "id"
-            ],
+            "required": ["id"],
             "type": "object",
             "properties": {
               "id": {
@@ -169,10 +772,7 @@
         ]
       },
       "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
+        "required": ["error", "message"],
         "type": "object",
         "properties": {
           "error": {
