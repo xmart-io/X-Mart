@@ -255,72 +255,222 @@
         }
       }
     },
-    "/v3/lists": {
+    "/v3/lists/sync-summary/lists": {
       "get": {
-        "description": "Este endpoint permite listar las tiendas de una marca registradas en el sistema.",
+        "summary": "Obtener informe de sincronización",
+        "description": "Permite obtener un informe detallado de: estado de la sincronización, categorías, productos, modificadores, opciones de modificadores, errores y advertencias de la última sincronización de una tienda.",
         "parameters": [
           {
             "name": "vendorId",
             "in": "query",
-            "description": "Identificador único de la marca",
+            "required": true,
+            "description": "Identificador único de la marca, este identificador es proporcionado por Trade.",
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "required": true,
+            "description": "Identificador único de la tienda.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "required": true,
+            "description": "Identificador del canal de venta.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "channelReferenceName",
+            "in": "query",
+            "required": false,
+            "description": "Este campo es requerido si el atributo channelId no es único. Nombre único de referencia, este nombre será utilizado para la búsqueda y asociación del canal estandarizado.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listName",
+            "in": "query",
+            "required": false,
+            "description": "Este campo es requerido si se utiliza en el atributo 'additionalInfo.relatedLists' en la sincronización de canales de venta. Nombre de la lista.",
+            "schema": {
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Lists response",
+            "description": "Informe de sincronización obtenido exitosamente.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/List"
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "description": "Estado de la sincronización."
+                        },
+                        "errors": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "Informe de errores encontrados en la última sincronización."
+                        },
+                        "warnings": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "Informe de advertencias encontradas en la última sincronización."
+                        },
+                        "individualUpdates": {
+                          "type": "boolean",
+                          "description": "Determina si existieron actualizaciones individuales de productos o tiendas."
+                        },
+                        "list": {
+                          "type": "object",
+                          "properties": {
+                            "listId": {
+                              "type": "string",
+                              "description": "Identificador de la lista."
+                            },
+                            "listName": {
+                              "type": "string",
+                              "description": "Nombre de la lista."
+                            },
+                            "schedules": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "day": {
+                                    "type": "string"
+                                  },
+                                  "openTime": {
+                                    "type": "string"
+                                  },
+                                  "closeTime": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "description": "Horario sincronizado de la lista."
+                            },
+                            "categories": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "categoryId": {
+                                    "type": "string"
+                                  },
+                                  "categoryName": {
+                                    "type": "string"
+                                  },
+                                  "childCategories": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "categoryId": {
+                                          "type": "string"
+                                        },
+                                        "categoryName": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "description": "Listado de subcategorías sincronizadas y asociadas a la categoría."
+                                  },
+                                  "productListing": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "productId": {
+                                          "type": "string"
+                                        },
+                                        "productName": {
+                                          "type": "string"
+                                        },
+                                        "productModifiers": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "modifierId": {
+                                                "type": "string"
+                                              },
+                                              "modifierName": {
+                                                "type": "string"
+                                              },
+                                              "modifierOptions": {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "optionId": {
+                                                      "type": "string"
+                                                    },
+                                                    "optionName": {
+                                                      "type": "string"
+                                                    }
+                                                  }
+                                                },
+                                                "description": "Listado de opciones sincronizadas y asociadas al modificador."
+                                              }
+                                            }
+                                          },
+                                          "description": "Listado de modificadores sincronizados y asociados al producto."
+                                        }
+                                      }
+                                    },
+                                    "description": "Listado de productos sincronizados y asociados a la categoría."
+                                  }
+                                }
+                              },
+                              "description": "Listado de categorías sincronizadas."
+                            }
+                          },
+                          "description": "Informe completo de datos sincronizados (categorías, productos, modificadores, opciones, etc.)."
+                        }
+                      }
+                    }
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "Bad request",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/v3/lists/{listId}": {
-      "get": {
-        "description": "Este endpoint permite obtener la información básica de una lista registrada en el sistema.",
-        "parameters": [
-          {
-            "name": "vendorId",
-            "in": "query",
-            "description": "Identificador único de la marca",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Lists response",
+            "description": "Solicitud incorrecta",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/List"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Bad request"
+                    }
                   }
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {}
           }
         }
       }
@@ -440,7 +590,11 @@
   "components": {
     "schemas": {
       "AuthBody": {
-        "required": ["client_id", "client_secret", "grant_type"],
+        "required": [
+          "client_id",
+          "client_secret",
+          "grant_type"
+        ],
         "type": "object",
         "properties": {
           "client_id": {
@@ -683,7 +837,6 @@
           }
         }
       },
-
       "StoreResponse": {
         "allOf": [
           {
@@ -725,7 +878,6 @@
           }
         }
       },
-
       "Unauthorized": {
         "type": "object",
         "properties": {
@@ -740,7 +892,9 @@
         }
       },
       "Plant": {
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -759,7 +913,9 @@
             "$ref": "#/components/schemas/Plant"
           },
           {
-            "required": ["id"],
+            "required": [
+              "id"
+            ],
             "type": "object",
             "properties": {
               "id": {
@@ -772,7 +928,10 @@
         ]
       },
       "Error": {
-        "required": ["error", "message"],
+        "required": [
+          "error",
+          "message"
+        ],
         "type": "object",
         "properties": {
           "error": {

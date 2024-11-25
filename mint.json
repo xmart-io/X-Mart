@@ -69,7 +69,7 @@
       "pages": ["api-reference/introduction"]
     },
     {
-      "group": "Endpoints",
+      "group": "V3 API de listas",
       "pages": [
         {
           "group": "Auth",
@@ -86,9 +86,9 @@
         },
         {
           "group": "Listas",
-          "pages": ["api-reference/v3/lists/get",
-            "api-reference/v3/lists/getinfo",
-            "api-reference/v3/lists/getsystem"]
+          "pages": [
+            "api-reference/v3/lists/get"
+          ]
         }
       ]
     }
