@@ -6,15 +6,16 @@
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
-  "colors": {
-    "primary": "#ff2e49",
-    "light": "#ff2e49",
-    "dark": "#f47f8e",
+"colors": {
+    "primary": "#0000FF",  
+    "light": "#ADD8E6",    
+    "dark": "#00008B",     
     "anchors": {
-      "from": "#ff2e49",
-      "to": "#ff2e49"
+      "from": "#0000FF",   
+      "to": "#0000FF"     
     }
-  },
+}
+,
   "topbarLinks": [
     {
       "name": "Support",
@@ -68,6 +69,7 @@
       "group": "API Documentation",
       "pages": ["api-reference/introduction"]
     },
+  
     {
       "group": "V3 API de listas",
       "pages": [
@@ -87,10 +89,24 @@
         {
           "group": "Listas",
           "pages": [
-            "api-reference/v3/lists/get"
+            "api-reference/v3/lists/get","api-reference/v3/lists/put"
+          ]
+        },
+        {
+          "group": "Products",
+          "pages": [
+            "api-reference/v3/products/post","api-reference/v3/products/put"
           ]
         }
       ]
+    },
+    {
+      "group": "Web Services de Inyección",
+      "pages": ["api-reference/injection/post","api-reference/injection/postorder"]
+    },
+    {
+      "group": "Fulfillment de una orden",
+      "pages": ["api-reference/fulfillment/post","api-reference/fulfillment//api/coupon/redeem"]
     }
   ],
   "footerSocials": {

@@ -475,77 +475,243 @@
         }
       }
     },
-    
-    "/plants": {
-      "get": {
-        "description": "Returns alllll plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+    "/v3/products": {
+      "post": {
+        "summary": "Agregar una lista de productos",
+        "description": "Este endpoint permite agregar una lista en el sistema. Importante: Cada request enviado se procesa como una nueva configuración, por lo que si un producto, categoría, modificador, etc. no es enviado toda su configuración será eliminada.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "list": {
+                    "type": "object",
+                    "description": "Información general de la lista donde se agregarán los productos definidos",
+                    "properties": {
+                      "listName": { "type": "string", "description": "Nombre que identifique a la lista" }
+                    }
+                  },
+                  "modifierGroups": {
+                    "type": "array",
+                    "description": "Permite definir un listado de modificadores que se utilizarán en la lista",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "modifierId": { "type": "string" },
+                        "modifier": { "type": "string" },
+                        "minOptions": { "type": "integer" },
+                        "maxOptions": { "type": "integer" },
+                        "visible": { "type": "boolean" },
+                        "position": { "type": "integer" },
+                        "type": { "type": "string" },
+                        "modifierOptions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "optionId": { "type": "string" },
+                              "productId": { "type": "string" },
+                              "default": { "type": "boolean" },
+                              "position": { "type": "integer" },
+                              "additionalInfo": {
+                                "type": "object",
+                                "additionalProperties": true,
+                                "description": "Información adicional mediante pares clave-valor"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "products": {
+                    "type": "array",
+                    "description": "Permite definir los productos o items, así como su organización en la lista",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "productId": { "type": "string" },
+                        "name": { "type": "string" },
+                        "type": { "type": "string", "enum": ["PRODUCT", "MODIFIER", "COMPLEMENT"] },
+                        "description": { "type": "string" },
+                        "standardTime": { "type": "boolean" },
+                        "featured": { "type": "boolean" },
+                        "modifierId": { "type": "string" },
+                        "taxesInfo": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "vatRatePercentage": { "type": "integer" },
+                              "name": { "type": "string" },
+                              "type": { "type": "string" }
+                            }
+                          }
+                        },
+                        "priceInfo": {
+                          "type": "object",
+                          "properties": {
+                            "price": { "type": "number" },
+                            "pointPrice": { "type": "integer" },
+                            "suggestedPrice": { "type": "number" },
+                            "suggestedPointPrice": { "type": "integer" }
+                          }
+                        },
+                        "schedules": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "day": { "type": "string", "enum": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY", "SPECIAL"] },
+                              "startDate": { "type": "string", "format": "date" },
+                              "endDate": { "type": "string", "format": "date" },
+                              "startTime": { "type": "string", "format": "time" },
+                              "endTime": { "type": "string", "format": "time" }
+                            }
+                          }
+                        },
+                        "upselling": {
+                          "type": "array",
+                          "items": { "type": "string" },
+                          "description": "Conjunto de identificadores únicos de productos utilizados en la venta adicional"
+                        },
+                        "crossSelling": {
+                          "type": "array",
+                          "items": { "type": "string" },
+                          "description": "Conjunto de identificadores únicos de productos utilizados en la venta cruzada"
+                        },
+                        "tags": {
+                          "type": "array",
+                          "items": { "type": "string" },
+                          "description": "Permite asignar etiquetas al producto"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "imageCategoryId": { "type": "string" },
+                              "fileUrl": { "type": "string" }
+                            }
+                          }
+                        },
+                        "productModifiers": {
+                          "type": "array",
+                          "description": "Permite asociar modificadores al producto",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "modifierId": { "type": "string" },
+                              "position": { "type": "integer" }
+                            }
+                          }
+                        },
+                        "additionalInfo": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "description": "Permite definir información adicional mediante pares clave-valor"
+                        }
+                      }
+                    }
+                  },
+                  "categories": {
+                    "type": "array",
+                    "description": "Permite definir las categorías de productos, así como su organización en la lista",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "categoryId": { "type": "string" },
+                        "categoryName": { "type": "string" },
+                        "displayInList": { "type": "boolean" },
+                        "featured": { "type": "boolean" },
+                        "crossSellingCategory": { "type": "boolean" },
+                        "position": { "type": "integer" },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "imageCategoryId": { "type": "string" },
+                              "fileUrl": { "type": "string" }
+                            }
+                          }
+                        },
+                        "childCategories": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "categoryId": { "type": "string" },
+                              "categoryName": { "type": "string" }
+                            }
+                          }
+                        },
+                        "productListing": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "productId": { "type": "string" },
+                              "position": { "type": "integer" }
+                            }
+                          }
+                        },
+                        "schedules": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "day": { "type": "string" },
+                              "startDate": { "type": "string" },
+                              "endDate": { "type": "string" },
+                              "startTime": { "type": "string" },
+                              "endTime": { "type": "string" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "ecommerceChannelId": {
+                    "type": "integer",
+                    "description": "Identificador del canal de venta unificado, hace referencia al identificador del canal estandarizado."
+                  },
+                  "channelReferenceName": {
+                    "type": "string",
+                    "description": "Nombre único de referencia, utilizado para la búsqueda y asociación del canal estandarizado."
+                  }
+                }
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Lista registrada exitosamente.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
+                  "type": "object",
+                  "properties": {
+                    "listId": { "type": "string" },
+                    "name": { "type": "string" },
+                    "active": { "type": "boolean" }
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "Unexpected error",
+            "description": "Solicitud incorrecta",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string" }
+                  }
                 }
               }
             }
@@ -553,37 +719,824 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
+    "/v3/injection/token": {
+      "post": {
+        "summary": "Obtención de Token",
+        "description": "Este servicio es expuesto por Trade para que el cliente pueda obtener el token de acceso que va a ser usado en otros métodos.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "client_id": {
+                    "type": "integer",
+                    "description": "ID del cliente"
+                  },
+                  "client_secret": {
+                    "type": "string",
+                    "description": "Secreto del cliente"
+                  },
+                  "grant_type": {
+                    "type": "string",
+                    "description": "Tipo de concesión",
+                    "example": "client_credentials"
+                  }
+                },
+                "required": [
+                  "client_id",
+                  "client_secret",
+                  "grant_type"
+                ]
+              }
             }
           }
-        ],
+        },
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
+          "200": {
+            "description": "Token obtenido exitosamente",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string",
+                      "description": "El token de acceso"
+                    },
+                    "token_type": {
+                      "type": "string",
+                      "description": "El tipo de token",
+                      "example": "Bearer"
+                    },
+                    "expires_in": {
+                      "type": "integer",
+                      "description": "Tiempo de expiración del token en segundos"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "invalid_request"
+                    },
+                    "error_description": {
+                      "type": "string",
+                      "example": "Client authentication failed"
+                    }
+                  }
                 }
               }
             }
           }
         }
+      }
+    },
+    "/v3/injection/webhook/new-order": {
+      "post": {
+        "summary": "Webhook de nueva orden",
+        "description": "Este servicio deberá ser implementado del lado del cliente para que Trade pueda consumirlo. Este servirá para notificar al cliente cada vez que ocurra un evento de nueva orden ingresada.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "Identificador único de la orden"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Estado de la orden"
+                  },
+                  "customer": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Identificador único del cliente"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Nombre del cliente"
+                      },
+                      "email": {
+                        "type": "string",
+                        "description": "Correo electrónico del cliente"
+                      }
+                    }
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "product_id": {
+                          "type": "string",
+                          "description": "Identificador único del producto"
+                        },
+                        "quantity": {
+                          "type": "integer",
+                          "description": "Cantidad del producto"
+                        },
+                        "price": {
+                          "type": "number",
+                          "description": "Precio del producto"
+                        }
+                      }
+                    }
+                  },
+                  "total": {
+                    "type": "number",
+                    "description": "Total de la orden"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Orden notificada exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "OK"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "invalid_request"
+                    },
+                    "error_description": {
+                      "type": "string",
+                      "example": "El cuerpo de la solicitud no es válido"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v3/products/{vendorId}": {
+      "put": {
+        "summary": "Actualizar la información de un producto",
+        "description": "Este endpoint permite actualizar la información de un producto.",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "required": true,
+            "description": "Identificador único de la marca.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "storeId": {
+                    "type": "string",
+                    "description": "Identificador único de la tienda."
+                  },
+                  "productId": {
+                    "type": "string",
+                    "description": "Identificador único del producto."
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "description": "Estado del producto."
+                  },
+                  "priceInfo": {
+                    "type": "object",
+                    "properties": {
+                      "price": {
+                        "type": "number",
+                        "description": "Permite definir el precio final del producto (este precio se mostrará en el app o la web)."
+                      },
+                      "pointPrice": {
+                        "type": "integer",
+                        "description": "Permite el precio en puntos.",
+                        "nullable": true
+                      }
+                    }
+                  },
+                  "scheduledActiveStatus": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Fecha futura en la que se desea activar el producto."
+                  },
+                  "scheduledInactiveStatus": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Fecha futura en la que se desea inactivar el producto."
+                  }
+                },
+                "required": ["storeId", "productId", "active", "priceInfo"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Información del producto actualizada exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Producto actualizado exitosamente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Bad request"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/coupon/redeem": {
+      "post": {
+        "summary": "Redimir promoción local",
+        "description": "Permite redimir un cupón local utilizando un UID y código de promoción.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "description": "Identificador único del usuario",
+                    "example": "KQAR50EkIGM33tIVbs5w5GIDthe2"
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "Código de promoción",
+                    "example": "D72A1088-980C-4942-9BAB-45430D2D1007"
+                  },
+                  "external_id": {
+                    "type": "string",
+                    "description": "ID externo",
+                    "example": "D72A1088-980C-4942-9BAB-45430D2D1007"
+                  }
+                },
+                "required": [
+                  "uid",
+                  "code",
+                  "external_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cupón redimido exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Mensaje de éxito",
+                      "example": "Cupón redimido correctamente"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Estado de la operación",
+                      "example": "success"
+                    }
+                  },
+                  "required": ["message", "status"]
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Redención exitosa",
+                    "value": {
+                      "message": "Cupón redimido correctamente",
+                      "status": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Mensaje de error",
+                      "example": "No autorizado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cupón no encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Mensaje de error",
+                      "example": "Cupón no encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fulfillment/authentication/login": {
+      "post": {
+        "summary": "Autenticación",
+        "description": "Autenticación del usuario mediante login.",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "description": "Campo requerido"
+                  },
+                  "client_secret": {
+                    "type": "string",
+                    "description": "Campo requerido"
+                  },
+                  "grant_type": {
+                    "type": "string",
+                    "enum": ["client_credentials"]
+                  }
+                },
+                "required": ["client_id", "client_secret", "grant_type"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Autenticación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string"
+                    },
+                    "token_type": {
+                      "type": "string"
+                    },
+                    "expires_in": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },      
+    "/v3/lists/{listId}": {
+      "put": {
+        "summary": "Registrar o editar una lista",
+        "description": "Este endpoint permite registrar o editar una lista en el sistema. Importante: Cada request enviado se procesa como una nueva configuración, por lo que si un producto, categoría, modificador, etc. no es enviado toda su configuración será eliminada.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "list": {
+                    "type": "object",
+                    "description": "Información general de la lista que se va a crear",
+                    "properties": {
+                      "ecommerceChannelId": {
+                        "type": "integer",
+                        "description": "Identificador del canal de venta unificado, hace referencia al identificador del canal estandarizado."
+                      },
+                      "channelReferenceName": {
+                        "type": "string",
+                        "description": "Nombre único de referencia, utilizado para la búsqueda y asociación del canal estandarizado."
+                      },
+                      "listId": {
+                        "type": "string",
+                        "description": "Identificador único de la lista. Ej: pickup-menu, daily-menu, ..."
+                      },
+                      "listName": {
+                        "type": "string",
+                        "description": "Nombre que identifique a la lista. Ej: 'menu app'"
+                      },
+                      "vendorId": {
+                        "type": "string",
+                        "description": "Identificador único de la marca, suministrado por Trade."
+                      },
+                      "storeId": {
+                        "type": "string",
+                        "description": "Identificador único de la tienda, se refiere al parámetro storeId de la creación de tiendas y canales de venta. El valor 'replicate_in_all' permite replicar la lista actual para todas las tiendas."
+                      },
+                      "channelId": {
+                        "type": "string",
+                        "description": "Identificador único del canal de venta, se refiere al parámetro channelId de la creación de tiendas y canales de venta."
+                      },
+                      "schedules": {
+                        "type": "array",
+                        "description": "Permite aplicar un horario a la lista.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "day": {
+                              "type": "string"
+                            },
+                            "startDate": {
+                              "type": "string"
+                            },
+                            "endDate": {
+                              "type": "string"
+                            },
+                            "startTime": {
+                              "type": "string"
+                            },
+                            "endTime": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "categories": {
+                    "type": "array",
+                    "description": "Permite definir las categorías de productos, así como su organización en la lista.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "categoryId": {
+                          "type": "string"
+                        },
+                        "categoryName": {
+                          "type": "string"
+                        },
+                        "displayInList": {
+                          "type": "boolean"
+                        },
+                        "featured": {
+                          "type": "boolean"
+                        },
+                        "crossSellingCategory": {
+                          "type": "boolean"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "imageCategoryId": {
+                                "type": "string"
+                              },
+                              "fileUrl": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "childCategories": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "categoryId": {
+                                "type": "string"
+                              },
+                              "categoryName": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "productListing": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "productId": {
+                                "type": "string"
+                              },
+                              "position": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "schedules": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "day": {
+                                "type": "string"
+                              },
+                              "startDate": {
+                                "type": "string"
+                              },
+                              "endDate": {
+                                "type": "string"
+                              },
+                              "startTime": {
+                                "type": "string"
+                              },
+                              "endTime": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "products": {
+                    "type": "array",
+                    "description": "Permite definir los productos o items, así como su organización en la lista.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "productId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "standardTime": {
+                          "type": "boolean"
+                        },
+                        "featured": {
+                          "type": "boolean"
+                        },
+                        "priceInfo": {
+                          "type": "object",
+                          "properties": {
+                            "price": {
+                              "type": "number"
+                            },
+                            "salePrice": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "productModifiers": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "modifierId": {
+                                "type": "string"
+                              },
+                              "position": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "schedules": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "day": {
+                                "type": "string"
+                              },
+                              "startDate": {
+                                "type": "string"
+                              },
+                              "endDate": {
+                                "type": "string"
+                              },
+                              "startTime": {
+                                "type": "string"
+                              },
+                              "endTime": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "imageCategoryId": {
+                                "type": "string"
+                              },
+                              "fileUrl": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "modifierGroups": {
+                    "type": "array",
+                    "description": "Permite definir un listado de modificadores que se utilizarán en la lista.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "modifierId": {
+                          "type": "string"
+                        },
+                        "modifier": {
+                          "type": "string"
+                        },
+                        "minOptions": {
+                          "type": "integer"
+                        },
+                        "maxOptions": {
+                          "type": "integer"
+                        },
+                        "visible": {
+                          "type": "boolean"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "modifierOptions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "optionId": {
+                                "type": "string"
+                              },
+                              "productId": {
+                                "type": "string"
+                              },
+                              "default": {
+                                "type": "boolean"
+                              },
+                              "position": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scheduledActivities": {
+                    "type": "array",
+                    "description": "Permite programar la activación e inactivación de productos en una fecha futura.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "productId": {
+                          "type": "string"
+                        },
+                        "scheduledActiveStatus": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "scheduledInactiveStatus": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lista registrada o editada exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "listId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   },
