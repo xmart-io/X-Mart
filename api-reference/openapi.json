@@ -1119,7 +1119,7 @@
         }
       }
     },
-    "/fulfillment/authentication/login": {
+    "/api/authentication/login": {
       "post": {
         "summary": "Autenticación",
         "description": "Autenticación del usuario mediante login.",
@@ -1171,7 +1171,472 @@
           }
         }
       }
-    },      
+    },
+    "/api/order/tracking": {
+      "post": {
+        "summary": "Pedidos - Tracking",
+        "description": "Registra información de tracking para un pedido específico.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "ID del pedido",
+                    "example": "0000001427-010701"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Estado del pedido",
+                    "example": "PedidoRecibido"
+                  },
+                  "trackingInfo": {
+                    "type": "object",
+                    "description": "Información de tracking",
+                    "properties": {
+                      "trackurl": {
+                        "type": "string",
+                        "description": "URL del tracking",
+                        "example": "https://kfc-co.tracker.dragontail.com/?UID=hE58xI"
+                      },
+                      "trackingNumber": {
+                        "type": "string",
+                        "description": "Número de tracking",
+                        "example": "RAP-0100-trackNUmber"
+                      },
+                      "deliveryConfirmationCode": {
+                        "type": "string",
+                        "description": "Código de confirmación de entrega",
+                        "example": "PZ051"
+                      },
+                      "shippingCoordinates": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "latitude": {
+                              "type": "string",
+                              "example": "-0.20234732693531"
+                            },
+                            "longitude": {
+                              "type": "string",
+                              "example": "-78.486171941476"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "order_id",
+                  "status",
+                  "trackingInfo"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Información de tracking registrada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Mensaje de éxito",
+                      "example": "Tracking registrado exitosamente"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Estado de la operación",
+                      "example": "success"
+                    }
+                  },
+                  "required": ["message", "status"]
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Registro exitoso",
+                    "value": {
+                      "message": "Tracking registrado exitosamente",
+                      "status": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          }
+        }
+      }
+    },
+    "/api/order/status": {
+      "post": {
+        "summary": "Pedidos - cambio de estado",
+        "description": "Autenticación oauth con client credentials",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "ID del pedido",
+                    "example": "0000013353-092501"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Nuevo estado del pedido",
+                    "example": "Anulada"
+                  }
+                },
+                "required": ["order_id", "status"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estado del pedido cambiado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Mensaje de éxito",
+                      "example": "Estado del pedido cambiado exitosamente"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Estado de la operación",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Descripción del error",
+                      "example": "Datos inválidos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/transfer": {
+      "put": {
+        "summary": "Pedidos - transferencia",
+        "description": "Autenticación oauth con client credentials",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order": {
+                    "type": "string",
+                    "description": "ID del pedido",
+                    "example": "0000000246-010103"
+                  },
+                  "from_store": {
+                    "type": "string",
+                    "description": "Código de la tienda de origen",
+                    "example": "K046"
+                  },
+                  "to_store": {
+                    "type": "string",
+                    "description": "Código de la tienda de destino",
+                    "example": "K153"
+                  },
+                  "processed_by": {
+                    "type": "string",
+                    "description": "Nombre de quien procesa la transferencia",
+                    "example": "Juanito P"
+                  },
+                  "transfer_reason": {
+                    "type": "string",
+                    "description": "Razón de la transferencia",
+                    "example": "Pedido pickup prueba transferencia"
+                  },
+                  "shipping_address": {
+                    "type": "string",
+                    "description": "Dirección de envío (opcional)",
+                    "nullable": true,
+                    "example": ""
+                  }
+                },
+                "required": ["order", "from_store", "to_store", "processed_by", "transfer_reason"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pedido transferido exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Mensaje de éxito",
+                      "example": "Pedido transferido exitosamente"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Estado de la operación",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Descripción del error",
+                      "example": "Datos inválidos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/dispatched": {
+      "post": {
+        "summary": "Pedidos pickup - dispatched",
+        "description": "Autenticación oauth con client credentials",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "codigo_app": {
+                    "type": "string",
+                    "description": "Código de la aplicación",
+                    "example": "0000007860-010106"
+                  },
+                  "id_transaccion": {
+                    "type": "string",
+                    "description": "ID de la transacción",
+                    "example": "XH4TDASD7812LDTST"
+                  }
+                },
+                "required": ["codigo_app", "id_transaccion"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pedido despachado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Mensaje de éxito",
+                      "example": "Pedido despachado exitosamente"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Estado de la operación",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Descripción del error",
+                      "example": "Datos inválidos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/infoPayments": {
+      "get": {
+        "summary": "Pedidos - información de pagos",
+        "description": "Autenticación oauth con client credentials",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Fecha de inicio para filtrar pagos",
+            "example": "2022-02-01"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Fecha de fin para filtrar pagos",
+            "example": "2022-02-16"
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "allowEmptyValue": true,
+            "description": "País (opcional)",
+            "example": "ecuador"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "allowEmptyValue": true,
+            "description": "Cuenta (opcional)",
+            "example": ""
+          },
+          {
+            "name": "vendor_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "allowEmptyValue": true,
+            "description": "ID del vendedor (opcional)",
+            "example": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información de pagos obtenida exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Mensaje de éxito",
+                      "example": "Información de pagos obtenida exitosamente"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Estado de la operación",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Descripción del error",
+                      "example": "Datos inválidos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v3/lists/{listId}": {
       "put": {
         "summary": "Registrar o editar una lista",
