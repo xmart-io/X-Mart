@@ -475,7 +475,7 @@
         }
       }
     },
-    "/v3/products": {
+    "/api/v3/products": {
       "post": {
         "summary": "Agregar una lista de productos",
         "description": "Este endpoint permite agregar una lista en el sistema. Importante: Cada request enviado se procesa como una nueva configuración, por lo que si un producto, categoría, modificador, etc. no es enviado toda su configuración será eliminada.",
@@ -719,7 +719,7 @@
         }
       }
     },
-    "/v3/injection/token": {
+    "/domain-cliente/token": {
       "post": {
         "summary": "Obtención de Token",
         "description": "Este servicio es expuesto por Trade para que el cliente pueda obtener el token de acceso que va a ser usado en otros métodos.",
@@ -802,7 +802,7 @@
         }
       }
     },
-    "/v3/injection/webhook/new-order": {
+    "/domain-cliente/webhook/new-order": {
       "post": {
         "summary": "Webhook de nueva orden",
         "description": "Este servicio deberá ser implementado del lado del cliente para que Trade pueda consumirlo. Este servirá para notificar al cliente cada vez que ocurra un evento de nueva orden ingresada.",
@@ -907,7 +907,7 @@
         }
       }
     },
-    "/v3/products/{vendorId}": {
+    "/api/v3/products/{vendorId}": {
       "put": {
         "summary": "Actualizar la información de un producto",
         "description": "Este endpoint permite actualizar la información de un producto.",
@@ -1530,6 +1530,117 @@
         }
       }
     },
+    "/api/v3/products/{update}": {
+      "put": {
+        "summary": "Actualizar producto",
+        "description": "Este endpoint actualiza la información de un producto existente.",
+        "operationId": "updateProduct",
+        "requestBody": {
+          "description": "Información actualizada del producto",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": { "type": "string", "example": "Coffee-product-id" },
+                  "name": { "type": "string", "example": "Small Coffee" },
+                  "type": { "type": "string", "example": "PRODUCT" },
+                  "description": { "type": "string", "example": "The bestest Coffee" },
+                  "standardTime": { "type": "boolean", "example": true },
+                  "featured": { "type": "boolean", "example": true },
+                  "schedules": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "day": { "type": "string", "example": "MONDAY" },
+                        "startDate": { "type": "string", "format": "date", "example": "2019-02-24" },
+                        "endDate": { "type": "string", "format": "date", "example": "2019-02-25" },
+                        "startTime": { "type": "string", "format": "time", "example": "08:00" },
+                        "endTime": { "type": "string", "format": "time", "example": "12:00" }
+                      }
+                    }
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": { "type": "string", "example": "to share" }
+                  },
+                  "upselling": {
+                    "type": "array",
+                    "items": { "type": "string", "example": "lg-coffee" }
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "imageCategoryId": { "type": "string", "example": "product" },
+                        "fileUrl": { "type": "string", "format": "uri", "example": "https://path/to/file.png" }
+                      }
+                    }
+                  },
+                  "taxesInfo": {
+                    "type": "object",
+                    "properties": {
+                      "taxRate": { "type": "number", "example": 0 },
+                      "vatRatePercentage": { "type": "number", "example": 0 }
+                    }
+                  },
+                  "priceInfo": {
+                    "type": "object",
+                    "properties": {
+                      "price": { "type": "number", "example": 4.99 },
+                      "pointPrice": { "type": "number", "nullable": true, "example": null }
+                    }
+                  },
+                  "categories": {
+                    "type": "array",
+                    "items": { "type": "string", "example": "Coffes-category-id" }
+                  },
+                  "additionalInfo": {
+                    "type": "object",
+                    "properties": {
+                      "menu_level": { "type": "integer", "example": 0 }
+                    }
+                  }
+                },
+                "required": ["productId", "name", "type", "description"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Producto actualizado con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Producto actualizado exitosamente." },
+                    "productId": { "type": "string", "example": "Coffee-product-id" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string", "example": "Datos inválidos." }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },                        
     "/api/order/infoPayments": {
       "get": {
         "summary": "Pedidos - información de pagos",
