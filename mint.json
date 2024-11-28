@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "TRD docs ",
+  "name": "Docs ",
   "logo": {
     "dark": "https://s3.us-east-2.amazonaws.com/admin.artisncore.dev/products/logoxmartblanco.png",
     "light": "https://s3.us-east-2.amazonaws.com/admin.artisncore.dev/products/xmart-logo.png"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "images/download.svg",
 "colors": {
     "primary": "#FF2E49",
     "light": "#FF2E49",
@@ -71,14 +71,14 @@
     },
   
     {
-      "group": "V3 API de listas",
+      "group": "V3 Lists API",
       "pages": [
         {
           "group": "Auth",
           "pages": ["api-reference/authentication/login/post"]
         },
         {
-          "group": "Tiendas y Canales de venta",
+          "group": "Stores and Sales Channels",
           "pages": [
             "api-reference/v3/stores/get",
             "api-reference/v3/channels-stores/post",
@@ -87,7 +87,7 @@
           ]
         },
         {
-          "group": "Listas",
+          "group": "Lists",
           "pages": [
             "api-reference/v3/lists/get","api-reference/v3/lists/put"
           ]
@@ -101,11 +101,11 @@
       ]
     },
     {
-      "group": "Web Services de Inyección",
+      "group": "Injection Web Services",
       "pages": ["api-reference/injection/post","api-reference/injection/postorder"]
     },
     {
-      "group": "Fulfillment de una orden",
+      "group": "Order Fulfillment",
       "pages": ["api-reference/fulfillment/post","api-reference/fulfillment/postcoupon","api-reference/fulfillment/posttrack"
             ,"api-reference/fulfillment/poststatus","api-reference/fulfillment/puttransfer","api-reference/fulfillment/postdispatched"
             ,"api-reference/fulfillment/getpay"]

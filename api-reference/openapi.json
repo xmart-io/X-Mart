@@ -21,7 +21,7 @@
   "paths": {
     "/authentication/login": {
       "post": {
-        "description": "Este endpoint permite obtener el token de acceso para clientes OAuth2",
+        "description": "This endpoint allows obtaining the access token for OAuth2 clients",
         "requestBody": {
           "content": {
             "application/json": {
@@ -33,7 +33,7 @@
         },
         "responses": {
           "200": {
-            "description": "respuesta al inciar sesión",
+            "description": "response upon logging in",
             "content": {
               "application/json": {
                 "schema": {
@@ -41,7 +41,7 @@
                   "properties": {
                     "accessToken": {
                       "type": "string",
-                      "description": "El token de acceso que se utilizará en la API. ¡NO EXPONGA ESTE TOKEN AL CLIENTE!",
+                      "description": "The access token to be used in the API. DO NOT EXPOSE THIS TOKEN TO THE CLIENT!",
                       "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
                     }
                   }
@@ -50,7 +50,7 @@
             }
           },
           "401": {
-            "description": "error de autorización",
+            "description": "authorization error",
             "content": {
               "application/json": {
                 "schema": {
@@ -65,12 +65,12 @@
     },
     "/v3/stores": {
       "get": {
-        "description": "Este endpoint permite listar las tiendas de una marca registradas en el sistema.",
+        "description": "This endpoint allows listing the stores of a brand registered in the system",
         "parameters": [
           {
             "name": "vendorId",
             "in": "query",
-            "description": "Identificador único de la marca",
+            "description": "Unique identifier of the brand",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -100,7 +100,7 @@
     },
     "/v3/channels-stores": {
       "post": {
-        "description": "Este endpoint permite registrar tiendas y canales de venta en el sistema. Importante!: Cada request enviado se procesa como una nueva configuración, por lo que si una tienda, canal de venta, bodega, ... no es enviado toda su configuración será eliminada.",
+        "description": "This endpoint allows registering stores and sales channels in the system. Important!: Each request sent is processed as a new configuration, so if a store, sales channel, warehouse, etc. is not sent, its entire configuration will be deleted",
         "requestBody": {
           "content": {
             "application/json": {
@@ -109,14 +109,14 @@
                 "properties": {
                   "stores": {
                     "type": "array",
-                    "description": "Listado de tiendas a crear",
+                    "description": "List of stores to create",
                     "items": {
                       "$ref": "#/components/schemas/Store"
                     }
                   },
                   "channels": {
                     "type": "array",
-                    "description": "Listado de canales de venta a crear",
+                    "description": "List of sales channels to create",
                     "items": {
                       "$ref": "#/components/schemas/Channel"
                     }
@@ -128,7 +128,7 @@
         },
         "responses": {
           "200": {
-            "description": "respuesta al inciar sesión",
+            "description": "response upon logging in",
             "content": {
               "application/json": {
                 "schema": {
@@ -136,7 +136,7 @@
                   "properties": {
                     "accessToken": {
                       "type": "string",
-                      "description": "El token de acceso que se utilizará en la API. ¡NO EXPONGA ESTE TOKEN AL CLIENTE!",
+                      "description": "The access token to be used in the API. DO NOT EXPOSE THIS TOKEN TO THE CLIENT!",
                       "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
                     }
                   }
@@ -145,7 +145,7 @@
             }
           },
           "401": {
-            "description": "error de autorización",
+            "description": "authorization error",
             "content": {
               "application/json": {
                 "schema": {
@@ -160,12 +160,12 @@
     },
     "/v3/stores/{storeId}": {
       "get": {
-        "description": "Este endpoint permite obtener la información de una tienda registrada en el sistema.",
+        "description": "This endpoint allows obtaining information about a store registered in the system",
         "parameters": [
           {
             "name": "vendorId",
             "in": "query",
-            "description": "Identificador único de la marca",
+            "description": "Unique identifier of the brand",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -174,7 +174,7 @@
           {
             "name": "storeId",
             "in": "path",
-            "description": "Identificador único de la tienda",
+            "description": "Unique identifier of the store",
             "required": true,
             "schema": {
               "type": "integer",
@@ -200,12 +200,12 @@
         }
       },
       "put": {
-        "description": "Este endpoint cambiar el estado de una tienda del sistema.",
+        "description": "This endpoint changes the status of a store in the system",
         "parameters": [
           {
             "name": "vendorId",
             "in": "query",
-            "description": "dentificador único de la marca.",
+            "description": "Unique identifier of the brand",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -214,7 +214,7 @@
           {
             "name": "storeId",
             "in": "path",
-            "description": "Identificador único de la tienda",
+            "description": "Unique identifier of the store",
             "required": true,
             "schema": {
               "type": "integer",
@@ -230,7 +230,7 @@
                 "properties": {
                   "active": {
                     "type": "boolean",
-                    "description": "Estado al cual se actualizará la tienda"
+                    "description": "State to which the store will be updated"
                   }
                 }
               }
@@ -257,14 +257,14 @@
     },
     "/v3/lists/sync-summary/lists": {
       "get": {
-        "summary": "Obtener informe de sincronización",
-        "description": "Permite obtener un informe detallado de: estado de la sincronización, categorías, productos, modificadores, opciones de modificadores, errores y advertencias de la última sincronización de una tienda.",
+        "summary": "Get synchronization report",
+        "description": "Allows obtaining a detailed report of: synchronization status, categories, products, modifiers, modifier options, errors and warnings of the last synchronization of a store",
         "parameters": [
           {
             "name": "vendorId",
             "in": "query",
             "required": true,
-            "description": "Identificador único de la marca, este identificador es proporcionado por Trade.",
+            "description": "Unique identifier of the brand, this identifier is provided by Trade",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -274,7 +274,7 @@
             "name": "storeId",
             "in": "query",
             "required": true,
-            "description": "Identificador único de la tienda.",
+            "description": "Unique identifier of the store",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -284,7 +284,7 @@
             "name": "channelId",
             "in": "query",
             "required": true,
-            "description": "Identificador del canal de venta.",
+            "description": "Sales channel identifier",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -294,7 +294,7 @@
             "name": "channelReferenceName",
             "in": "query",
             "required": false,
-            "description": "Este campo es requerido si el atributo channelId no es único. Nombre único de referencia, este nombre será utilizado para la búsqueda y asociación del canal estandarizado.",
+            "description": "This field is required if the channelId attribute is not unique. Unique reference name, this name will be used for the search and association of the standardized channel",
             "schema": {
               "type": "string"
             }
@@ -311,7 +311,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Informe de sincronización obtenido exitosamente.",
+            "description": "Synchronization report obtained successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -322,36 +322,36 @@
                       "properties": {
                         "status": {
                           "type": "string",
-                          "description": "Estado de la sincronización."
+                          "description": "Synchronization status."
                         },
                         "errors": {
                           "type": "array",
                           "items": {
                             "type": "string"
                           },
-                          "description": "Informe de errores encontrados en la última sincronización."
+                          "description": "Error report found in the last synchronization"
                         },
                         "warnings": {
                           "type": "array",
                           "items": {
                             "type": "string"
                           },
-                          "description": "Informe de advertencias encontradas en la última sincronización."
+                          "description": "Report of notices found in the last synchronization"
                         },
                         "individualUpdates": {
                           "type": "boolean",
-                          "description": "Determina si existieron actualizaciones individuales de productos o tiendas."
+                          "description": "Determines if there were individual product or store updates"
                         },
                         "list": {
                           "type": "object",
                           "properties": {
                             "listId": {
                               "type": "string",
-                              "description": "Identificador de la lista."
+                              "description": "List identifier"
                             },
                             "listName": {
                               "type": "string",
-                              "description": "Nombre de la lista."
+                              "description": "List name"
                             },
                             "schedules": {
                               "type": "array",
@@ -369,7 +369,7 @@
                                   }
                                 }
                               },
-                              "description": "Horario sincronizado de la lista."
+                              "description": "Synchronized schedule of the list"
                             },
                             "categories": {
                               "type": "array",
@@ -395,7 +395,7 @@
                                         }
                                       }
                                     },
-                                    "description": "Listado de subcategorías sincronizadas y asociadas a la categoría."
+                                    "description": "List of subcategories synchronized and associated with the category"
                                   },
                                   "productListing": {
                                     "type": "array",
@@ -432,22 +432,22 @@
                                                     }
                                                   }
                                                 },
-                                                "description": "Listado de opciones sincronizadas y asociadas al modificador."
+                                                "description": "List of options synchronized and associated with the modifier"
                                               }
                                             }
                                           },
-                                          "description": "Listado de modificadores sincronizados y asociados al producto."
+                                          "description": "List of modifiers synchronized and associated with the product"
                                         }
                                       }
                                     },
-                                    "description": "Listado de productos sincronizados y asociados a la categoría."
+                                    "description": "List of products synchronized and associated with the category"
                                   }
                                 }
                               },
-                              "description": "Listado de categorías sincronizadas."
+                              "description": "List of synchronized categories"
                             }
                           },
-                          "description": "Informe completo de datos sincronizados (categorías, productos, modificadores, opciones, etc.)."
+                          "description": "Complete report of synchronized data (categories, products, modifiers, options, etc.)"
                         }
                       }
                     }
@@ -457,7 +457,7 @@
             }
           },
           "400": {
-            "description": "Solicitud incorrecta",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
@@ -477,8 +477,8 @@
     },
     "/api/v3/products": {
       "post": {
-        "summary": "Agregar una lista de productos",
-        "description": "Este endpoint permite agregar una lista en el sistema. Importante: Cada request enviado se procesa como una nueva configuración, por lo que si un producto, categoría, modificador, etc. no es enviado toda su configuración será eliminada.",
+        "summary": "Add a product list",
+        "description": "This endpoint allows you to add a list in the system. Important: Each submitted request is processed as a new configuration, so if a product, category, modifier, etc. is not sent all your configuration will be deleted.",
         "requestBody": {
           "required": true,
           "content": {
@@ -488,14 +488,14 @@
                 "properties": {
                   "list": {
                     "type": "object",
-                    "description": "Información general de la lista donde se agregarán los productos definidos",
+                    "description": "General information of the list where the defined products will be added",
                     "properties": {
-                      "listName": { "type": "string", "description": "Nombre que identifique a la lista" }
+                      "listName": { "type": "string", "description": "Name that identifies the list" }
                     }
                   },
                   "modifierGroups": {
                     "type": "array",
-                    "description": "Permite definir un listado de modificadores que se utilizarán en la lista",
+                    "description": "Allows you to define a list of modifiers that will be used in the list",
                     "items": {
                       "type": "object",
                       "properties": {
@@ -518,7 +518,7 @@
                               "additionalInfo": {
                                 "type": "object",
                                 "additionalProperties": true,
-                                "description": "Información adicional mediante pares clave-valor"
+                                "description": "Additional information using key-value pairs"
                               }
                             }
                           }
@@ -528,7 +528,7 @@
                   },
                   "products": {
                     "type": "array",
-                    "description": "Permite definir los productos o items, así como su organización en la lista",
+                    "description": "Allows you to define the products or items, as well as their organization in the list",
                     "items": {
                       "type": "object",
                       "properties": {
@@ -575,17 +575,17 @@
                         "upselling": {
                           "type": "array",
                           "items": { "type": "string" },
-                          "description": "Conjunto de identificadores únicos de productos utilizados en la venta adicional"
+                          "description": "Set of unique product identifiers used in the upsell"
                         },
                         "crossSelling": {
                           "type": "array",
                           "items": { "type": "string" },
-                          "description": "Conjunto de identificadores únicos de productos utilizados en la venta cruzada"
+                          "description": "Set of unique product identifiers used in cross-selling"
                         },
                         "tags": {
                           "type": "array",
                           "items": { "type": "string" },
-                          "description": "Permite asignar etiquetas al producto"
+                          "description": "Allows you to assign tags to the product"
                         },
                         "images": {
                           "type": "array",
@@ -599,7 +599,7 @@
                         },
                         "productModifiers": {
                           "type": "array",
-                          "description": "Permite asociar modificadores al producto",
+                          "description": "Allows you to associate modifiers to the product",
                           "items": {
                             "type": "object",
                             "properties": {
@@ -611,14 +611,14 @@
                         "additionalInfo": {
                           "type": "object",
                           "additionalProperties": true,
-                          "description": "Permite definir información adicional mediante pares clave-valor"
+                          "description": "Allows you to define additional information using key-value pairs"
                         }
                       }
                     }
                   },
                   "categories": {
                     "type": "array",
-                    "description": "Permite definir las categorías de productos, así como su organización en la lista",
+                    "description": "Allows you to define product categories as well as their organization in the list",
                     "items": {
                       "type": "object",
                       "properties": {
@@ -676,11 +676,11 @@
                   },
                   "ecommerceChannelId": {
                     "type": "integer",
-                    "description": "Identificador del canal de venta unificado, hace referencia al identificador del canal estandarizado."
+                    "description": "Unified sales channel identifier, refers to the standardized channel identifier"
                   },
                   "channelReferenceName": {
                     "type": "string",
-                    "description": "Nombre único de referencia, utilizado para la búsqueda y asociación del canal estandarizado."
+                    "description": "Unique reference name, used for search and association of the standardized channel."
                   }
                 }
               }
@@ -689,7 +689,7 @@
         },
         "responses": {
           "200": {
-            "description": "Lista registrada exitosamente.",
+            "description": "List successfully registered",
             "content": {
               "application/json": {
                 "schema": {
@@ -704,7 +704,7 @@
             }
           },
           "400": {
-            "description": "Solicitud incorrecta",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
@@ -721,8 +721,8 @@
     },
     "/domain-cliente/token": {
       "post": {
-        "summary": "Obtención de Token",
-        "description": "Este servicio es expuesto por Trade para que el cliente pueda obtener el token de acceso que va a ser usado en otros métodos.",
+        "summary": "Get Token",
+        "description": "This service is exposed by Trade so that the client can obtain the access token that will be used in other methods",
         "requestBody": {
           "required": true,
           "content": {
@@ -732,15 +732,15 @@
                 "properties": {
                   "client_id": {
                     "type": "integer",
-                    "description": "ID del cliente"
+                    "description": "Client ID"
                   },
                   "client_secret": {
                     "type": "string",
-                    "description": "Secreto del cliente"
+                    "description": "Client secret"
                   },
                   "grant_type": {
                     "type": "string",
-                    "description": "Tipo de concesión",
+                    "description": "Concession type",
                     "example": "client_credentials"
                   }
                 },
@@ -755,7 +755,7 @@
         },
         "responses": {
           "200": {
-            "description": "Token obtenido exitosamente",
+            "description": "Token successfully obtained",
             "content": {
               "application/json": {
                 "schema": {
@@ -763,16 +763,16 @@
                   "properties": {
                     "access_token": {
                       "type": "string",
-                      "description": "El token de acceso"
+                      "description": "The access token"
                     },
                     "token_type": {
                       "type": "string",
-                      "description": "El tipo de token",
+                      "description": "Type token",
                       "example": "Bearer"
                     },
                     "expires_in": {
                       "type": "integer",
-                      "description": "Tiempo de expiración del token en segundos"
+                      "description": "Token expiration time in seconds"
                     }
                   }
                 }
@@ -780,7 +780,7 @@
             }
           },
           "400": {
-            "description": "Solicitud incorrecta",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
@@ -804,8 +804,8 @@
     },
     "/domain-cliente/webhook/new-order": {
       "post": {
-        "summary": "Webhook de nueva orden",
-        "description": "Este servicio deberá ser implementado del lado del cliente para que Trade pueda consumirlo. Este servirá para notificar al cliente cada vez que ocurra un evento de nueva orden ingresada.",
+        "summary": "New order webhook",
+        "description": "This service will need to be implemented on the client side so that Trade can consume it. This will serve to notify the client every time a new order entered event occurs.",
         "requestBody": {
           "required": true,
           "content": {
@@ -815,26 +815,26 @@
                 "properties": {
                   "order_id": {
                     "type": "string",
-                    "description": "Identificador único de la orden"
+                    "description": "Unique order identifier"
                   },
                   "status": {
                     "type": "string",
-                    "description": "Estado de la orden"
+                    "description": "Order Status"
                   },
                   "customer": {
                     "type": "object",
                     "properties": {
                       "id": {
                         "type": "string",
-                        "description": "Identificador único del cliente"
+                        "description": "Unique customer identifier"
                       },
                       "name": {
                         "type": "string",
-                        "description": "Nombre del cliente"
+                        "description": "Customer name"
                       },
                       "email": {
                         "type": "string",
-                        "description": "Correo electrónico del cliente"
+                        "description": "Customer Email"
                       }
                     }
                   },
@@ -845,22 +845,22 @@
                       "properties": {
                         "product_id": {
                           "type": "string",
-                          "description": "Identificador único del producto"
+                          "description": "Unique product identifier"
                         },
                         "quantity": {
                           "type": "integer",
-                          "description": "Cantidad del producto"
+                          "description": "Product quantity"
                         },
                         "price": {
                           "type": "number",
-                          "description": "Precio del producto"
+                          "description": "Product price"
                         }
                       }
                     }
                   },
                   "total": {
                     "type": "number",
-                    "description": "Total de la orden"
+                    "description": "Order Total"
                   }
                 }
               }
@@ -869,7 +869,7 @@
         },
         "responses": {
           "200": {
-            "description": "Orden notificada exitosamente.",
+            "description": "Order successfully notified",
             "content": {
               "application/json": {
                 "schema": {
@@ -885,7 +885,7 @@
             }
           },
           "400": {
-            "description": "Solicitud incorrecta",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
@@ -897,7 +897,7 @@
                     },
                     "error_description": {
                       "type": "string",
-                      "example": "El cuerpo de la solicitud no es válido"
+                      "example": "The request body is invalid"
                     }
                   }
                 }
@@ -909,14 +909,14 @@
     },
     "/api/v3/products/{vendorId}": {
       "put": {
-        "summary": "Actualizar la información de un producto",
-        "description": "Este endpoint permite actualizar la información de un producto.",
+        "summary": "Update product information",
+        "description": "This endpoint allows you to update product information",
         "parameters": [
           {
             "name": "vendorId",
             "in": "query",
             "required": true,
-            "description": "Identificador único de la marca.",
+            "description": "Unique brand identifier",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -932,26 +932,26 @@
                 "properties": {
                   "storeId": {
                     "type": "string",
-                    "description": "Identificador único de la tienda."
+                    "description": "Unique store identifier"
                   },
                   "productId": {
                     "type": "string",
-                    "description": "Identificador único del producto."
+                    "description": "Unique product identifier"
                   },
                   "active": {
                     "type": "boolean",
-                    "description": "Estado del producto."
+                    "description": "Product status"
                   },
                   "priceInfo": {
                     "type": "object",
                     "properties": {
                       "price": {
                         "type": "number",
-                        "description": "Permite definir el precio final del producto (este precio se mostrará en el app o la web)."
+                        "description": "Allows you to define the final price of the product (this price will be displayed in the app or the website)"
                       },
                       "pointPrice": {
                         "type": "integer",
-                        "description": "Permite el precio en puntos.",
+                        "description": "Allows the price in points",
                         "nullable": true
                       }
                     }
@@ -959,12 +959,12 @@
                   "scheduledActiveStatus": {
                     "type": "string",
                     "format": "date-time",
-                    "description": "Fecha futura en la que se desea activar el producto."
+                    "description": "Future date on which you want to activate the product"
                   },
                   "scheduledInactiveStatus": {
                     "type": "string",
                     "format": "date-time",
-                    "description": "Fecha futura en la que se desea inactivar el producto."
+                    "description": "Future date on which you want to inactivate the product"
                   }
                 },
                 "required": ["storeId", "productId", "active", "priceInfo"]
@@ -974,7 +974,7 @@
         },
         "responses": {
           "200": {
-            "description": "Información del producto actualizada exitosamente.",
+            "description": "Product information successfully updated",
             "content": {
               "application/json": {
                 "schema": {
@@ -982,7 +982,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Producto actualizado exitosamente"
+                      "example": "Product updated successfully"
                     }
                   }
                 }
@@ -990,7 +990,7 @@
             }
           },
           "400": {
-            "description": "Solicitud incorrecta",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
@@ -1010,8 +1010,8 @@
     },
     "/api/coupon/redeem": {
       "post": {
-        "summary": "Redimir promoción local",
-        "description": "Permite redimir un cupón local utilizando un UID y código de promoción.",
+        "summary": "Redeem local promotion",
+        "description": "Allows you to redeem a local coupon using a UID and promotion code",
         "security": [
           {
             "bearerAuth": []
