@@ -1026,17 +1026,17 @@
                 "properties": {
                   "uid": {
                     "type": "string",
-                    "description": "Identificador único del usuario",
+                    "description": "Unique user identifier",
                     "example": "KQAR50EkIGM33tIVbs5w5GIDthe2"
                   },
                   "code": {
                     "type": "string",
-                    "description": "Código de promoción",
+                    "description": "Promotion code",
                     "example": "D72A1088-980C-4942-9BAB-45430D2D1007"
                   },
                   "external_id": {
                     "type": "string",
-                    "description": "ID externo",
+                    "description": "External ID",
                     "example": "D72A1088-980C-4942-9BAB-45430D2D1007"
                   }
                 },
@@ -1051,7 +1051,7 @@
         },
         "responses": {
           "200": {
-            "description": "Cupón redimido exitosamente",
+            "description": "Coupon successfully redeemed",
             "content": {
               "application/json": {
                 "schema": {
@@ -1059,12 +1059,12 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "description": "Mensaje de éxito",
-                      "example": "Cupón redimido correctamente"
+                      "description": "success message",
+                      "example": "Coupon successfully redeemed"
                     },
                     "status": {
                       "type": "string",
-                      "description": "Estado de la operación",
+                      "description": "Operation status",
                       "example": "success"
                     }
                   },
@@ -1072,9 +1072,9 @@
                 },
                 "examples": {
                   "success": {
-                    "summary": "Redención exitosa",
+                    "summary": "Successful redemption",
                     "value": {
-                      "message": "Cupón redimido correctamente",
+                      "message": "Coupon successfully redeemed",
                       "status": "success"
                     }
                   }
@@ -1083,7 +1083,7 @@
             }
           },
           "401": {
-            "description": "No autorizado",
+            "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
@@ -1091,8 +1091,8 @@
                   "properties": {
                     "error": {
                       "type": "string",
-                      "description": "Mensaje de error",
-                      "example": "No autorizado"
+                      "description": "Error message",
+                      "example": "Unauthorized"
                     }
                   }
                 }
@@ -1100,7 +1100,7 @@
             }
           },
           "404": {
-            "description": "Cupón no encontrado",
+            "description": "Coupon not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -1108,8 +1108,8 @@
                   "properties": {
                     "error": {
                       "type": "string",
-                      "description": "Mensaje de error",
-                      "example": "Cupón no encontrado"
+                      "description": "Error message",
+                      "example": "Coupon not found"
                     }
                   }
                 }
@@ -1121,8 +1121,8 @@
     },
     "/api/authentication/login": {
       "post": {
-        "summary": "Autenticación",
-        "description": "Autenticación del usuario mediante login.",
+        "summary": "Authentication",
+        "description": "Authentication del usuario mediante login.",
         "requestBody": {
           "content": {
             "application/x-www-form-urlencoded": {
@@ -1131,11 +1131,11 @@
                 "properties": {
                   "client_id": {
                     "type": "string",
-                    "description": "Campo requerido"
+                    "description": "Required field"
                   },
                   "client_secret": {
                     "type": "string",
-                    "description": "Campo requerido"
+                    "description": "Required field"
                   },
                   "grant_type": {
                     "type": "string",
@@ -1149,7 +1149,7 @@
         },
         "responses": {
           "200": {
-            "description": "Autenticación exitosa",
+            "description": "Successful authentication",
             "content": {
               "application/json": {
                 "schema": {
@@ -1174,8 +1174,8 @@
     },
     "/api/order/tracking": {
       "post": {
-        "summary": "Pedidos - Tracking",
-        "description": "Registra información de tracking para un pedido específico.",
+        "summary": "Orders - Tracking",
+        "description": "Record tracking information for a specific order",
         "security": [
           {
             "bearerAuth": []
@@ -1190,31 +1190,31 @@
                 "properties": {
                   "order_id": {
                     "type": "string",
-                    "description": "ID del pedido",
+                    "description": "order ID",
                     "example": "0000001427-010701"
                   },
                   "status": {
                     "type": "string",
-                    "description": "Estado del pedido",
-                    "example": "PedidoRecibido"
+                    "description": "Order Status",
+                    "example": "OrderReceived"
                   },
                   "trackingInfo": {
                     "type": "object",
-                    "description": "Información de tracking",
+                    "description": "Tracking information",
                     "properties": {
                       "trackurl": {
                         "type": "string",
-                        "description": "URL del tracking",
+                        "description": "Tracking URL",
                         "example": "https://kfc-co.tracker.dragontail.com/?UID=hE58xI"
                       },
                       "trackingNumber": {
                         "type": "string",
-                        "description": "Número de tracking",
+                        "description": "Tracking number",
                         "example": "RAP-0100-trackNUmber"
                       },
                       "deliveryConfirmationCode": {
                         "type": "string",
-                        "description": "Código de confirmación de entrega",
+                        "description": "Delivery confirmation code",
                         "example": "PZ051"
                       },
                       "shippingCoordinates": {
@@ -1247,7 +1247,7 @@
         },
         "responses": {
           "200": {
-            "description": "Información de tracking registrada correctamente",
+            "description": "Tracking information recorded correctly",
             "content": {
               "application/json": {
                 "schema": {
@@ -1255,12 +1255,12 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "description": "Mensaje de éxito",
-                      "example": "Tracking registrado exitosamente"
+                      "description": "success message",
+                      "example": "Tracking successfully registered"
                     },
                     "status": {
                       "type": "string",
-                      "description": "Estado de la operación",
+                      "description": "Operation status",
                       "example": "success"
                     }
                   },
@@ -1268,9 +1268,9 @@
                 },
                 "examples": {
                   "success": {
-                    "summary": "Registro exitoso",
+                    "summary": "Successful registration",
                     "value": {
-                      "message": "Tracking registrado exitosamente",
+                      "message": "Tracking successfully registered",
                       "status": "success"
                     }
                   }
@@ -1279,15 +1279,15 @@
             }
           },
           "400": {
-            "description": "Datos inválidos"
+            "description": "Invalid data"
           }
         }
       }
     },
     "/api/order/status": {
       "post": {
-        "summary": "Pedidos - cambio de estado",
-        "description": "Autenticación oauth con client credentials",
+        "summary": "Orders - status change",
+        "description": "Oauth authentication with client credentials",
         "security": [
           {
             "bearerAuth": []
@@ -1302,13 +1302,13 @@
                 "properties": {
                   "order_id": {
                     "type": "string",
-                    "description": "ID del pedido",
+                    "description": "Order ID",
                     "example": "0000013353-092501"
                   },
                   "status": {
                     "type": "string",
-                    "description": "Nuevo estado del pedido",
-                    "example": "Anulada"
+                    "description": "New order status",
+                    "example": "Canceled"
                   }
                 },
                 "required": ["order_id", "status"]
@@ -1318,7 +1318,7 @@
         },
         "responses": {
           "200": {
-            "description": "Estado del pedido cambiado exitosamente",
+            "description": "Order status changed successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -1326,12 +1326,12 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "description": "Mensaje de éxito",
-                      "example": "Estado del pedido cambiado exitosamente"
+                      "description": "success message",
+                      "example": "Order status changed successfully"
                     },
                     "status": {
                       "type": "string",
-                      "description": "Estado de la operación",
+                      "description": "Operation status",
                       "example": "success"
                     }
                   }
@@ -1340,7 +1340,7 @@
             }
           },
           "400": {
-            "description": "Datos inválidos",
+            "description": "Invalid data",
             "content": {
               "application/json": {
                 "schema": {
@@ -1348,8 +1348,8 @@
                   "properties": {
                     "error": {
                       "type": "string",
-                      "description": "Descripción del error",
-                      "example": "Datos inválidos"
+                      "description": "Error description",
+                      "example": "Invalid data"
                     }
                   }
                 }
@@ -1361,7 +1361,7 @@
     },
     "/api/order/transfer": {
       "put": {
-        "summary": "Pedidos - transferencia",
+        "summary": "Orders - transfer",
         "description": "Autenticación oauth con client credentials",
         "security": [
           {
@@ -1377,32 +1377,32 @@
                 "properties": {
                   "order": {
                     "type": "string",
-                    "description": "ID del pedido",
+                    "description": "Order ID",
                     "example": "0000000246-010103"
                   },
                   "from_store": {
                     "type": "string",
-                    "description": "Código de la tienda de origen",
+                    "description": "Origin Store Code",
                     "example": "K046"
                   },
                   "to_store": {
                     "type": "string",
-                    "description": "Código de la tienda de destino",
+                    "description": "Target store code",
                     "example": "K153"
                   },
                   "processed_by": {
                     "type": "string",
-                    "description": "Nombre de quien procesa la transferencia",
+                    "description": "Name of the person processing the transfer",
                     "example": "Juanito P"
                   },
                   "transfer_reason": {
                     "type": "string",
-                    "description": "Razón de la transferencia",
-                    "example": "Pedido pickup prueba transferencia"
+                    "description": "Reason for transfer",
+                    "example": "Pickup order test transfer"
                   },
                   "shipping_address": {
                     "type": "string",
-                    "description": "Dirección de envío (opcional)",
+                    "description": "Shipping address (optional)",
                     "nullable": true,
                     "example": ""
                   }
@@ -1414,7 +1414,7 @@
         },
         "responses": {
           "200": {
-            "description": "Pedido transferido exitosamente",
+            "description": "Order transferred successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -1422,12 +1422,12 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "description": "Mensaje de éxito",
-                      "example": "Pedido transferido exitosamente"
+                      "description": "success message",
+                      "example": "Order transferred successfully"
                     },
                     "status": {
                       "type": "string",
-                      "description": "Estado de la operación",
+                      "description": "Operation status",
                       "example": "success"
                     }
                   }
@@ -1436,7 +1436,7 @@
             }
           },
           "400": {
-            "description": "Datos inválidos",
+            "description": "Invalid data",
             "content": {
               "application/json": {
                 "schema": {
@@ -1444,8 +1444,8 @@
                   "properties": {
                     "error": {
                       "type": "string",
-                      "description": "Descripción del error",
-                      "example": "Datos inválidos"
+                      "description": "Error description",
+                      "example": "Invalid data"
                     }
                   }
                 }
@@ -1457,8 +1457,8 @@
     },
     "/api/order/dispatched": {
       "post": {
-        "summary": "Pedidos pickup - dispatched",
-        "description": "Autenticación oauth con client credentials",
+        "summary": "Pickup orders - dispatched",
+        "description": "Oauth authentication with client credentials",
         "security": [
           {
             "bearerAuth": []
@@ -1473,12 +1473,12 @@
                 "properties": {
                   "codigo_app": {
                     "type": "string",
-                    "description": "Código de la aplicación",
+                    "description": "Application code",
                     "example": "0000007860-010106"
                   },
                   "id_transaccion": {
                     "type": "string",
-                    "description": "ID de la transacción",
+                    "description": "transaction ID",
                     "example": "XH4TDASD7812LDTST"
                   }
                 },
@@ -1489,7 +1489,7 @@
         },
         "responses": {
           "200": {
-            "description": "Pedido despachado exitosamente",
+            "description": "Order successfully shipped",
             "content": {
               "application/json": {
                 "schema": {
@@ -1497,12 +1497,12 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "description": "Mensaje de éxito",
-                      "example": "Pedido despachado exitosamente"
+                      "description": "success message",
+                      "example": "Order successfully shipped"
                     },
                     "status": {
                       "type": "string",
-                      "description": "Estado de la operación",
+                      "description": "Operation status",
                       "example": "success"
                     }
                   }
@@ -1511,7 +1511,7 @@
             }
           },
           "400": {
-            "description": "Datos inválidos",
+            "description": "Invalid data",
             "content": {
               "application/json": {
                 "schema": {
@@ -1519,8 +1519,8 @@
                   "properties": {
                     "error": {
                       "type": "string",
-                      "description": "Descripción del error",
-                      "example": "Datos inválidos"
+                      "description": "Error description",
+                      "example": "Invalid data"
                     }
                   }
                 }
@@ -1532,11 +1532,11 @@
     },
     "/api/v3/products/{update}": {
       "put": {
-        "summary": "Actualizar producto",
-        "description": "Este endpoint actualiza la información de un producto existente.",
+        "summary": "Update product",
+        "description": "This endpoint updates information for an existing product",
         "operationId": "updateProduct",
         "requestBody": {
-          "description": "Información actualizada del producto",
+          "description": "Updated product information",
           "required": true,
           "content": {
             "application/json": {
@@ -1612,7 +1612,7 @@
         },
         "responses": {
           "200": {
-            "description": "Producto actualizado con éxito",
+            "description": "Product updated successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -1626,13 +1626,13 @@
             }
           },
           "400": {
-            "description": "Solicitud incorrecta",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": { "type": "string", "example": "Datos inválidos." }
+                    "error": { "type": "string", "example": "Invalid data" }
                   }
                 }
               }
@@ -1643,8 +1643,8 @@
     },                        
     "/api/order/infoPayments": {
       "get": {
-        "summary": "Pedidos - información de pagos",
-        "description": "Autenticación oauth con client credentials",
+        "summary": "Orders - payment information",
+        "description": "Oauth authentication with client credentials",
         "security": [
           {
             "bearerAuth": []
@@ -1658,7 +1658,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Fecha de inicio para filtrar pagos",
+            "description": "Start date to filter payments",
             "example": "2022-02-01"
           },
           {
@@ -1668,7 +1668,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Fecha de fin para filtrar pagos",
+            "description": "End date to filter payments",
             "example": "2022-02-16"
           },
           {
@@ -1679,7 +1679,7 @@
             },
             "required": false,
             "allowEmptyValue": true,
-            "description": "País (opcional)",
+            "description": "Country (optional)",
             "example": "ecuador"
           },
           {
@@ -1690,7 +1690,7 @@
             },
             "required": false,
             "allowEmptyValue": true,
-            "description": "Cuenta (opcional)",
+            "description": "Account (optional)",
             "example": ""
           },
           {
@@ -1701,13 +1701,13 @@
             },
             "required": false,
             "allowEmptyValue": true,
-            "description": "ID del vendedor (opcional)",
+            "description": "Seller ID (optional)",
             "example": "10"
           }
         ],
         "responses": {
           "200": {
-            "description": "Información de pagos obtenida exitosamente",
+            "description": "Payment information successfully obtained",
             "content": {
               "application/json": {
                 "schema": {
@@ -1715,12 +1715,12 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "description": "Mensaje de éxito",
-                      "example": "Información de pagos obtenida exitosamente"
+                      "description": "success message",
+                      "example": "Payment information successfully obtained"
                     },
                     "status": {
                       "type": "string",
-                      "description": "Estado de la operación",
+                      "description": "Operation status",
                       "example": "success"
                     }
                   }
@@ -1729,7 +1729,7 @@
             }
           },
           "400": {
-            "description": "Datos inválidos",
+            "description": "Invalid data",
             "content": {
               "application/json": {
                 "schema": {
@@ -1737,8 +1737,8 @@
                   "properties": {
                     "error": {
                       "type": "string",
-                      "description": "Descripción del error",
-                      "example": "Datos inválidos"
+                      "description": "Error description",
+                      "example": "Invalid data"
                     }
                   }
                 }
@@ -1750,8 +1750,8 @@
     },
     "/v3/lists/{listId}": {
       "put": {
-        "summary": "Registrar o editar una lista",
-        "description": "Este endpoint permite registrar o editar una lista en el sistema. Importante: Cada request enviado se procesa como una nueva configuración, por lo que si un producto, categoría, modificador, etc. no es enviado toda su configuración será eliminada.",
+        "summary": "Register or edit a list",
+        "description": "This endpoint allows you to register or edit a list in the system. Important: Each submitted request is processed as a new configuration, so if a product, category, modifier, etc. is not sent all your configuration will be deleted",
         "requestBody": {
           "required": true,
           "content": {
@@ -1761,39 +1761,39 @@
                 "properties": {
                   "list": {
                     "type": "object",
-                    "description": "Información general de la lista que se va a crear",
+                    "description": "General information of the list to be created",
                     "properties": {
                       "ecommerceChannelId": {
                         "type": "integer",
-                        "description": "Identificador del canal de venta unificado, hace referencia al identificador del canal estandarizado."
+                        "description": "Unified sales channel identifier, refers to the standardized channel identifier."
                       },
                       "channelReferenceName": {
                         "type": "string",
-                        "description": "Nombre único de referencia, utilizado para la búsqueda y asociación del canal estandarizado."
+                        "description": "Unique reference name, used for search and association of the standardized channel."
                       },
                       "listId": {
                         "type": "string",
-                        "description": "Identificador único de la lista. Ej: pickup-menu, daily-menu, ..."
+                        "description": "Unique identifier of the list. Ex: pickup-menu, daily-menu, ..."
                       },
                       "listName": {
                         "type": "string",
-                        "description": "Nombre que identifique a la lista. Ej: 'menu app'"
+                        "description": "Name that identifies the list. Ex: 'menu app'"
                       },
                       "vendorId": {
                         "type": "string",
-                        "description": "Identificador único de la marca, suministrado por Trade."
+                        "description": "Unique brand identifier, provided by Trade."
                       },
                       "storeId": {
                         "type": "string",
-                        "description": "Identificador único de la tienda, se refiere al parámetro storeId de la creación de tiendas y canales de venta. El valor 'replicate_in_all' permite replicar la lista actual para todas las tiendas."
+                        "description": "Unique identifier of the store, refers to the storeId parameter of the creation of stores and sales channels. The 'replicate_in_all' value allows the current list to be replicated for all stores"
                       },
                       "channelId": {
                         "type": "string",
-                        "description": "Identificador único del canal de venta, se refiere al parámetro channelId de la creación de tiendas y canales de venta."
+                        "description": "Unique identifier of the sales channel, refers to the channelId parameter of the creation of stores and sales channels."
                       },
                       "schedules": {
                         "type": "array",
-                        "description": "Permite aplicar un horario a la lista.",
+                        "description": "Allows you to apply a schedule to the list.",
                         "items": {
                           "type": "object",
                           "properties": {
@@ -2127,15 +2127,15 @@
         "type": "object",
         "properties": {
           "client_id": {
-            "description": "Identificador unico del cliente",
+            "description": "Unique client identifier",
             "type": "string"
           },
           "client_secret": {
-            "description": "Secreto unico del cliente",
+            "description": "Unique client secret",
             "type": "string"
           },
           "grant_type": {
-            "description": "Tipo de acceso",
+            "description": "Access type",
             "type": "string"
           }
         }
@@ -2145,7 +2145,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "example": "Nueva tienda 805"
+            "example": "New store 805"
           },
           "active": {
             "type": "boolean",
@@ -2162,7 +2162,7 @@
             }
           },
           "vendorId": {
-            "description": "Identificador único de la marca. *Este identificador es suministrado por Trade.",
+            "description": "Unique brand identifier. *This identifier is provided by Trade.",
             "type": "integer",
             "example": 16
           },
@@ -2375,7 +2375,7 @@
             "type": "object",
             "properties": {
               "storeImage": {
-                "description": "Imagen de la tienda",
+                "description": "Store image",
                 "type": "array"
               },
               "paymentMethodAvailability": {
@@ -2411,11 +2411,11 @@
         "type": "object",
         "properties": {
           "statusCode": {
-            "description": "Codigo de error de autenticación.",
+            "description": "Authentication error code.",
             "type": "string"
           },
           "message": {
-            "description": "Mensaje de error.",
+            "description": "Error message",
             "type": "string"
           }
         }
