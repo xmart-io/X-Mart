@@ -52,17 +52,14 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": ["introduction", "quickstart", "Our API"]
     },
     {
-      "group": "Essentials",
+      "group": "Guides",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "essentials/Sync of stores and menus",
+        "essentials/How to integrate with orders",
+        "essentials/Desactivate products by tag"
       ]
     },
     {
