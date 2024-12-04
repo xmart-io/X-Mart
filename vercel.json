@@ -1,1 +1,12 @@
-{ "rewrites": [ { "source": "/docs", "destination": "https://docs.x-mart.io/introduction" }, { "source": "/introduction/:match*", "destination": "https://docs.x-mart.io/introduction/:match*" } ] }
+{
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://docs.x-mart.io/"
+    },
+    {
+      "source": "/docs/:match*",
+      "destination": "https://docs.x-mart.io/:match*"
+    }
+  ]
+}
