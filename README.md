@@ -38,7 +38,7 @@ Una vez creada la cuenta en Mintlify, es necesario descargar el repositorio de M
 
 ### Subir cambios a localhost
 
-Para implementar los cambios en Localhost, debemos ubicarnos en el directorio principal del proyecto y ejecutar el comando 'mintlify dev'. Cada vez que guardemos cambios en algún archivo del proyecto, estos se actualizarán automáticamente en Localhost.
+Para implementar los cambios en Localhost, debemos ubicarnos en el directorio principal del proyecto y ejecutar el comando `mintlify dev`. Cada vez que guardemos cambios en algún archivo del proyecto, estos se actualizarán automáticamente en Localhost.
 
 ### Subir cambios al repositorio de GitHub y Mintlify
 

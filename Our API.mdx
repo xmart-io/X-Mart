@@ -7,10 +7,38 @@ description: 'Learn about external client integration, store and list overview, 
 **Step 1**: External client integration:
 
 
-**Step 2**: Overview of Stores and Lists:
+# 2. Overview of Stores and Lists
+
+X-Mart provides a series of API endpoints that facilitate the management and synchronization of stores, sales channels, and lists within the platform. Below is a summary of the main endpoints available:
+
+# Stores and Sales Channels
+
+**Get stores by brand (GET):** This endpoint allows you to retrieve a list of stores associated with a specific brand. It is useful for getting an overview of all operational locations under a brand.
+
+**Create Stores and Sales Channels (POST):** This endpoint is used to add new stores and sales channels to the system. It facilitates the efficient expansion and updating of the store network.
+
+**Get store by ID (GET):** Allows you to retrieve specific details of a store based on its unique identifier. It is essential for the management and updating of precise information for each individual store.
+
+**Change store status (PUT):** With this endpoint, you can modify the operational status of a store (e.g., active or inactive). It is crucial for keeping the store's availability up-to-date in real-time.
+
+# Lists
+
+**Get Synchronization Report (GET):** This endpoint provides a detailed report of the data synchronization, allowing you to monitor and verify the status of the synchronizations performed.
+
+**Register or Edit a List (PUT):** Allows you to register new lists or edit existing ones within the system. It is fundamental for the management and organization of product lists, inventories, and other relevant categories.
+
+This set of endpoints ensures comprehensive and efficient management of store, sales, and list operations within X-Mart, offering robust tools for real-time control and monitoring.
 
 
-**Step 3**: Explanation of v3 injection
+# 3. Explanation of v3 injection
+
+X-Mart's Service Catalog includes a series of methods that facilitate the management and synchronization of data on the platform. Below is a summary of the main endpoints available:
+
+**Get Token:** Token Retrieval This endpoint allows obtaining an authentication token necessary to access other services on the platform. It is essential to ensure that all interactions with the API are secure and authorized.
+
+**New Order Webhook:** New Order Webhook This endpoint is used to receive notifications of new orders. It allows external systems to integrate with X-Mart to process and manage orders in real-time.
+
+**Order Retrieval:** Order Retrieval This endpoint allows retrieving specific details of an order based on its unique identifier. It is crucial for the management and tracking of orders, ensuring that each transaction is recorded and can be consulted at any time.
 
 
 **Step 4**: Fulfillment (status changes)
