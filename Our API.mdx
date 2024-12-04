@@ -41,4 +41,20 @@ X-Mart's Service Catalog includes a series of methods that facilitate the manage
 **Order Retrieval:** Order Retrieval This endpoint allows retrieving specific details of an order based on its unique identifier. It is crucial for the management and tracking of orders, ensuring that each transaction is recorded and can be consulted at any time.
 
 
-**Step 4**: Fulfillment (status changes)
+# 4. Fulfillment (status changes)
+
+X-Mart provides a series of API endpoints that facilitate the management and processing of orders, ensuring an efficient flow from order placement to fulfillment. Below is a summary of the main endpoints available:
+
+**POST: Obtain OAuth token with a registered client** This endpoint allows obtaining an authentication token using a registered client. It is essential to ensure that all interactions with the API are secure and authorized.
+
+**POST: Allows redeeming a local coupon using a UID and promotion code** This endpoint is used to redeem a local coupon using a UID (Unique Identifier) and a promotion code. It facilitates the application of discounts and promotions on customer orders.
+
+**POST: Registers tracking information for a specific order Allows registering tracking information for a specific order.** This endpoint is crucial for keeping customers informed about the status and location of their orders in real-time.
+
+**POST: Orders - Status Change This endpoint allows making changes to the order status** It is vital for managing and updating the status of orders as they progress through the fulfillment process.
+
+**PUT: Orders - Transfer Enables the transfer of orders between different entities or warehouses** This endpoint is essential for managing logistics and ensuring that orders are delivered efficiently.
+
+**POST: Pickup Orders - Dispatched This endpoint is used to mark pickup orders as dispatched** It helps coordinate the collection of orders by customers and ensures the pickup process runs smoothly.
+
+**GET: Orders - Payment Information Allows retrieving payment information for orders** This endpoint is important for verifying and managing the payments made by customers, ensuring that all transactions are accurate and correctly recorded.
