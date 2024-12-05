@@ -1,12 +1,9 @@
 {
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/docs",
-      "destination": "https://docs.x-mart.io/"
-    },
-    {
-      "source": "/docs/:match*",
-      "destination": "https://docs.x-mart.io/:match*"
+      "source": "/",
+      "destination": "https://docs.x-mart.io",
+      "permanent": true
     }
   ]
 }
