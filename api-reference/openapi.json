@@ -11,6 +11,9 @@
   "servers": [
     {
       "url": "https://api.artisn.desarrollo-redbrand.com/api"
+    },
+    {
+      "url": "https://api.kfc-group.desarrollo-redbrand.com"
     }
   ],
   "security": [
@@ -1744,6 +1747,233 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/v1/products/{productId}": {
+      "get": {
+        "summary": "Retrieve product information",
+        "description": "Returns detailed information about a specific product based on the provided parameters.",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "description": "ID of the product to query.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "catalogueId",
+            "in": "query",
+            "required": true,
+            "description": "Catalogue ID.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "required": true,
+            "description": "Channel ID.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "required": true,
+            "description": "Store ID.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "vendorId",
+            "in": "query",
+            "required": true,
+            "description": "Vendor ID.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "withCategories",
+            "in": "query",
+            "required": false,
+            "description": "Indicates whether categories should be included in the response.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with product information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "200"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "OK"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Detailed product information.",
+                      "example": {
+                        "measure": "1 unit",
+                        "stock": 0,
+                        "name": "7 PIECES",
+                        "suggestedPrice": "$0.00",
+                        "prices": {
+                          "NORMAL": {
+                            "category": "NORMAL",
+                            "symbol": "$",
+                            "grossPrice": 11.2957,
+                            "netPrice": 12.99
+                          }
+                        },
+                        "description": "7 pieces of chicken.",
+                        "productId": "24720"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "400"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid request"
+                    },
+                    "error": {
+                      "type": "object",
+                      "description": "Error details."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/externalId/{externalId}": {
+      "get": {
+        "summary": "Get product details",
+        "description": "Retrieve detailed information about a product based on externalId, vendorId, storeId, and channelId.",
+        "parameters": [
+          {
+            "name": "externalId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The external ID of the product."
+          },
+          {
+            "name": "vendorId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The vendor ID."
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The store ID."
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The channel ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with product details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string" },
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "measure": { "type": "string" },
+                        "stock": { "type": "integer" },
+                        "name": { "type": "string" },
+                        "suggestedPrice": { "type": "string" },
+                        "prices": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                              "category": { "type": "string" },
+                              "symbol": { "type": "string" },
+                              "grossPrice": { "type": "number" },
+                              "netPrice": { "type": "number" }
+                            }
+                          }
+                        },
+                        "description": { "type": "string" },
+                        "isPriceVip": { "type": "boolean" },
+                        "hasModifiers": { "type": "boolean" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input or missing parameters."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }

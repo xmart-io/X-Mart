@@ -45,12 +45,6 @@
         "essentials/Desactivate products by tag"
       ]
     },
-    {
-      "group": "Version",
-      "pages": [
-        "version/version"
-      ]
-    },
   
     {
       "group": "V3 Lists API",
@@ -91,6 +85,14 @@
       "pages": ["api-reference/fulfillment/post","api-reference/fulfillment/postcoupon","api-reference/fulfillment/posttrack"
             ,"api-reference/fulfillment/poststatus","api-reference/fulfillment/puttransfer","api-reference/fulfillment/postdispatched"
             ,"api-reference/fulfillment/getpay"]
+    },
+    {
+      "group": "Api Products Detail",
+      "pages": ["api-reference/storedetails/test","api-reference/storedetails/storeexternal"]
+    },
+    {
+      "group": "Version",
+      "pages": ["api-reference/version/version"]
     }
   ],
   "footerSocials": {
