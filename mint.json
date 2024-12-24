@@ -45,6 +45,12 @@
         "essentials/Desactivate products by tag"
       ]
     },
+    {
+      "group": "Version",
+      "pages": [
+        "version"
+      ]
+    },
   
     {
       "group": "V3 Lists API",
