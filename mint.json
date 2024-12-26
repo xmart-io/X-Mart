@@ -35,7 +35,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "Our API", "quickstart", "versioning"]
+      "pages": ["introduction", "Our API", "quickstart"]
     },
     {
       "group": "Guides",
@@ -95,10 +95,6 @@
     {
       "group": "Api Products Detail",
       "pages": ["api-reference/storedetails/test","api-reference/storedetails/storeexternal"]
-    },
-    {
-      "group": "Version",
-      "pages": ["api-reference/version/version"]
     }
   ],
   "footerSocials": {
