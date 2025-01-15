@@ -5,7 +5,7 @@
     "dark": "https://s3.us-east-2.amazonaws.com/admin.artisncore.dev/products/logoxmartblanco.png",
     "light": "https://s3.us-east-2.amazonaws.com/admin.artisncore.dev/products/xmart-logo.png"
   },
-  "favicon": "public/faviconA.png",
+  "favicon": "images/faviconA-2.svg",
 "colors": {
     "primary": "#FF2E49",
     "light": "#FF2E49",
