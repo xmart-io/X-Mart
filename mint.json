@@ -19,7 +19,7 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:marketplace@trade.ec"
     }
   ],
   "topbarCtaButton": {
@@ -40,7 +40,8 @@
     {
       "group": "Guides",
       "pages": [
-        "essentials/Sync of stores and menus"
+        "essentials/Sync of stores and menus",
+        "essentials/Integration Processes"
       ]
     },
     {
