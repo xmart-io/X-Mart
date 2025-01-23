@@ -1,7 +1,10 @@
 ---
-title: About X-Mart
-description: 'Welcome to X-Mart’s documentation!'
+title: Introduction
+description: 'Welcome to the X-Mart API Documentation!'
 ---
+
+The X-Mart APIs enable customers to programmatically manage **stores**, **lists**, **and** **orders** on the X-Mart platform, providing a seamless and efficient way to integrate your ERP or POS with our headless commerce solution.
+
 
 <img
   className="block dark:hidden"
@@ -15,34 +18,83 @@ description: 'Welcome to X-Mart’s documentation!'
 />
 
 
-## What is X-Mart?
+### Integration Process Overview
 
-X-Mart is a comprehensive suite of services designed to optimize data management and processing across various business applications. Our system enables efficient synchronization of menus sent by clients, facilitating seamless and accurate integration. Additionally, X-Mart offers a web service for order injection, ensuring effective and real-time communication with our clients' systems. We also manage the processes for order status changes, ensuring every operation is conducted in an organized and controlled manner.
+X-Mart is a **headless commerce platform** with a robust integrations API that simplifies the synchronization and management process from an external ERP or POS system. By leveraging our APIs, you can automate and centralize your operations, ensuring an **updated and continuous flow of information** across your systems.
 
-With X-Mart, businesses can rely on a robust and flexible platform capable of adapting to their operational needs and significantly enhancing process efficiency.
+## How it Works
 
-### Main Features
+Below is an overview of the integration process, illustrating how X-Mart interacts with your ERP or POS system to manage stores, lists, and orders.
 
-Delivery:
+<img
+  className="block dark:hidden"
+  src="https://s3.us-east-1.amazonaws.com/admin.kfc.production/fondoclaroful.png"
+  alt="Hero Light"
+/>
+<img
+  className="hidden dark:block"
+  src="https://s3.us-east-1.amazonaws.com/admin.kfc.production/fondoclaroosc.png"
+  alt="Hero Dark"
+/>
 
-In the Delivery mode, customers can place orders through the mobile app. This feature allows for geolocation of the customer's address to ensure precise and efficient delivery. The system is designed to enhance user experience with an intuitive interface and real-time order tracking.
+**Note:** This integration workflow facilitates centralized and efficient process management, ensuring a seamless exchange of information.
 
-Pickup:
-
-The Pickup option allows customers to select, through geolocation, the store where they want to pick up their order. This service offers flexibility and convenience, enabling users to choose the nearest or most convenient location. The app integration facilitates schedule management and confirms order availability for pickup.
-
-Kioskos:
-
-Kioskos are terminals located in stores that allow customers to place orders autonomously. These interactive screens are designed to improve customer service efficiency and reduce wait times. Customers can browse the menu, customize their orders, and complete the transaction without the need for staff assistance.
-
-Sales:
-
-The Sales component refers to a web platform that allows client call centers to take phone orders. This tool is designed to centralize order management and ensure an efficient workflow. Call center agents can enter orders directly into the system, providing a comprehensive solution for customer service and sales management.
+<CardGroup cols={2}>
+  <Card
+    title="Create an account"
+    icon="Key"
+    href="https://app.x-mart.io/auth/signin"
+  >
+    Let's create your account
+  </Card>
+</CardGroup>
 
 
-Operators:
 
-In the Operators section, client call centers can validate all incoming orders in real-time. This functionality is crucial to ensure accuracy and timeliness in order execution. Operators can monitor the status of each order, make necessary adjustments, and ensure that all requests are fulfilled as planned.
+## Key Integration Steps
+
+Here’s a brief overview of the APIs involved in the integration process:
+
+**1. Auth API**
+
+• Manage authentication and secure access to the X-Mart APIs.
+
+• Generate and refresh tokens for authorized API requests.
+
+
+**2. Stores API**
+
+• Create, update, and manage stores and sales channels in the X-Mart platform.
+
+• Retrieve detailed information about stores and modify their status programmatically.
+
+**3. Lists API**
+
+• Synchronize and manage product lists, including categories, products, modifiers, and options.
+
+• Access detailed reports on synchronization status, errors, and warnings to ensure data accuracy.
+
+**4. Orders API**
+
+• Ingest and manage incoming orders with real-time webhook notifications.
+
+• Update order statuses to reflect operational progress.
+
+## Next Steps
+
+To get started with the X-Mart APIs:
+
+1. Familiarize yourself with the authentication process in the **Auth API** section.
+
+2. Begin configuring your stores using the **Stores API**.
+
+3. Synchronize your product data using the **Lists API**.
+
+4. Set up and test your order integration with the **Orders API**.
+
+Explore the rest of the documentation for detailed guides, examples, and best practices for each API.
+
+
 
 <CardGroup cols={2}>
   <Card
