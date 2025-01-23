@@ -35,8 +35,13 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "Our API","quickstart"]
-    },
+      "pages": ["introduction", "Our API","quickstart",
+      {
+        "group": "Concepts",
+        "pages": ["Concepts/Stores","Concepts/list","Concepts/Channels"]
+      }
+    ]
+  },
     {
       "group": "Guides",
       "pages": [
