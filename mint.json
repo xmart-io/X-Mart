@@ -45,7 +45,8 @@
     {
       "group": "Guides",
       "pages": [
-        "essentials/Sync of stores and menus",
+        "essentials/stores integration Guide",
+        "essentials/menu integration Guide",
         "essentials/Order integration Guide"
       ]
     },
