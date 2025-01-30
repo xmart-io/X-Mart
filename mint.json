@@ -6,7 +6,7 @@
     "light": "https://s3.us-east-2.amazonaws.com/admin.artisncore.dev/products/xmart-logo.png"
   },
   "favicon": "images/faviconnew.png",
-"colors": {
+  "colors": {
     "primary": "#FF2E49",
     "light": "#FF2E49",
     "dark": "#FF2E49",
@@ -14,8 +14,8 @@
       "from": "#FF2E49",
       "to": "#FF2E49"   
     }
-}
-,
+  },
+  "head": "<script type=\"text/javascript\">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src=\"https://www.clarity.ms/tag/\"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, \"clarity\", \"script\", \"q253pnup6d\");</script>",
   "topbarLinks": [
     {
       "name": "Support",
