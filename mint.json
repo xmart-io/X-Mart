@@ -42,6 +42,11 @@
   ],
   "anchors": [
     {
+      "name": "Create an account",
+      "icon": "Key",
+      "url": "https://app.x-mart.io/auth/signin"
+    },
+    {
       "name": "Version",
       "icon": "newspaper",
       "url": "https://docs.x-mart.io/version"
@@ -99,7 +104,7 @@
     },
     {
       "group": "Injection Web Services",
-      "pages": ["api-reference/injection/post","api-reference/injection/postorder"]
+      "pages": ["api-reference/injection/post","api-reference/injection/postorder","api-reference/injection/get"]
     },
     {
       "group": "Order Fulfillment",
