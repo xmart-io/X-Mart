@@ -65,6 +65,7 @@
     {
       "group": "Guides",
       "pages": [
+        "essentials/auth",
         "essentials/stores integration Guide",
         "essentials/menu integration Guide",
         "essentials/Order integration Guide"
