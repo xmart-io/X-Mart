@@ -5,31 +5,31 @@ description: 'Version registration'
 
 This section provides a detailed description of the modifications and features added to the API. Each update has been implemented with the goal of improving its performance, robustness, and functionality, as well as ensuring a more efficient and user-friendly integration. These enhancements address needs identified during the API's use, offering new capabilities and optimizations that simplify its adoption and application in various scenarios.
 
-| Version | Date | Description | Author(s) |
-| --- | --- | --- | --- |
-| Version 1 | 06/26/2020 | Document creation | Alex Guamán |
-| Version 1.0.1 | 06/29/2020 | Update of examples for list creation, renaming path for lists. | Alex Guamán |
-| Version 1.0.2 | 07/07/2020 | - Documentation for the process of creating oAuth clients (authentication section). <br/>- Support for additional information in modifiers, modifier options, and products. <br/>- Support for showing or hiding modifiers. <br/>- Documentation for creating and assigning warehouses to stores. <br/>- Documentation for creating and updating product stock. | Alex Guamán |
-| Version 1.0.3 | 07/08/2020 | - Update to the process of creating oAuth clients (authentication section). <br/>- Chains are now referred to as brands. <br/>- Downloadable examples for coverage areas, cities, sectors, and brands. | Alex Guamán |
-| Version 1.0.4 | 07/10/2020 | - **Path change** for the authentication process (authentication section). <br/>- **Authentication Content-Type change**: the body must be of type **JSON**, previously it was "application/x-www-form-urlencoded" (authentication section). <br/>- Sending two **new headers (Platform: oauth and client-version: 3)** is mandatory for all requests except authentication. | Alex Guamán |
-| Version 1.0.5 **MANDATORY !!!** | 07/27/2020 | - Added the **vendorId** parameter in list creation. | Alex Guamán |
-| Version 1.0.6 | 07/27/2020 | - Added documentation on validation errors and response statuses. | Alex Guamán |
-| Version 1.0.7 | 07/31/2020 | - Added documentation on cross-selling. <br/>- It is now possible to define the position of modifiers in products. | Alex Guamán |
-| Version 1.0.8 | 09/01/2020 | - Updated modifier types. | Alex Guamán |
-| Version 1.0.9 | 10/20/2020 | - Endpoint to obtain synchronization reports. <br/>- Support for scheduled activation and deactivation of stores and products. | Alex Guamán |
-| Version 1.0.10 | 01/12/2020 | - List of standardized channels. | Alex Guamán |
-| Version 1.0.11 | 12/22/2020 | - Support for channelReferenceName in the synchronization summary endpoint. | Alex Guamán |
-| Version 1.0.12 | 12/22/2020 | - Documentation for configuring payment buttons. | Alex Guamán |
-| Version 1.0.13 | 12/30/2020 | - Support for lists related at the sales channel level. | Alex Guamán |
-| Version 1.1.0 | 08/11/2021 | - Support for creating lists in multiple or all stores. <br/>- Example of creating lists in multiple stores. <br/>- Example of creating lists in all stores. <br/>- Support for defining schedules by sales channels. <br/>- Example of creating stores and sales channels. <br/>- Example of creating stores with schedules by sales channel. | Armando Maldonado |
-| Version 1.1.1 | 09/24/2021 | - Added field to determine if a category is highlighted. | Armando Maldonado |
-| Version 1.1.2 | 09/24/2021 | - Added support for suggested price and points (fantasy) for a product. | Armando Maldonado |
-| Version 1.1.3 | 07/06/2022 | - Added support for adding and editing products in a list. | Wilber Cutire |
-| Version 1.1.4 | 10/13/2022 | Added a field to store schedules for each category in a list. | Nicolás Jimenez |
-| Version 1.1.5 | 11/15/2022 | Updated documentation and examples for EPs in sections 1 and 2. | Luis Vacacela |
-| Version 1.1.6 | 04/05/2023 | Added an optional field in product price information to be used in cases where a product has both a regular price and a response price. | Luis Vacacela |
-| Version 1.1.7 | 04/06/2023 | Additional field in product price information to indicate a discount percentage on the product. | David Rosales |
-| Version 1.1.8 | 07/10/2023 | - Removed the **discountPercentage** attribute. <br/>- Support for applying discounts to products. <br/>- Added a new attribute called "**salePrice**" in product price information (priceInfo). | Alex Guamán |
-| Version 1.1.9 | 09/24/2024 | Mapping of additionalServices within DeliveryInfo. | David Rosales |
-| Version 1.2 | 11/12/2024 | Removed `taxesInfo.taxRate` key and modified `taxesInfo.vatRatePercentage` key to accept an array of taxes. | David Rosales, Nicolás Jiménez |
-| Version 1.2.1 | 12/13/2024 | Added orderLimitsByChannel field to define minimum and maximum order value depending on the channel (e.g., delivery, pickup). | David Rosales |
+| Version | Date | Description |
+| --- | --- | --- |
+| Version 1 | 06/26/2020 | Document creation |
+| Version 1.0.1 | 06/29/2020 | Update of examples for list creation, renaming path for lists. |
+| Version 1.0.2 | 07/07/2020 | - Documentation for the process of creating oAuth clients (authentication section). <br/>- Support for additional information in modifiers, modifier options, and products. <br/>- Support for showing or hiding modifiers. <br/>- Documentation for creating and assigning warehouses to stores. <br/>- Documentation for creating and updating product stock. |
+| Version 1.0.3 | 07/08/2020 | - Update to the process of creating oAuth clients (authentication section). <br/>- Chains are now referred to as brands. <br/>- Downloadable examples for coverage areas, cities, sectors, and brands. |
+| Version 1.0.4 | 07/10/2020 | - **Path change** for the authentication process (authentication section). <br/>- **Authentication Content-Type change**: the body must be of type **JSON**, previously it was "application/x-www-form-urlencoded" (authentication section). <br/>- Sending two **new headers (Platform: oauth and client-version: 3)** is mandatory for all requests except authentication. |
+| Version 1.0.5 **MANDATORY !!!** | 07/27/2020 | - Added the **vendorId** parameter in list creation. |
+| Version 1.0.6 | 07/27/2020 | - Added documentation on validation errors and response statuses. |
+| Version 1.0.7 | 07/31/2020 | - Added documentation on cross-selling. <br/>- It is now possible to define the position of modifiers in products. |
+| Version 1.0.8 | 09/01/2020 | - Updated modifier types. |
+| Version 1.0.9 | 10/20/2020 | - Endpoint to obtain synchronization reports. <br/>- Support for scheduled activation and deactivation of stores and products. |
+| Version 1.0.10 | 01/12/2020 | - List of standardized channels. |
+| Version 1.0.11 | 12/22/2020 | - Support for channelReferenceName in the synchronization summary endpoint. |
+| Version 1.0.12 | 12/22/2020 | - Documentation for configuring payment buttons. |
+| Version 1.0.13 | 12/30/2020 | - Support for lists related at the sales channel level. |
+| Version 1.1.0 | 08/11/2021 | - Support for creating lists in multiple or all stores. <br/>- Example of creating lists in multiple stores. <br/>- Example of creating lists in all stores. <br/>- Support for defining schedules by sales channels. <br/>- Example of creating stores and sales channels. <br/>- Example of creating stores with schedules by sales channel. |
+| Version 1.1.1 | 09/24/2021 | - Added field to determine if a category is highlighted. |
+| Version 1.1.2 | 09/24/2021 | - Added support for suggested price and points (fantasy) for a product. |
+| Version 1.1.3 | 07/06/2022 | - Added support for adding and editing products in a list. |
+| Version 1.1.4 | 10/13/2022 | Added a field to store schedules for each category in a list. |
+| Version 1.1.5 | 11/15/2022 | Updated documentation and examples for EPs in sections 1 and 2. |
+| Version 1.1.6 | 04/05/2023 | Added an optional field in product price information to be used in cases where a product has both a regular price and a response price. |
+| Version 1.1.7 | 04/06/2023 | Additional field in product price information to indicate a discount percentage on the product. |
+| Version 1.1.8 | 07/10/2023 | - Removed the **discountPercentage** attribute. <br/>- Support for applying discounts to products. <br/>- Added a new attribute called "**salePrice**" in product price information (priceInfo). |
+| Version 1.1.9 | 09/24/2024 | Mapping of additionalServices within DeliveryInfo. |
+| Version 1.2 | 11/12/2024 | Removed `taxesInfo.taxRate` key and modified `taxesInfo.vatRatePercentage` key to accept an array of taxes. |
+| Version 1.2.1 | 12/13/2024 | Added orderLimitsByChannel field to define minimum and maximum order value depending on the channel (e.g., delivery, pickup). |
