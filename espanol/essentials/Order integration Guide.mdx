@@ -1,0 +1,37 @@
+---
+title: 'Guía de Integración de Pedidos'
+description: ''
+icon: 'Link'
+---
+
+## Descripción General
+Usa la API de Pedidos para ingerir y gestionar los pedidos entrantes desde X-Mart. La API incluye un webhook para notificaciones en tiempo real de nuevos pedidos. 
+Una vez que hayas configurado correctamente tu URL de webhook y el menú, podrás recuperar y aceptar pedidos utilizando los puntos finales proporcionados en la API de Pedidos.
+
+### Entendiendo el Flujo de Pedidos
+Para integrar los pedidos con éxito, es esencial seguir el flujo de integración de pedidos de X-Mart mostrado en el diagrama a continuación.
+Estudia el diagrama cuidadosamente y asegúrate de entender cada paso antes de proceder. Esto garantizará una implementación adecuada y el correcto funcionamiento de tu integración.
+	Diagrama Placeholder
+
+### Notificaciones de Pedidos
+La API de Pedidos envía notificaciones al webhook configurado en tu cuenta cada vez que se realiza un pedido. Estas notificaciones proporcionan actualizaciones en tiempo real para la ingestión de pedidos.
+Puntos clave a recordar:
+	•	Tu servicio (una sola URL de webhook) puede recibir webhooks para pedidos de varias tiendas.
+	•	Asegúrate de que tu webhook sea capaz de procesar estas notificaciones de manera eficiente para evitar retrasos o errores.
+
+<CardGroup cols={2}>
+  <Card
+    title="Servicios de Inyección Web"
+    icon="Gear"
+    href="https://docs.x-mart.io/api-reference/injection/post"
+  >
+    Consulta la guía completa sobre inyección de servicios web
+  </Card>
+  <Card
+    title="Crear una cuenta"
+    icon="key"
+    href="https://app.x-mart.io/auth/signin"
+  >
+    ¿Estás listo? Crea tu cuenta en X-Mart 🚀
+  </Card>
+</CardGroup>

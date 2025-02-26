@@ -1,0 +1,115 @@
+---
+title: Introducción
+---
+
+Las API de X-Mart permiten a los clientes gestionar **tiendas**, **listas** y **órdenes** de forma programática en la plataforma X-Mart, proporcionando una manera fluida y eficiente de integrar tu ERP o POS con nuestra solución de comercio sin interfaz.
+
+
+<img
+  className="block dark:hidden"
+  src="https://s3.us-east-2.amazonaws.com/admin.artisncore.dev/products/logonegro.png"
+  alt="Hero Light"
+/>
+<img
+  className="hidden dark:block"
+  src="https://s3.us-east-2.amazonaws.com/admin.artisncore.dev/products/logorojo.png"
+  alt="Hero Dark"
+/>
+
+
+# Descripción general del proceso de integración
+
+X-Mart es una plataforma de comercio sin interfaz con una API de integraciones robusta que simplifica el proceso de sincronización y gestión desde un sistema ERP o POS externo. Al aprovechar nuestras API, puedes automatizar y centralizar tus operaciones, asegurando un flujo de información actualizado y continuo en todos tus sistemas.
+
+
+<img
+  className="block dark:hidden"
+  src="https://s3.us-east-1.amazonaws.com/admin.kfc.production/nuevoclaro.png"
+  alt="Hero Light"
+/>
+<img
+  className="hidden dark:block"
+  src="https://s3.us-east-1.amazonaws.com/admin.kfc.production/nuevooscuro.png"
+  alt="Hero Dark"
+/>
+
+**Nota:** Este flujo de integración facilita la gestión centralizada y eficiente de los procesos, garantizando un intercambio de información sin interrupciones.
+
+<CardGroup cols={2}>
+  <Card
+    title="Crea una cuenta"
+    icon="Key"
+    href="https://app.x-mart.io/auth/signin"
+  >
+    Estas listo? Vamos a crear tu cuenta en X-Mart 🚀
+  </Card>
+</CardGroup>
+
+
+
+# Pasos clave de la integración
+
+A continuación, se presenta un resumen de las API involucradas en el proceso de integración:
+
+
+### 1. API de autenticación
+
+<Info>
+  * Gestiona la autenticación y el acceso seguro a las API de X-Mart.
+
+  * Genera y actualiza tokens para solicitudes API autorizadas.
+</Info>
+
+
+### 2. API de tiendas
+
+<Info>
+  * Crea, actualiza y gestiona tiendas y canales de venta en la plataforma X-Mart.
+
+  * Recupera información detallada sobre las tiendas y modifica su estado de manera programática.
+</Info>
+
+### 3. API de listas
+
+<Info>
+  * Sincroniza y administra listas de productos, incluyendo categorías, productos, modificadores y opciones.
+
+  * Accede a informes detallados sobre el estado de sincronización, errores y advertencias para garantizar la precisión de los datos.
+</Info>
+
+
+### 4. API de órdenes
+
+<Info>
+  * Recibe y administra órdenes entrantes con notificaciones en tiempo real mediante webhooks.
+
+  * Actualiza el estado de las órdenes para reflejar el progreso operativo.
+</Info>
+
+# Próximos pasos
+
+Para comenzar a utilizar las API de X-Mart:
+
+<Info>
+  1. Familiarízate con el proceso de autenticación en la sección **API de autenticación**.
+
+  2. Configura tus tiendas utilizando la **API de tiendas**.
+
+  3. Sincroniza los datos de tus productos con la **API de listas**.
+
+  4. Configura y prueba la integración de órdenes con la **API de órdenes**.
+</Info>
+
+Explora el resto de la documentación para obtener guías detalladas, ejemplos y mejores prácticas para cada API.
+
+
+
+<CardGroup cols={2}>
+  <Card
+    title="Guía para desarrolladores"
+    icon="book-open"
+    href="https://docs.x-mart.io/api-reference/authentication/login/post"
+  >
+    Encuentra una guia para integrar X-Mart con tu plataforma de e-commerce
+  </Card>
+</CardGroup>

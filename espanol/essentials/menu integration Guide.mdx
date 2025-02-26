@@ -1,0 +1,140 @@
+---
+title: Guía de Integración de Menú
+icon: 'text-size'
+---
+
+# Descripción General
+
+Crea y actualiza menús utilizando los puntos finales de la **API V3 de Listas**. Cada tienda puede tener su propio menú configurable de manera individual.
+
+<Info>
+  **Producto**
+
+  Se muestra como cualquier artículo que un usuario puede seleccionar del menú de una tienda, incluyendo postres, bebidas y condimentos.
+</Info>
+
+<Info>
+  **Categoría**
+
+  Agrupa uno o más productos, como complementos, platos principales y bebidas.
+</Info>
+
+<Info>
+  **Grupos de Modificadores**
+
+  Agrupa modificadores que pueden ser seleccionados como personalizaciones bajo un artículo principal. Por ejemplo, el grupo de modificadores "Sabor de Bebida" contiene opciones como fresa, limón y naranja.
+</Info>
+
+<Info>
+  **Catálogo (Canal)**
+
+  Agrupa una o más categorías de una tienda. Permite hacer referencia a dos tipos de cumplimiento: Recogida y Entrega.
+</Info>
+
+![Diagrama API Menú](https://s3.us-east-1.amazonaws.com/admin.kfc.production/menuintegration.jpeg)
+
+# Componentes
+
+- **Obtener Reporte de Sincronización (GET)**
+Este punto final proporciona un reporte detallado de la sincronización de datos, permitiéndote monitorear y verificar el estado de las sincronizaciones realizadas.
+
+- **Registrar o Editar una Lista (PUT)**
+Este punto final se usa para agregar nuevas tiendas y canales de venta al sistema. Facilita la expansión eficiente y la actualización de la red de tiendas.
+
+# Preguntas Frecuentes
+
+**¿Qué especificaciones deben cumplir las imágenes de los elementos del menú para un procesamiento exitoso?**
+
+Las imágenes deben tener un tamaño de 744px x 744px.
+
+**¿Puedo establecer horarios de disponibilidad específicos para categorías, elementos o modificadores?**
+
+Sí, es posible establecer horarios de disponibilidad tanto para **categorías** como para **elementos**. Debes usar el atributo _“schedules”:[ ]_ para ambos casos. En el caso de **modificadores**, no es posible asignar un horario.
+
+<CodeGroup>
+
+  ```bash Ejemplo para categoría
+{
+  "categories": [
+    {
+      "name": "DINNER",
+      "images": [
+        {
+          "fileUrl": "https://samercadito.blob.core.windows.net/imagenesv3/C761AD4F-FDA8-EF11-9C36-E18191D08780_744x744.png",
+          "imageCategoryId": "category"
+        }
+      ],
+      "position": 480,
+      "schedules": [
+        {
+          "day": "FRIDAY",
+          "endTime": "16:00",
+          "startTime": "12:00"
+        },
+        {
+          "day": "MONDAY",
+          "endTime": "16:00",
+          "startTime": "12:00"
+        }
+      ],
+      "displayInList": true,
+      "productListing": [
+        {
+          "position": 0,
+          "productId": 63897
+        }
+      ],
+      "productCategoryId": "C761AD4F-FDA8-EF11-9C36-E18191D08780"
+    }
+  ]
+}
+  ```
+
+```bash Ejemplo para producto
+{
+  "name": "ORANGE JUICE",
+  "type": "PRODUCT",
+  "active": true,
+  "images": [
+    {
+      "fileUrl": "https://samercadito.blob.core.windows.net/imagenesv3/domicilio_533_744x745_1721068779.png",
+      "imageCategoryId": "product"
+    }
+  ],
+  "priceInfo": {
+    "price": 4.65,
+    "pointPrice": 200
+  },
+  "productId": 533,
+  "schedules": [
+    {
+      "day": "FRIDAY",
+      "endTime": "23:59",
+      "startTime": "05:00"
+    },
+    {
+      "day": "MONDAY",
+      "endTime": "23:59",
+      "startTime": "05:00"
+    }
+  ],
+  "upselling": [
+    "62840",
+    "62865"
+  ],
+  "description": "Orange juice",
+  "productModifiers": [
+    {
+      "position": 1,
+      "modifierId": "43152BBA-EE67-EB11-80F4-000D3A019254"
+    }
+  ]
+}
+```
+</CodeGroup>
+
+# Próximos Pasos
+
+Consulta la [Guía de integración de órdenes](/essentials/Order%20integration%20Guide).
+
+

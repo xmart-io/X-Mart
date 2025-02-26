@@ -1,0 +1,108 @@
+---
+title: 'Our API'
+description: 'Learn about external client integration, store and list overview, and discover v3 injection and status changes'
+---
+
+
+## 1. External client integration
+
+How to obtain an OAuth client?
+
+NOTE: Before requesting an OAuth client, it is necessary to have established a commercial agreement with Trade.
+
+Once this step is completed and the required information detailed below is gathered, you can start the account configuration process using the designated channels provided by X-Mart.
+
+Information needed to create an OAuth client:
+
+| Data                           | Required Information                                              | Description                                                          | Utility                                                     |
+|------------------------------- |-------------------------------------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------|
+| **Country (required)**             | Name                                                            | Name of the country where the application or website will operate.   | Necessary for creating delivery addresses, billing information, etc. |
+| **Allow invoices as final consumer (required)** | YES, NO                                                       | Show forms for entering billing information                          | Request billing information before making a purchase.       |
+| **City(ies) (required)**           | Name - Latitude - Longitude                                     | List of cities.                                                      | In Pickup allows obtaining the city's stores, locates the delivery address. |
+| **Sector(s) (required)**           | Name - Latitude - Longitude - City                              | List of sectors.                                                     | Along with the city, allows locating the delivery address, necessary for creating delivery addresses. |
+| **Brand(s) (required)**            | Brand name (Vendor) - Brief brand description - Unique brand identifier | List of brands.                                                     | Necessary for creating stores, sales channels, and lists.   |
+| **Brand logo(s) (optional)**       | Compressed file with brand logos (jpg/png), each image file must have the brand name. | Compressed file of brand images.                                     | In future versions, the brand logo may be displayed.        |
+| **Zones (required)**               | kml, kmz, csv files                                               | Files reflecting the polygons of the coverage areas.                 | Necessary to get the nearest store.                         |
+| **List of zones and stores (required)** | Name, identifier or store code - Coverage zone - City        | List reflecting the relationship between coverage zone and store.    | List used by Trade for configuring zones by store.          |
+
+
+
+## 2. Overview of Stores and Lists
+
+X-Mart provides a series of API endpoints that facilitate the management and synchronization of stores, sales channels, and lists within the platform. Below is a summary of the main endpoints available:
+
+### Stores and Sales Channels
+<AccordionGroup>
+  <Accordion icon="rocket" title="Get stores by brand (GET)">
+    This endpoint allows you to retrieve a list of stores associated with a specific brand. It is useful for getting an overview of all operational locations under a brand.
+  </Accordion>
+  <Accordion icon="rocket" title="Create Stores and Sales Channels (POST)">
+    This endpoint is used to add new stores and sales channels to the system. It facilitates the efficient expansion and updating of the store network.
+  </Accordion>
+    <Accordion icon="rocket" title="Get store by ID (GET)">
+    Allows you to retrieve specific details of a store based on its unique identifier. It is essential for the management and updating of precise information for each individual store.
+  </Accordion>
+  <Accordion icon="rocket" title="Change store status (PUT)">
+    With this endpoint, you can modify the operational status of a store (e.g., active or inactive). It is crucial for keeping the store's availability up-to-date in real-time.
+  </Accordion>
+</AccordionGroup>
+
+
+### Lists
+<AccordionGroup>
+  <Accordion icon="rocket" title="Get Synchronization Report (GET)">
+    This endpoint provides a detailed report of the data synchronization, allowing you to monitor and verify the status of the synchronizations performed.
+  </Accordion>
+  <Accordion icon="rocket" title="Register or Edit a List (PUT)">
+    This endpoint is used to add new stores and sales channels to the system. It facilitates the efficient expansion and updating of the store network.
+  </Accordion>
+</AccordionGroup>
+
+This set of endpoints ensures comprehensive and efficient management of store, sales, and list operations within X-Mart, offering robust tools for real-time control and monitoring.
+
+
+## 3. Explanation of v3 injection
+
+X-Mart's Service Catalog includes a series of methods that facilitate the management and synchronization of data on the platform. Below is a summary of the main endpoints available:
+
+<AccordionGroup>
+  <Accordion icon="rocket" title="Get Token">
+    Token Retrieval This endpoint allows obtaining an authentication token necessary to access other services on the platform. It is essential to ensure that all interactions with the API are secure and authorized.
+  </Accordion>
+  <Accordion icon="rocket" title="New Order Webhook">
+    New Order Webhook This endpoint is used to receive notifications of new orders. It allows external systems to integrate with X-Mart to process and manage orders in real-time.
+  </Accordion>
+  <Accordion icon="rocket" title="Order Retrieval">
+    Order Retrieval This endpoint allows retrieving specific details of an order based on its unique identifier. It is crucial for the management and tracking of orders, ensuring that each transaction is recorded and can be consulted at any time.
+  </Accordion>
+</AccordionGroup>
+
+
+## 4. Fulfillment (status changes)
+
+X-Mart provides a series of API endpoints that facilitate the management and processing of orders, ensuring an efficient flow from order placement to fulfillment. Below is a summary of the main endpoints available:
+
+<AccordionGroup>
+  <Accordion icon="rocket" title="POST: Obtain OAuth token with a registered client">
+    This endpoint allows obtaining an authentication token using a registered client. It is essential to ensure that all interactions with the API are secure and authorized.
+  </Accordion>
+  <Accordion icon="rocket" title="POST: Allows redeeming a local coupon using a UID and promotion code">
+    This endpoint is used to redeem a local coupon using a UID (Unique Identifier) and a promotion code. It facilitates the application of discounts and promotions on customer orders.
+  </Accordion>
+  <Accordion icon="rocket" title="POST: Registers tracking information for a specific order Allows registering tracking information for a specific order">
+    This endpoint is crucial for keeping customers informed about the status and location of their orders in real-time.
+  </Accordion>
+  
+  <Accordion icon="rocket" title="POST: Orders - Status Change This endpoint allows making changes to the order status">
+    It is vital for managing and updating the status of orders as they progress through the fulfillment process.
+  </Accordion>
+  <Accordion icon="rocket" title="PUT: Orders - Transfer Enables the transfer of orders between different entities or warehouses">
+    This endpoint is essential for managing logistics and ensuring that orders are delivered efficiently.
+  </Accordion>
+  <Accordion icon="rocket" title="POST: Pickup Orders - Dispatched This endpoint is used to mark pickup orders as dispatched">
+    It helps coordinate the collection of orders by customers and ensures the pickup process runs smoothly.
+  </Accordion>
+    <Accordion icon="rocket" title="GET: Orders - Payment Information Allows retrieving payment information for orders">
+    This endpoint is important for verifying and managing the payments made by customers, ensuring that all transactions are accurate and correctly recorded.
+  </Accordion>
+</AccordionGroup>

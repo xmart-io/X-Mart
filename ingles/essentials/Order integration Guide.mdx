@@ -1,0 +1,41 @@
+---
+title: 'Order integration Guide'
+description: ''
+icon: 'Link'
+---
+
+## Overview
+Use the Orders API to ingest and manage incoming orders from X-Mart. The API includes a webhook for real-time notifications of new orders.
+Once you have correctly configured your webhook URL and menu, you can retrieve and accept orders using the endpoints provided in the Orders API.
+
+### Understanding the Order Flow
+To successfully integrate orders, it is essential to follow the X-Mart order integration flow shown in the diagram below.
+Study the diagram carefully and ensure you understand each step before proceeding. This will ensure proper implementation and functionality of your integration.
+	Diagram Placeholder
+
+
+### Order Notifications
+The Orders API sends notifications to the webhook configured in your account whenever an order is placed. These notifications provide real-time updates for order ingestion.
+Key points to remember:
+	•	Your service (a single webhook URL) can receive webhooks for orders across multiple stores.
+	•	Ensure your webhook is capable of processing these notifications efficiently to avoid delays or errors.
+
+    <CardGroup cols={2}>
+  <Card
+    title="Inyection Web Services"
+    icon="Gear"
+    href="https://docs.x-mart.io/api-reference/injection/post"
+  >
+    Check the full guide on web services injection
+  </Card>
+  <Card
+    title="Create an account"
+    icon="key"
+    href="https://app.x-mart.io/auth/signin"
+  >
+    Are you ready? Let's create your account at X-Mart 🚀
+      </Card>
+</CardGroup>
+
+
+

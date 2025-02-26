@@ -21,9 +21,20 @@
       "attributes": {
         "type": "text/javascript"
       },
-      "content": "(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src=\"https://www.clarity.ms/tag/\"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, \"clarity\", \"script\", \"q253pnup6d\");"
+      "innerHTML": "(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, 'clarity', 'script', 'q253pnup6d');"
     }
   ],
+  "versions": ["English", "Español"],
+  "localized": {
+    "english": {
+      "title": "Docs (English)",
+      "path": "English"
+    },
+    "español": {
+      "title": "Docs (Español)",
+      "path": "Español"
+    }
+  },
   "topbarLinks": [
     {
       "name": "Support",
@@ -50,27 +61,68 @@
       "name": "Version",
       "icon": "newspaper",
       "url": "https://docs.x-mart.io/version"
-    }
+    } 
   ],
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "Our API","quickstart",
+      "pages": [
+        "ingles/introduction", 
+        "ingles/Our API",
+        "ingles/quickstart",
       {
         "group": "Concepts",
-        "pages": ["Concepts/Stores","Concepts/list","Concepts/Channels"]
+        "pages": [
+          "ingles/Concepts/Stores",
+          "ingles/Concepts/list",
+          "ingles/Concepts/Channels"]
       }
-    ]
+    ],
+    "version": "English"
   },
+  {
+    "group": "Primeros Pasos",
+    "pages": [
+      "espanol/introduccion", 
+      "espanol/Our API",
+      "espanol/quickstart",
+    {
+      "group": "Conceptos",
+      "pages": [
+        "espanol/Concepts/Stores",
+        "espanol/Concepts/list",
+        "espanol/Concepts/Channels"]
+    }
+  ],
+  "version": "Español"
+},
     {
       "group": "Guides",
       "pages": [
-        "essentials/auth",
-        "essentials/stores integration Guide",
-        "essentials/menu integration Guide",
-        "essentials/Order integration Guide"
-      ]
+        "ingles/essentials/auth",
+        "ingles/essentials/stores integration Guide",
+        "ingles/essentials/menu integration Guide",
+        "ingles/essentials/Order integration Guide"
+      ],
+      "version": "English"
     },
+    {
+      "group": "Guias",
+      "pages": [
+        "espanol/essentials/auth",
+        "espanol/essentials/stores integration Guide",
+        "espanol/essentials/menu integration Guide",
+        "espanol/essentials/Order integration Guide"
+      ],
+      "version": "Español"
+    },
+    
+
+
+
+
+
+
 
   
     {

@@ -1,0 +1,108 @@
+---
+title: 'Nuestra API'
+description: 'Learn about external client integration, store and list overview, and discover v3 injection and status changes'
+---
+
+
+## 1. Integración de clientes externos
+
+Cómo obtener un cliente OAuth?
+
+**Nota**: Antes de solicitar un cliente OAuth, es necesario haber establecido un acuerdo comercial con Trade.
+
+Una vez completado este paso y recopilada la información requerida que se detalla a continuación, puedes iniciar el proceso de configuración de la cuenta utilizando los canales designados por X-Mart.
+
+## Información necesaria para crear un cliente OAuth:
+
+
+| Datos                           | Información Requerida                                             | Descripción                                                          | Utilidad                                                     |
+|----------------------------------|-------------------------------------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------|
+| **País (obligatorio)**           | Nombre                                                            | Nombre del país donde operará la aplicación o el sitio web.         | Necesario para crear direcciones de entrega, información de facturación, etc. |
+| **Permitir facturas como consumidor final (obligatorio)** | Sí, No                                                           | Mostrar formularios para ingresar la información de facturación      | Solicitar información de facturación antes de realizar una compra. |
+| **Ciudad(es) (obligatorio)**     | Nombre - Latitud - Longitud                                       | Lista de ciudades.                                                  | En Pickup permite obtener las tiendas de la ciudad, ubica la dirección de entrega. |
+| **Sector(es) (obligatorio)**     | Nombre - Latitud - Longitud - Ciudad                              | Lista de sectores.                                                 | Junto con la ciudad, permite localizar la dirección de entrega, necesario para crear direcciones de entrega. |
+| **Marca(s) (obligatorio)**       | Nombre de la marca (Vendedor) - Breve descripción de la marca - Identificador único de la marca | Lista de marcas.                                                   | Necesario para crear tiendas, canales de ventas y listas.   |
+| **Logotipo(s) de la marca (opcional)** | Archivo comprimido con los logotipos de la marca (jpg/png), cada archivo de imagen debe tener el nombre de la marca. | Archivo comprimido con las imágenes de la marca.                     | En futuras versiones, el logotipo de la marca puede mostrarse. |
+| **Zonas (obligatorio)**          | Archivos kml, kmz, csv                                            | Archivos que reflejan los polígonos de las áreas de cobertura.      | Necesario para obtener la tienda más cercana.               |
+| **Lista de zonas y tiendas (obligatorio)** | Nombre, identificador o código de tienda - Zona de cobertura - Ciudad | Lista que refleja la relación entre la zona de cobertura y la tienda. | Lista utilizada por Trade para configurar las zonas por tienda. |
+
+
+## 2. Resumen de Tiendas y Listas
+
+X-Mart proporciona una serie de endpoints de API que facilitan la gestión y sincronización de tiendas, canales de venta y listas dentro de la plataforma. A continuación, se ofrece un resumen de los principales endpoints disponibles:
+
+### Tiendas y Canales de Venta
+<AccordionGroup>
+  <Accordion icon="rocket" title="Obtener tiendas por marca (GET)">
+    Permite recuperar una lista de tiendas asociadas a una marca específica, útil para obtener una visión general de todas las ubicaciones operativas bajo una marca.
+  </Accordion>
+  <Accordion icon="rocket" title="Crear tiendas y canales de ventas (POST)">
+    Este endpoint se utiliza para agregar nuevas tiendas y canales de ventas al sistema. Facilita la expansión y actualización eficiente de la red de tiendas.
+  </Accordion>
+  <Accordion icon="rocket" title="Obtener tienda por ID (GET)">
+    Permite recuperar detalles específicos de una tienda según su identificador único. Es esencial para la gestión y actualización de la información precisa de cada tienda.
+  </Accordion>
+  <Accordion icon="rocket" title="Cambiar el estado de la tienda (PUT)">
+    Con este endpoint, puedes modificar el estado operativo de una tienda (por ejemplo, activa o inactiva). Es crucial para mantener la disponibilidad de la tienda actualizada en tiempo real.
+  </Accordion>
+</AccordionGroup>
+
+
+### Listas
+<AccordionGroup>
+  <Accordion icon="rocket" title="Obtener reporte de sincronización (GET)">
+    Este endpoint proporciona un reporte detallado de la sincronización de datos, permitiéndote monitorear y verificar el estado de las sincronizaciones realizadas.
+  </Accordion>
+  <Accordion icon="rocket" title="Registrar o editar una lista (PUT)">
+    Este endpoint se utiliza para agregar nuevas tiendas y canales de ventas al sistema. Facilita la expansión y actualización eficiente de la red de tiendas.
+  </Accordion>
+</AccordionGroup>
+
+Este conjunto de endpoints garantiza una gestión integral y eficiente de las operaciones de tiendas, ventas y listas dentro de X-Mart, proporcionando herramientas robustas para el control y monitoreo en tiempo real.
+
+
+## 3. Explicación de la inyección v3
+
+El catálogo de servicios de X-Mart incluye una serie de métodos que facilitan la gestión y sincronización de datos en la plataforma. A continuación, se presenta un resumen de los principales endpoints disponibles:
+
+<AccordionGroup>
+  <Accordion icon="rocket" title="Obtener Token">
+    Recuperación de Token: Este endpoint permite obtener un token de autenticación necesario para acceder a otros servicios en la plataforma. Es esencial para asegurar que todas las interacciones con la API sean seguras y autorizadas.
+  </Accordion>
+  <Accordion icon="rocket" title="Webhook de Nueva Orden">
+    Webhook de Nueva Orden: Este endpoint se utiliza para recibir notificaciones de nuevas órdenes. Permite que sistemas externos se integren con X-Mart para procesar y gestionar órdenes en tiempo real.
+  </Accordion>
+  <Accordion icon="rocket" title="Recuperación de Orden">
+    Recuperación de Orden: Este endpoint permite obtener detalles específicos de una orden basada en su identificador único. Es crucial para la gestión y el seguimiento de las órdenes, asegurando que cada transacción esté registrada y pueda ser consultada en cualquier momento.
+  </Accordion>
+</AccordionGroup>
+
+
+## 4. Fulfillment (cambios de estado)
+
+X-Mart proporciona una serie de endpoints de API que facilitan la gestión y el procesamiento de órdenes, asegurando un flujo eficiente desde la colocación de la orden hasta su cumplimiento. A continuación, se presenta un resumen de los principales endpoints disponibles:
+
+<AccordionGroup>
+  <Accordion icon="rocket" title="POST: Obtener token OAuth con un cliente registrado">
+    Este endpoint permite obtener un token de autenticación utilizando un cliente registrado. Es esencial para asegurar que todas las interacciones con la API sean seguras y autorizadas.
+  </Accordion>
+  <Accordion icon="rocket" title="POST: Permite canjear un cupón local usando un UID y un código de promoción">
+    Este endpoint se utiliza para canjear un cupón local usando un UID (Identificador Único) y un código de promoción. Facilita la aplicación de descuentos y promociones en las órdenes de los clientes.
+  </Accordion>
+  <Accordion icon="rocket" title="POST: Registra información de seguimiento para una orden específica">
+    Este endpoint es crucial para mantener informados a los clientes sobre el estado y la ubicación de sus órdenes en tiempo real.
+  </Accordion>
+  
+  <Accordion icon="rocket" title="POST: Orders - Cambio de estado">
+    Este endpoint permite realizar cambios en el estado de la orden. Es vital para gestionar y actualizar el estado de las órdenes a medida que avanzan en el proceso de cumplimiento.
+  </Accordion>
+  <Accordion icon="rocket" title="PUT: Orders - Transferir">
+    Este endpoint es esencial para gestionar la logística y asegurar que las órdenes se entreguen de manera eficiente.
+  </Accordion>
+  <Accordion icon="rocket" title="POST: Orders de recogida - Despachadas">
+    Este endpoint se utiliza para marcar las órdenes de recogida como despachadas. Ayuda a coordinar la recolección de órdenes por parte de los clientes y asegura que el proceso de recogida se realice sin problemas.
+  </Accordion>
+  <Accordion icon="rocket" title="GET: Orders - Información de pago">
+    Este endpoint es importante para verificar y gestionar los pagos realizados por los clientes, asegurando que todas las transacciones sean precisas y estén correctamente registradas.
+  </Accordion>
+</AccordionGroup>

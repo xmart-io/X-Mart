@@ -1,0 +1,32 @@
+---
+title: Guía de Integración de Tiendas
+icon: 'store'
+---
+
+# Descripción General
+
+Gestiona tus tiendas de ecommerce utilizando los **endpoints de la API V3** para listas. Puedes crear, eliminar y actualizar tiendas, así como configurar horarios independientes para cada una.
+
+# Componentes
+
+- **Obtener tiendas por marca (GET)**
+Este endpoint permite recuperar una lista de tiendas asociadas a una marca específica. Es útil para obtener una visión general de todas las ubicaciones operativas bajo una marca.
+
+- **Crear Tiendas y Canales de Venta (POST)**
+Este endpoint se usa para agregar nuevas tiendas y canales de venta al sistema. Facilita la expansión eficiente y la actualización de la red de tiendas.
+
+- **Obtener tienda por ID (GET)**
+Permite recuperar detalles específicos de una tienda en base a su identificador único. Es esencial para la gestión y actualización de información precisa para cada tienda individual.
+
+- **Cambiar estado de la tienda (PUT)**
+Con este endpoint, puedes modificar el estado operativo de una tienda (por ejemplo, activa o inactiva). Es crucial para mantener la disponibilidad de la tienda actualizada en tiempo real.
+
+# Próximos Pasos
+
+Consulta la [guía de integración del menú](/essentials/menu%20integration%20Guide) para ver los pasos para construir tu menú.
+
+# Preguntas Frecuentes
+
+**Si envío una sincronización y tengo nuevos cambios, ¿es necesario realizar una sincronización completa de las tiendas o solo una sincronización del menú?**
+
+Para reflejar los nuevos cambios, es suficiente con enviar una sincronización del menú si los ajustes solo afectan a los elementos del menú. Sin embargo, si los cambios también incluyen modificaciones a las tiendas (como horarios, ubicaciones, etc.), se requerirá una sincronización completa de las tiendas.

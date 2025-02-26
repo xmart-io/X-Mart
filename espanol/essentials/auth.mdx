@@ -1,0 +1,67 @@
+---
+title: 'Autenticación'
+description: ''
+icon: 'gear'
+---
+
+<CodeGroup>
+
+```bash POST
+https://api.artisn.desarrollo-redbrand.com/api/authentication/login
+```
+</CodeGroup>
+
+## Requisitos
+
+El acceso a esta API puede requerir aprobación y configuración previas. Se recomienda revisar las guías de inicio rápido antes de la integración.
+
+## Parámetros de la solicitud
+
+Las solicitudes deben enviarse en formato application/json e incluir los siguientes parámetros:
+
+| **Key**         | **Type**   | **Description** |
+|----------------|-----------|----------------|
+| `client_id`    | `string`  | Identificador único para la aplicación cliente. |
+| `client_secret` | `string`  | Clave secreta de la aplicación cliente usada para autenticación. |
+| `grant_type`   | `string`  | Tipo de concesión usado para la autenticación. |
+
+## Ejemplo de Solicitud
+
+<CodeGroup>
+
+```bash Example request
+curl --request POST \
+  --url https://api.artisn.desarrollo-redbrand.com/api/authentication/login \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "client_id": "<string>",
+    "client_secret": "<string>",
+    "grant_type": "<string>"
+}'
+```
+</CodeGroup>
+
+## Ejemplo de Respuesta
+
+<CodeGroup>
+
+```bash Example response
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+}
+```
+</CodeGroup>
+
+## Campos de la Respuesta
+
+| **Key**        | **Type**   | **Description** |
+|---------------|-----------|----------------|
+| `accessToken` | `string`  | Token de acceso generado, utilizado para autenticarse contra los endpoints protegidos. |
+
+## Usando el Token
+
+El accessToken obtenido debe enviarse en el encabezado de la solicitud al llamar a los endpoints protegidos.
+
+# Próximos pasos
+
+Consulta la [Guía de integración de tienda](/essentials/stores%20integration%20Guide) para los pasos a seguir para construir tu menú.
