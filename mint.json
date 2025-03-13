@@ -116,6 +116,20 @@
       ],
       "version": "Español"
     },
+    {
+      "group": "Use Cases",
+      "pages": [
+        "ingles/Use cases/transaccional"
+      ],
+      "version": "English"
+    },
+    {
+      "group": "Casos de uso",
+      "pages": [
+        "espanol/Use cases/transaccional"
+      ],
+      "version": "Español"
+    },
     
 
 
@@ -125,35 +139,24 @@
 
 
   
-    {
-      "group": "V3 Lists API",
-      "pages": [
-        {
-          "group": "Auth",
-          "pages": ["api-reference/authentication/login/post"]
-        },
-        {
-          "group": "Stores and Sales Channels",
-          "pages": [
-            "api-reference/v3/stores/get",
-            "api-reference/v3/channels-stores/post",
-            "api-reference/v3/stores/getId",
-            "api-reference/v3/stores/put"
-          ]
-        },
-        {
-          "group": "Lists",
-          "pages": [
-            "api-reference/v3/lists/get","api-reference/v3/lists/put"
-          ]
-        },
-        {
-          "group": "Products",
-          "pages": [
-            "api-reference/v3/products/post","api-reference/v3/products/put","api-reference/v3/products/putpro"
-          ]
-        }
-      ]
+    {  
+      "group": "Auth",
+      "pages": ["api-reference/authentication/login/post"]
+    },
+    {  
+      "group": "Stores and Sales Channels",
+      "pages": ["api-reference/v3/stores/get",
+      "api-reference/v3/channels-stores/post",
+      "api-reference/v3/stores/getId",
+      "api-reference/v3/stores/put"]
+    },
+    {  
+      "group": "Lists",
+      "pages": ["api-reference/v3/lists/get","api-reference/v3/lists/put"]
+    },
+    {  
+      "group": "Products",
+      "pages": ["api-reference/v3/products/post","api-reference/v3/products/put","api-reference/v3/products/putpro"]
     },
     {
       "group": "Injection Web Services",
@@ -161,16 +164,17 @@
     },
     {
       "group": "Order Fulfillment",
-      "pages": ["api-reference/fulfillment/post","api-reference/fulfillment/postcoupon","api-reference/fulfillment/posttrack"
-            ,"api-reference/fulfillment/poststatus","api-reference/fulfillment/puttransfer","api-reference/fulfillment/postdispatched"
+      "pages": ["api-reference/fulfillment/post","api-reference/fulfillment/posttrack"
+            ,"api-reference/fulfillment/poststatus","api-reference/fulfillment/postdispatched"
             ,"api-reference/fulfillment/getpay"]
     },
     {
-      "group": "Api Products Detail",
-      "pages": ["api-reference/storedetails/test","api-reference/storedetails/storeexternal"]
+      "group": "Additional",
+      "pages": ["api-reference/fulfillment/puttransfer"]
     }
-  ],
-  "footerSocials": {
+    ],
+    "footerSocials": {
     "website": "https://www.artisn.io/xmart"
-  }
-}
+    }
+    }
+    
