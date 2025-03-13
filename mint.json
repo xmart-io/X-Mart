@@ -116,20 +116,6 @@
       ],
       "version": "Español"
     },
-    {
-      "group": "Use Cases",
-      "pages": [
-        "ingles/Use cases/transaccional"
-      ],
-      "version": "English"
-    },
-    {
-      "group": "Casos de uso",
-      "pages": [
-        "espanol/Use cases/transaccional"
-      ],
-      "version": "Español"
-    },
     
 
 
@@ -160,17 +146,17 @@
     },
     {
       "group": "Injection Web Services",
-      "pages": ["api-reference/injection/post","api-reference/injection/postorder","api-reference/injection/get"]
+      "pages": ["api-reference/injection/postorder","api-reference/injection/get"]
     },
     {
       "group": "Order Fulfillment",
-      "pages": ["api-reference/fulfillment/post","api-reference/fulfillment/posttrack"
-            ,"api-reference/fulfillment/poststatus","api-reference/fulfillment/postdispatched"
-            ,"api-reference/fulfillment/getpay"]
+      "pages": ["api-reference/fulfillment/posttrack"
+            ,"api-reference/fulfillment/poststatus","api-reference/fulfillment/postdispatched","api-reference/fulfillment/puttransfer"
+            ]
     },
     {
-      "group": "Additional",
-      "pages": ["api-reference/fulfillment/puttransfer"]
+      "group": "Switch Transactional",
+      "pages": ["api-reference/fulfillment/getpay"]
     }
     ],
     "footerSocials": {
