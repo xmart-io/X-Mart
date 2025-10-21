@@ -913,7 +913,7 @@
     "/order/{orderId}": {
       "get": {
         "summary": "Retrieve order details",
-        "description": "Gets detailed information of a specific order by its ID.",
+        "description": "Gets detailed information of a specific order by its ID, including products, pricing, client details, store info, shipping, payments, marketing and additional info.",
         "parameters": [
           {
             "name": "orderId",
@@ -922,8 +922,12 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID of the order to query."
+            "description": "ID of the order to query. Example: '0000012194-081101'"
           }
+        ],
+        "tags": [
+          "Orders",
+          "Read"
         ],
         "responses": {
           "200": {
@@ -933,29 +937,151 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "orderId": { "type": "string" },
-                    "accountId": { "type": "string" },
-                    "account": { "type": "string" },
-                    "source": { "type": "string" },
-                    "platform": { "type": "string" },
-                    "createdAt": { "type": "string", "format": "date-time" },
+                    "orderId": {
+                      "type": "string",
+                      "description": "Unique order ID"
+                    },
+                    "accountId": {
+                      "type": "string",
+                      "description": "ID of the account that placed the order"
+                    },
+                    "account": {
+                      "type": "string",
+                      "description": "Account name"
+                    },
+                    "source": {
+                      "type": "string",
+                      "description": "Source of the order, e.g., App or Kiosco"
+                    },
+                    "platform": {
+                      "type": "string",
+                      "description": "Platform used to place the order, e.g., Android, iOS"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Order creation timestamp"
+                    },
+                    "channelId": {
+                      "type": "string",
+                      "description": "Channel ID of the order"
+                    },
+                    "channelName": {
+                      "type": "string",
+                      "description": "Channel name of the order"
+                    },
+                    "selectedShippingMethod": {
+                      "type": "string",
+                      "description": "Selected shipping method, e.g., delivery or pickup"
+                    },
+                    "accumulatePoints": {
+                      "type": "boolean",
+                      "description": "Whether the order accumulates loyalty points"
+                    },
+                    "redeemPoints": {
+                      "type": "boolean",
+                      "description": "Whether the order redeems loyalty points"
+                    },
+                    "stock": {
+                      "type": "boolean",
+                      "description": "Indicates if stock is available"
+                    },
+                    "discount": {
+                      "type": "boolean",
+                      "description": "Indicates if a discount was applied"
+                    },
+                    "orderComment": {
+                      "type": "string",
+                      "description": "General comment on the order"
+                    },
                     "client": {
                       "type": "object",
+                      "description": "Information about the client",
                       "properties": {
-                        "uid": { "type": "string" },
-                        "name": { "type": "string" },
-                        "lastName": { "type": "string" },
-                        "phone": { "type": "string" },
-                        "email": { "type": "string" }
+                        "uid": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "lastName": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "govIdType": {
+                          "type": "string"
+                        },
+                        "govIdNumber": {
+                          "type": "string"
+                        },
+                        "billingInformation": {
+                          "type": "object",
+                          "description": "Billing info for the client",
+                          "properties": {
+                            "businessName": {
+                              "type": "string"
+                            },
+                            "govIdType": {
+                              "type": "string"
+                            },
+                            "govIdNumber": {
+                              "type": "string"
+                            },
+                            "phone": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "address": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "additionalInfo": {
+                          "type": "object",
+                          "properties": {
+                            "birthdate": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "gender": {
+                              "type": "string"
+                            }
+                          }
+                        }
                       }
                     },
                     "store": {
                       "type": "object",
+                      "description": "Store details where the order was placed",
                       "properties": {
-                        "id": { "type": "integer" },
-                        "name": { "type": "string" },
-                        "latitude": { "type": "string" },
-                        "longitude": { "type": "string" }
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "vendorId": {
+                          "type": "integer"
+                        },
+                        "vendorName": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "string"
+                        },
+                        "longitude": {
+                          "type": "string"
+                        }
                       }
                     },
                     "order": {
@@ -966,19 +1092,782 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "productId": { "type": "string" },
-                              "product": { "type": "string" },
-                              "quantity": { "type": "integer" },
+                              "productId": {
+                                "type": "string"
+                              },
+                              "product": {
+                                "type": "string"
+                              },
+                              "quantity": {
+                                "type": "integer"
+                              },
+                              "productComment": {
+                                "type": "string"
+                              },
+                              "rewardId": {
+                                "type": "string"
+                              },
                               "price": {
-                                "type": "object",
-                                "properties": {
-                                  "unitPrice": { "type": "object" },
-                                  "totalPrice": { "type": "object" }
+                                "type": "object"
+                              },
+                              "modifierGroups": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object"
                                 }
+                              },
+                              "additionalInfo": {
+                                "type": "object"
                               }
                             }
                           }
+                        },
+                        "stock": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
                         }
+                      }
+                    },
+                    "shippingMethod": {
+                      "type": "object",
+                      "description": "Shipping and pickup info"
+                    },
+                    "payments": {
+                      "type": "object",
+                      "description": "Payment details, including totals, discounts, taxes and payment methods"
+                    },
+                    "marketing": {
+                      "type": "object",
+                      "description": "Marketing info: loyalty points and coupons"
+                    },
+                    "additionalInfo": {
+                      "type": "object",
+                      "description": "Extra information, e.g., kiosk IP"
+                    }
+                  },
+                  "example": {
+                    "orderId": "0000012194-081101",
+                    "accountId": "10",
+                    "account": "Artisn App",
+                    "source": "App|Kiosco",
+                    "platform": "Android",
+                    "createdAt": "2022-11-02 08:14:00",
+                    "channelId": "1",
+                    "channelName": "Domicilio App",
+                    "selectedShippingMethod": "delivery|pickup",
+                    "accumulatePoints": true,
+                    "redeemPoints": true,
+                    "stock": false,
+                    "discount": true,
+                    "orderComment": "Comentario General del pedido",
+                    "client": {
+                      "uid": "Bwsyaszx36b5UXXdqFDFBi6ki7j1",
+                      "name": "Sebastian",
+                      "lastName": "Rodriguez",
+                      "phone": "0972241639",
+                      "email": "sebas.rodriguez83@gmail.com",
+                      "govIdType": "DNI",
+                      "govIdTypeExternal": null,
+                      "govIdNumber": "1751930486",
+                      "externalId": null,
+                      "id": "402399",
+                      "billingInformation": {
+                        "businessName": "Sebastian Rodriguez",
+                        "govIdType": "CI",
+                        "govIdTypeExternal": null,
+                        "govIdNumber": "1751930486",
+                        "phone": "0969150917",
+                        "email": "sebas.rodriguez83@gmail.com",
+                        "address": "La Venecia 1 S57 415 y E4C",
+                        "externalId": "1255",
+                        "id": "205474"
+                      },
+                      "additionalInfo": {
+                        "birthdate": "1984-09-18",
+                        "gender": "masculino"
+                      }
+                    },
+                    "store": {
+                      "id": 10,
+                      "name": "Gran Santa Fe",
+                      "code": "T001",
+                      "vendorId": 8,
+                      "vendorName": "Blue Co",
+                      "latitude": "-2.32423423",
+                      "longitude": "-80.21312312"
+                    },
+                    "order": {
+                      "products": [
+                        {
+                          "productId": "991117",
+                          "product": "Hamburguesa + papas",
+                          "quantity": 1,
+                          "productComment": "incluye upsale y desct. pago puntos",
+                          "rewardId": "UUID_DESCPUNTOS",
+                          "price": {
+                            "unitPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "7.7826",
+                              "discountPercentage": "100.0000",
+                              "discountsValue": "7.7826",
+                              "subtotalIncludeDiscounts": "0.0000",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "0.0000",
+                              "total": "0.0000",
+                              "suggestedPrice": "8.9900"
+                            },
+                            "totalPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "7.7826",
+                              "discountPercentage": "100.0000",
+                              "discountsValue": "7.7826",
+                              "subtotalIncludeDiscounts": "0.0000",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "0.0000",
+                              "total": "0.0000",
+                              "suggestedPrice": "8.9900"
+                            }
+                          },
+                          "modifierGroups": [
+                            {
+                              "id": "1121",
+                              "description": "Escoja su acompañante",
+                              "selectedModifiers": [
+                                {
+                                  "answerId": "1055",
+                                  "productId": "1025",
+                                  "product": "Papas",
+                                  "rewardId": "UUID_DESCPUNTOS",
+                                  "quantity": 1,
+                                  "removedQuantity": null,
+                                  "price": {
+                                    "unitPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "1.7304",
+                                      "discountPercentage": "100",
+                                      "discountsValue": "1.7304",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "2.2500"
+                                    },
+                                    "totalPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "1.7304",
+                                      "discountPercentage": "100",
+                                      "discountsValue": "1.7304",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "2.2500"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1133",
+                              "description": "Personalice su hamburguesa. Agregue o quite ingredientes",
+                              "selectedModifiers": [
+                                {
+                                  "answerId": "1088",
+                                  "productId": "1025",
+                                  "rewardId": null,
+                                  "product": "Sin Tomate",
+                                  "quantity": null,
+                                  "removedQuantity": 1,
+                                  "price": {
+                                    "unitPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "0.0000",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "0.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "0.0000"
+                                    },
+                                    "totalPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "0.0000",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "0.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "0.0000"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "additionalInfo": {
+                            "strategy": "Upsale",
+                            "relatedProductId": "99105",
+                            "redeemed": true,
+                            "sort": 1,
+                            "referenceUnitPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "6.0783",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "6.0783",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "0.9177",
+                              "total": "6.9900",
+                              "suggestedPrice": "11.2000"
+                            },
+                            "referenceTotalPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "6.0783",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "6.0783",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "0.9177",
+                              "total": "6.9900",
+                              "suggestedPrice": "11.2000"
+                            },
+                            "unitMeasurement": "unidad|caja"
+                          }
+                        },
+                        {
+                          "productId": "991117",
+                          "product": "Sanduche y bebida. Extra nachos + salsa bbq",
+                          "quantity": 2,
+                          "productComment": "Producto con modificador 3er nivel",
+                          "rewardId": null,
+                          "price": {
+                            "unitPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "6.9478",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "6.9478",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "1.0422",
+                              "total": "7.9900",
+                              "suggestedPrice": "10.9900"
+                            },
+                            "totalPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "13.8956",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "13.8956",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "2.0843",
+                              "total": "15.9799",
+                              "suggestedPrice": "21.9800"
+                            }
+                          },
+                          "modifierGroups": [
+                            {
+                              "id": "1120",
+                              "description": "Escoja su bebida",
+                              "selectedModifiers": [
+                                {
+                                  "productId": "1025",
+                                  "answerId": "1065",
+                                  "product": "Pepsi",
+                                  "quantity": 2,
+                                  "removedQuantity": null,
+                                  "price": {
+                                    "unitPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "0.0000",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "0.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "0.9900"
+                                    },
+                                    "totalPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "0.0000",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "0.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "1.9800"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1125",
+                              "description": "Agregue extra nachos, ensalada o postre",
+                              "selectedModifiers": [
+                                {
+                                  "productId": "1035",
+                                  "answerId": "1044",
+                                  "product": "Nachos",
+                                  "quantity": 2,
+                                  "removedQuantity": null,
+                                  "price": {
+                                    "unitPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "4.3391",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "4.3391",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "0.6509",
+                                      "total": "4.9900",
+                                      "suggestedPrice": "0.0000"
+                                    },
+                                    "totalPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "8.6782",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "8.6782",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "1.3017",
+                                      "total": "9.9799",
+                                      "suggestedPrice": "0.0000"
+                                    }
+                                  },
+                                  "modifierGroups": [
+                                    {
+                                      "id": "1127",
+                                      "description": "Seleccione el tipo de salsa",
+                                      "selectedModifiers": [
+                                        {
+                                          "productId": "1033",
+                                          "answerId": "1018",
+                                          "product": "Salsa BBQ",
+                                          "quantity": 1,
+                                          "removedQuantity": null,
+                                          "price": {
+                                            "unitPrice": {
+                                              "currencyCode": "USD",
+                                              "totalBeforeSale": "0.0000",
+                                              "subtotalWithoutTaxes": "2.2174",
+                                              "discountPercentage": "0.0000",
+                                              "discountsValue": "0.0000",
+                                              "subtotalIncludeDiscounts": "2.2174",
+                                              "taxesPercentage": "15.0000",
+                                              "taxValue": "0.3326",
+                                              "total": "2.5500",
+                                              "suggestedPrice": "4.7500"
+                                            },
+                                            "totalPrice": {
+                                              "currencyCode": "USD",
+                                              "totalBeforeSale": "0.0000",
+                                              "subtotalWithoutTaxes": "2.2174",
+                                              "discountPercentage": "0.0000",
+                                              "discountsValue": "0.0000",
+                                              "subtotalIncludeDiscounts": "2.2174",
+                                              "taxesPercentage": "15.0000",
+                                              "taxValue": "0.3326",
+                                              "total": "2.5500",
+                                              "suggestedPrice": "4.7500"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "additionalInfo": {}
+                        },
+                        {
+                          "productId": "44368",
+                          "product": "Wings + papas",
+                          "quantity": 1,
+                          "productComment": "incluye reward de producto.",
+                          "rewardId": "UUID_CUPON_PRODUCT",
+                          "price": {
+                            "unitPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "8.6870",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "8.6870",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "1.3031",
+                              "total": "9.9901",
+                              "suggestedPrice": "12.9900"
+                            },
+                            "totalPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "8.6870",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "8.6870",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "1.3031",
+                              "total": "9.9901",
+                              "suggestedPrice": "12.9900"
+                            }
+                          },
+                          "modifierGroups": [
+                            {
+                              "id": "1121",
+                              "description": "Escoja su acompañante",
+                              "selectedModifiers": [
+                                {
+                                  "productId": "1025",
+                                  "product": "Papas",
+                                  "quantity": 1,
+                                  "removedQuantity": null,
+                                  "price": {
+                                    "unitPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "1.9565",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "1.9565",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "0.2935",
+                                      "total": "2.2500",
+                                      "suggestedPrice": "2.2500"
+                                    },
+                                    "totalPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "1.9565",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "1.9565",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "0.2935",
+                                      "total": "2.2500",
+                                      "suggestedPrice": "2.2500"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "additionalInfo": {}
+                        }
+                      ],
+                      "stock": [
+                        {
+                          "productId": "10030",
+                          "stock": 30
+                        }
+                      ]
+                    },
+                    "shippingMethod": {
+                      "delivery": {
+                        "deliveryDate": "2022-07-05 18:24:00",
+                        "latitude": "-2.2244266000000",
+                        "longitude": "-80.9044868000000",
+                        "country": "Colombia",
+                        "city": "Bogota",
+                        "mainStreet": "Calle 100 # 15-34",
+                        "number": "",
+                        "secondaryStreet": "",
+                        "reference": "Casa gris",
+                        "propertyId": 1,
+                        "observationsAddress": "No sirve el intercomunicador",
+                        "numberContactAddress": "101019987435",
+                        "zipCode": "170904",
+                        "nickName": "casa",
+                        "externalId": "2056",
+                        "id": "3012312",
+                        "driverArrivalDateInStore": "2024-02-21T12:47:27Z",
+                        "additionalInfo": {
+                          "deliveryConfirmationCode": "PZ051"
+                        }
+                      },
+                      "pickup": {
+                        "pickupDate": "2022-07-05 18:39:00",
+                        "prepDate": "2022-07-05 18:24:00",
+                        "prepTimeUnit": "minute",
+                        "prepTime": 15,
+                        "propertyId": 1,
+                        "carryOutOptions": "PickUp-LLevar",
+                        "contactMethods": [
+                          {
+                            "type": "pager",
+                            "identifier": "PG123"
+                          },
+                          {
+                            "type": "sms",
+                            "countryCode": "+57",
+                            "phoneNumber": "3001234567"
+                          },
+                          {
+                            "type": "whatsapp",
+                            "countryCode": "+57",
+                            "phoneNumber": "3007654321"
+                          }
+                        ]
+                      }
+                    },
+                    "payments": {
+                      "totals": [
+                        {
+                          "rewardId": "UUID_CUPON_DESC_TOTAL",
+                          "currencyCode": "USD",
+                          "totalBeforeSale": "0.0000",
+                          "subtotalWithoutTaxes": "39.3478",
+                          "discountPercentage": "20.0000",
+                          "discountsValue": "7.8696",
+                          "subtotalIncludeDiscounts": "31.4782",
+                          "taxesPercentage": "15.0000",
+                          "taxValue": "4.7217",
+                          "total": "36.2000"
+                        }
+                      ],
+                      "shippingCost": [
+                        {
+                          "quantity": 1,
+                          "productId": "111",
+                          "rewardId": "UUID_CUPON_FREEDELIVERY",
+                          "currencyCode": "USD",
+                          "subtotalWithoutTaxes": "2.3913",
+                          "discountPercentage": "100.0000",
+                          "discountsValue": "2.3913",
+                          "subtotalIncludeDiscounts": "0.0000",
+                          "taxesPercentage": "15.0000",
+                          "taxValue": "0.0000",
+                          "total": "0.0000"
+                        }
+                      ],
+                      "extraCharges": [
+                        {
+                          "quantity": 1,
+                          "productId": "125",
+                          "description": "tip",
+                          "currencyCode": "USD",
+                          "subtotalWithoutTaxes": "0.8696",
+                          "discountPercentage": "0.0000",
+                          "discountsValue": "0.0000",
+                          "subtotalIncludeDiscounts": "0.8696",
+                          "taxesPercentage": "15.0000",
+                          "taxValue": "0.1304",
+                          "total": "1.0000"
+                        },
+                        {
+                          "quantity": 1,
+                          "productId": null,
+                          "description": "packing cost",
+                          "currencyCode": "USD",
+                          "subtotalWithoutTaxes": "3.0435",
+                          "discountPercentage": "0.0000",
+                          "discountsValue": "0.0000",
+                          "subtotalIncludeDiscounts": "3.0435",
+                          "taxesPercentage": "15.0000",
+                          "taxValue": "0.4565",
+                          "total": "3.5000"
+                        }
+                      ],
+                      "discounts": [
+                        {
+                          "rewardId": "UUI_DESCPUNTOS",
+                          "productId": "991117",
+                          "currencyCode": "USD",
+                          "totalBeforeSale": "0.0000",
+                          "subtotalWithoutTaxes": "7.7826",
+                          "discountPercentage": "100.0000",
+                          "discountsValue": "7.7826",
+                          "subtotalIncludeDiscounts": "0.0000"
+                        },
+                        {
+                          "rewardId": "UUI_DESCPUNTOS",
+                          "productId": "1025",
+                          "currencyCode": "USD",
+                          "totalBeforeSale": "0.0000",
+                          "subtotalWithoutTaxes": "1.7304",
+                          "discountPercentage": "100",
+                          "discountsValue": "1.7304",
+                          "subtotalIncludeDiscounts": "0.0000"
+                        },
+                        {
+                          "rewardId": "UUID_CUPON_FREEDELIVERY",
+                          "productId": "111",
+                          "currencyCode": "USD",
+                          "totalBeforeSale": "0.0000",
+                          "subtotalWithoutTaxes": "2.3913",
+                          "discountPercentage": "100.0000",
+                          "discountsValue": "2.3913",
+                          "subtotalIncludeDiscounts": "0.0000"
+                        },
+                        {
+                          "rewardId": "UUID_CUPON_DESC_TOTAL",
+                          "productId": "111",
+                          "currencyCode": "USD",
+                          "totalBeforeSale": "0.0000",
+                          "subtotalWithoutTaxes": "2.3913",
+                          "discountPercentage": "100.0000",
+                          "discountsValue": "2.3913",
+                          "subtotalIncludeDiscounts": "0.0000"
+                        }
+                      ],
+                      "taxes": [
+                        {
+                          "name": "IVA 15%",
+                          "currencyCode": "USD",
+                          "subtotalWithoutTaxes": "31.4782",
+                          "percentage": "15.0000",
+                          "total": "4.7217"
+                        }
+                      ],
+                      "paymentMethods": [
+                        {
+                          "processor": "Kushki",
+                          "currencyCode": "USD",
+                          "paymentMethodCode": "2",
+                          "transactionType": "credit",
+                          "transactionId": "049258058662543450",
+                          "transactionStatus": "APPROVED",
+                          "tid": "CA303015",
+                          "mid": "2000026002",
+                          "authorizationCode": "428364",
+                          "voucher": "358642",
+                          "referenceNumber": "704891",
+                          "exactPayment": true,
+                          "customerCashAmount": "0.0000",
+                          "totalBill": "30.0000",
+                          "acquirer": {
+                            "code": "004",
+                            "name": "BANCO GUAYAQUIL"
+                          },
+                          "card": {
+                            "mask": "459424XXXXXXX456",
+                            "bin": "459424",
+                            "lastFourDigits": "1456",
+                            "brand": "MAST",
+                            "externalCardBrandId": "28FA9351-5F07-EB11-80F1-000D3A019254",
+                            "holder": "Sebastian Rodriguez",
+                            "cardCountry": "Ecuador"
+                          },
+                          "transactionDate": {
+                            "date": "2022-11-02 08:15:30",
+                            "timeZoneType": 3,
+                            "timeZoneName": "America/Guayaquil",
+                            "weekNumber": 1
+                          },
+                          "metadata": {
+                            "aid": "Specific to Ecuador (application identifier)",
+                            "responseCode": "Transaction response code, '00' for success",
+                            "transactionDate": "Date of the transaction in format YYYYMMDD",
+                            "transactionTime": "Time of the transaction in format HHMMSS",
+                            "cardBrand": "Card brand (e.g., VISA, MASTERCARD, ELECTRON)",
+                            "batch": "Batch to which the transaction belongs",
+                            "rrn": "Recovery Reference Number (RRN)",
+                            "taxAmount": "Tax amount in the transaction (e.g., VAT)",
+                            "totalPurchaseAmount": "Total value of the purchase",
+                            "responseMessage": "Response message (e.g., 'OK')",
+                            "authorizationResponseMessage": "Authorization response message (e.g., 'APPROVED TRANSACTION')"
+                          }
+                        },
+                        {
+                          "processor": "Efectivo",
+                          "currencyCode": "USD",
+                          "paymentMethodCode": "1",
+                          "transactionType": null,
+                          "transactionId": null,
+                          "transactionStatus": null,
+                          "tid": null,
+                          "mid": null,
+                          "authorizationCode": null,
+                          "voucher": null,
+                          "referenceNumber": null,
+                          "exactPayment": true,
+                          "customerCashAmount": "0.0000",
+                          "totalBill": "6.2000",
+                          "acquirer": null,
+                          "card": null,
+                          "transactionDate": {
+                            "date": "2022-11-02 08:15:40",
+                            "timeZoneType": 3,
+                            "timeZoneName": "America/Guayaquil",
+                            "weekNumber": 1
+                          },
+                          "metadata": {
+                            "aid": "Specific to Ecuador (application identifier)",
+                            "responseCode": "Transaction response code, '00' for success",
+                            "transactionDate": "Date of the transaction in format YYYYMMDD",
+                            "transactionTime": "Time of the transaction in format HHMMSS",
+                            "cardBrand": "Card brand (e.g., VISA, MASTERCARD, ELECTRON)",
+                            "batch": "Batch to which the transaction belongs",
+                            "rrn": "Recovery Reference Number (RRN)",
+                            "taxAmount": "Tax amount in the transaction (e.g., VAT)",
+                            "totalPurchaseAmount": "Total value of the purchase",
+                            "responseMessage": "Response message (e.g., 'OK')",
+                            "authorizationResponseMessage": "Authorization response message (e.g., 'APPROVED TRANSACTION')"
+                          }
+                        }
+                      ]
+                    },
+                    "marketing": {
+                      "loyalty": {
+                        "accumulation": {
+                          "storeCost": "100.0000",
+                          "marketingCost": "112.0000",
+                          "totalPoints": "212.0000"
+                        },
+                        "redemption": {
+                          "storeCost": "80.0000",
+                          "marketingCost": "160.0000",
+                          "totalPoints": "240.0000"
+                        },
+                        "accountBalancePoints": "20"
+                      },
+                      "coupons": [
+                        {
+                          "rewardId": "UUI_DESCPUNTOS",
+                          "name": "Descuento para pago con puntos",
+                          "additionalInfo": {}
+                        },
+                        {
+                          "rewardId": "UUID_CUPON_PRODUCT",
+                          "name": "Cupon de producto",
+                          "additionalInfo": {}
+                        },
+                        {
+                          "rewardId": "UUID_CUPON_FREEDELIVERY",
+                          "name": "Beneficio Free Delivery",
+                          "additionalInfo": {}
+                        },
+                        {
+                          "rewardId": "UUID_CUPON_DESC_TOTAL",
+                          "name": "DEscuento al total de la orden",
+                          "additionalInfo": {}
+                        }
+                      ]
+                    },
+                    "additionalInfo": {
+                      "kiosk": {
+                        "ip": "10.101.4.32"
                       }
                     }
                   }
@@ -987,12 +1876,30 @@
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string", "example": "Unauthorized" }
+                  }
+                }
+              }
+            }
           },
           "404": {
-            "description": "Order not found"
+            "description": "Order not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "error": { "type": "string", "example": "Order not found" } }
+                }
+              }
+            }
           }
-        },
+        }
       }
     },
     "/api/v3/products/{vendorId}": {
