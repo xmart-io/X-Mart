@@ -1108,43 +1108,385 @@
                                 "type": "string"
                               },
                               "price": {
-                                "type": "object"
+                                "type": "object",
+                                "properties": {
+                                  "unitPrice": {
+                                    "type": "object",
+                                    "properties": {
+                                      "currencyCode": { "type": "string" },
+                                      "totalBeforeSale": { "type": "string" },
+                                      "subtotalWithoutTaxes": { "type": "string" },
+                                      "discountPercentage": { "type": "string" },
+                                      "discountsValue": { "type": "string" },
+                                      "subtotalIncludeDiscounts": { "type": "string" },
+                                      "taxesPercentage": { "type": "string" },
+                                      "taxValue": { "type": "string" },
+                                      "total": { "type": "string" },
+                                      "suggestedPrice": { "type": "string" }
+                                    }
+                                  },
+                                  "totalPrice": {
+                                    "type": "object",
+                                    "properties": {
+                                      "currencyCode": { "type": "string" },
+                                      "totalBeforeSale": { "type": "string" },
+                                      "subtotalWithoutTaxes": { "type": "string" },
+                                      "discountPercentage": { "type": "string" },
+                                      "discountsValue": { "type": "string" },
+                                      "subtotalIncludeDiscounts": { "type": "string" },
+                                      "taxesPercentage": { "type": "string" },
+                                      "taxValue": { "type": "string" },
+                                      "total": { "type": "string" },
+                                      "suggestedPrice": { "type": "string" }
+                                    }
+                                  }
+                                }
                               },
                               "modifierGroups": {
                                 "type": "array",
                                 "items": {
-                                  "type": "object"
+                                  "type": "object",
+                                  "properties": {
+                                    "id": { "type": "string" },
+                                    "description": { "type": "string" },
+                                    "selectedModifiers": { 
+                                      "type": "array", 
+                                      "items": { 
+                                        "type": "object", 
+                                        "properties": { 
+                                          "answerId": { "type": "string" }, 
+                                          "productId": { "type": "string" }, 
+                                          "product": { "type": "string" }, 
+                                          "rewardId": { "type": "string" }, 
+                                          "quantity": { "type": "integer" }, 
+                                          "removedQuantity": { 
+                                            "type": "string",
+                                            "nullable": true
+                                          },
+                                          "price": {
+                                            "type": "object",
+                                            "properties": {
+                                              "unitPrice":{
+                                                "type": "object",
+                                                "properties": {
+                                                  "currencyCode": { "type": "string" },
+                                                  "totalBeforeSale": { "type": "string" },
+                                                  "subtotalWithoutTaxes": { "type": "string" },
+                                                  "discountPercentage": { "type": "string" },
+                                                  "discountsValue": { "type": "string" },
+                                                  "subtotalIncludeDiscounts": { "type": "string" },
+                                                  "taxesPercentage": { "type": "string" },
+                                                  "taxValue": { "type": "string" },
+                                                  "total": { "type": "string" },
+                                                  "suggestedPrice": { "type": "string" }
+                                                }
+                                              },
+                                              "totalPrice": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "currencyCode": { "type": "string" },
+                                                  "totalBeforeSale": { "type": "string" },
+                                                  "subtotalWithoutTaxes": { "type": "string" },
+                                                  "discountPercentage": { "type": "string" },
+                                                  "discountsValue": { "type": "string" },
+                                                  "subtotalIncludeDiscounts": { "type": "string" },
+                                                  "taxesPercentage": { "type": "string" },
+                                                  "taxValue": { "type": "string" },
+                                                  "total": { "type": "string" },
+                                                  "suggestedPrice": { "type": "string" }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
                                 }
                               },
                               "additionalInfo": {
-                                "type": "object"
+                                "type": "object",
+                                "properties": {
+                                  "strategy": { "type": "string" },
+                                  "relatedProductId": { "type": "string" },
+                                  "redeemed": { "type": "boolean" },
+                                  "sort": { "type": "integer" },
+                                  "referenceUnitPrice": { "type": "object", "properties": { "currencyCode": { "type": "string" }, "totalBeforeSale": { "type": "string" }, "subtotalWithoutTaxes": { "type": "string" }, "discountPercentage": { "type": "string" }, "discountsValue": { "type": "string" }, "subtotalIncludeDiscounts": { "type": "string" }, "taxesPercentage": { "type": "string" }, "taxValue": { "type": "string" }, "total": { "type": "string" }, "suggestedPrice": { "type": "string" } } },
+                                  "referenceTotalPrice": { "type": "object", "properties": { "currencyCode": { "type": "string" }, "totalBeforeSale": { "type": "string" }, "subtotalWithoutTaxes": { "type": "string" }, "discountPercentage": { "type": "string" }, "discountsValue": { "type": "string" }, "subtotalIncludeDiscounts": { "type": "string" }, "taxesPercentage": { "type": "string" }, "taxValue": { "type": "string" }, "total": { "type": "string" }, "suggestedPrice": { "type": "string" } } },
+                                  "unitMeasurement": { "type": "string" }
+                                }
                               }
                             }
                           }
-                        },
+                        }, 
                         "stock": {
-                          "type": "array",
-                          "items": {
-                            "type": "object"
+                          "type": "object",
+                          "properties": {
+                            "productId": { "type": "string" },
+                            "stock": { "type": "integer" }
                           }
                         }
                       }
                     },
                     "shippingMethod": {
                       "type": "object",
-                      "description": "Shipping and pickup info"
+                      "properties": {
+                        "delivery": {
+                          "type": "object",
+                          "properties": {
+                            "deliveryDate": { "type": "string" },
+                            "latitude": { "type": "string" },
+                            "longitude": { "type": "string" },
+                            "country": { "type": "string" },
+                            "city": { "type": "string" },
+                            "mainStreet": { "type": "string" },
+                            "number": { "type": "string" },
+                            "secondaryStreet": { "type": "string" },
+                            "reference": { "type": "string" },
+                            "propertyId": { "type": "integer" },
+                            "observationsAddress": { "type": "string" },
+                            "numberContactAddress": { "type": "string" },
+                            "zipCode": { "type": "string" },
+                            "nickName": { "type": "string" },
+                            "externalId": { "type": "string" },
+                            "id": { "type": "string" },
+                            "driverArrivalDateInStore": { "type": "string" },
+                            "additionalInfo": { 
+                              "type": "object", 
+                              "properties": { "deliveryConfirmationCode": { "type": "string" } } }
+                          }
+                        },  
+                        "pickup":{
+                          "type": "object",
+                          "properties": {
+                            "pickupDate": { "type": "string", "format": "date-time" },
+                            "prepDate": { "type": "string", "format": "date-time" },
+                            "prepTimeUnit": { "type": "string" },
+                            "prepTime": { "type": "integer" },
+                            "propertyId": { "type": "integer" },
+                            "carryOutOptions": { "type": "string" },
+                            "contactMethods": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": { "type": "string" },
+                                  "identifier": { "type": "string" },
+                                  "countryCode": { "type": "string" },
+                                  "phoneNumber": { "type": "string" }
+                                }
+                              }
+                            }
+                          }        
+                        }
+                      }  
                     },
                     "payments": {
                       "type": "object",
-                      "description": "Payment details, including totals, discounts, taxes and payment methods"
+                      "properties": {
+                        "totals": {
+                          "type": "array",
+                          "items": {
+                            "type":"object",
+                            "properties":{
+                              "rewardId": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "totalBeforeSale": { "type": "string" },
+                              "subtotalWithoutTaxes": { "type": "string" },
+                              "discountPercentage": { "type": "string" },
+                              "discountsValue": { "type": "string" },
+                              "subtotalIncludeDiscounts": { "type": "string" },
+                              "taxesPercentage": { "type": "string" },
+                              "taxValue": { "type": "string" },
+                              "total": { "type": "string" }
+                            }
+                          }
+                        },  
+                        "shippingCost": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "quantity": { "type": "integer" },
+                              "productId": { "type": "string" },
+                              "rewardId": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "subtotalWithoutTaxes": { "type": "string" },
+                              "discountPercentage": { "type": "string" },
+                              "discountsValue": { "type": "string" },
+                              "subtotalIncludeDiscounts": { "type": "string" },
+                              "taxesPercentage": { "type": "string" },
+                              "taxValue": { "type": "string" },
+                              "total": { "type": "string" }
+                            }  
+                          }
+                        },
+                        "extraCharges": {
+                          "type":"array",
+                          "items":{
+                            "type":"object",
+                            "properties":{
+                              "quantity": { "type": "integer" },
+                              "productId": { "type": "string", "nullable": true },
+                              "description": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "subtotalWithoutTaxes": { "type": "string" },
+                              "discountPercentage": { "type": "string" },
+                              "discountsValue": { "type": "string" },
+                              "subtotalIncludeDiscounts": { "type": "string" },
+                              "taxesPercentage": { "type": "string" },
+                              "taxValue": { "type": "string" },
+                              "total": { "type": "string" }
+                            }
+                          }
+                        },
+                        "discounts":{
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties":{
+                              "rewardId": { "type": "string" },
+                              "productId": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "totalBeforeSale": { "type": "string" },
+                              "subtotalWithoutTaxes": { "type": "string" },
+                              "discountPercentage": { "type": "string" },
+                              "discountsValue": { "type": "string" },
+                              "subtotalIncludeDiscounts": { "type": "string" }
+                            }
+                          }
+                        },
+                        "taxes": {
+                          "type":"array",
+                          "items":{
+                            "type":"object",
+                            "properties": {
+                              "name": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "subtotalWithoutTaxes": { "type": "string" },
+                              "percentage": { "type": "string" },
+                              "total": { "type": "string" }
+                            }
+                          }
+                        },
+                        "paymentMethods": {
+                          "type": "array",
+                          "items": {
+                            "type":"object",
+                            "properties": {
+                              "processor": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "paymentMethodCode": { "type": "string" },
+                              "transactionType": { "type": "string", "nullable": true },
+                              "transactionId": { "type": "string", "nullable": true },
+                              "transactionStatus": { "type": "string", "nullable": true },
+                              "tid": { "type": "string", "nullable": true },
+                              "mid": { "type": "string", "nullable": true },
+                              "authorizationCode": { "type": "string", "nullable": true },
+                              "voucher": { "type": "string", "nullable": true },
+                              "referenceNumber": { "type": "string", "nullable": true },
+                              "exactPayment": { "type": "boolean" },
+                              "customerCashAmount": { "type": "string" },
+                              "totalBill": { "type": "string" },
+                              "acquirer": {
+                                "type": "object",
+                                "nullable":true,
+                                "properties": {
+                                  "code": { "type": "string" },
+                                  "name": { "type": "string" }
+                                }
+                              },
+                              "card": {
+                                "type": "object",
+                                "nullable": true,
+                                "properties": {
+                                  "mask": { "type": "string" },
+                                  "bin": { "type": "string" },
+                                  "lastFourDigits": { "type": "string" },
+                                  "brand": { "type": "string" },
+                                  "externalCardBrandId": { "type": "string" },
+                                  "holder": { "type": "string" },
+                                  "cardCountry": { "type": "string" }
+                              }
+                            },  
+                            "transactionDate": {
+                              "type": "object",
+                              "properties": {
+                                "date": { "type": "string", "format": "date-time" },
+                                "timeZoneType": { "type": "integer" },
+                                "timeZoneName": { "type": "string" },
+                                "weekNumber": { "type": "integer" }
+                              }
+                            },  
+                            "metadata": {
+                              "type": "object",
+                              "properties": {
+                                "aid": { "type": "string" },
+                                "responseCode": { "type": "string" },
+                                "transactionDate": { "type": "string" },
+                                "transactionTime": { "type": "string" },
+                                "cardBrand": { "type": "string" },
+                                "batch": { "type": "string" },
+                                "rrn": { "type": "string" },
+                                "taxAmount": { "type": "string" },
+                                "totalPurchaseAmount": { "type": "string" },
+                                "responseMessage": { "type": "string" },
+                                "authorizationResponseMessage": { "type": "string" }
+                                }  
+                              }
+                            }  
+                          }
+                        }
+                      }
                     },
                     "marketing": {
                       "type": "object",
-                      "description": "Marketing info: loyalty points and coupons"
+                      "properties": {
+                        "loyalty": {
+                          "type": "object",
+                          "properties": {
+                            "accumulation": {
+                              "type": "object",
+                              "properties": {
+                                "storeCost": { "type": "string" },
+                                "marketingCost": { "type": "string" },
+                                "totalPoints": { "type": "string" }
+                              }
+                            },
+                            "redemption" :{
+                              "type": "object",
+                              "properties": {
+                                "storeCost": { "type": "string" },
+                                "marketingCost": { "type": "string" },
+                                "totalPoints": { "type": "string" }
+                              }
+                            },
+                            "accountBalancePoints":{"type":"string"}
+                          }
+                        },
+                        "coupons": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "rewardId": { "type": "string" },
+                              "name": { "type": "string" },
+                              "additionalInfo": { "type": "object" }
+                            }
+                          }  
+                        }
+                      }
                     },
                     "additionalInfo": {
                       "type": "object",
-                      "description": "Extra information, e.g., kiosk IP"
+                      "properties": {
+                        "kiosk":{
+                          "type": "object",
+                          "properties":{
+                            "ip":{"type":"string"}
+                          }
+                        }
+                      }
                     }
                   },
                   "example": {
