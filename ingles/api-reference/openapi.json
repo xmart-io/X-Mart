@@ -1,0 +1,4047 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Api V3 documentación",
+    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.artisn.desarrollo-redbrand.com/api"
+    },
+    {
+      "url": "https://api.kfc-group.desarrollo-redbrand.com"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/authentication/login": {
+      "post": {
+        "description": "This endpoint allows obtaining the access token for OAuth2 clients",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "response upon logging in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string",
+                      "description": "The access token to be used in the API. DO NOT EXPOSE THIS TOKEN TO THE CLIENT!",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "authorization error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/v3/stores": {
+      "get": {
+        "description": "This endpoint allows listing the stores of a brand registered in the system",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "description": "Unique identifier of the brand",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Store response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StoreResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v3/channels-stores": {
+      "post": {
+        "description": "This endpoint allows registering stores and sales channels in the system. Important!: Each request sent is processed as a new configuration, so if a store, sales channel, warehouse, etc. is not sent, its entire configuration will be deleted",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "stores": {
+                    "type": "array",
+                    "description": "List of stores to create",
+                    "items": {
+                      "$ref": "#/components/schemas/Store"
+                    }
+                  },
+                  "channels": {
+                    "type": "array",
+                    "description": "List of sales channels to create",
+                    "items": {
+                      "$ref": "#/components/schemas/Channel"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "response upon logging in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string",
+                      "description": "The access token to be used in the API. DO NOT EXPOSE THIS TOKEN TO THE CLIENT!",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "authorization error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/v3/stores/{storeId}": {
+      "get": {
+        "description": "This endpoint allows obtaining information about a store registered in the system",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "description": "Unique identifier of the brand",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Unique identifier of the store",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Store response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoreResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "description": "This endpoint changes the status of a store in the system",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "description": "Unique identifier of the brand",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Unique identifier of the store",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "active": {
+                    "type": "boolean",
+                    "description": "State to which the store will be updated"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Store response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoreResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/v3/lists/sync-summary/lists": {
+      "get": {
+        "summary": "Get synchronization report",
+        "description": "Allows obtaining a detailed report of: synchronization status, categories, products, modifiers, modifier options, errors and warnings of the last synchronization of a store",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "required": true,
+            "description": "Unique identifier of the brand, this identifier is provided by Trade",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "required": true,
+            "description": "Unique identifier of the store",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "required": true,
+            "description": "Sales channel identifier",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "channelReferenceName",
+            "in": "query",
+            "required": false,
+            "description": "This field is required if the channelId attribute is not unique. Unique reference name, this name will be used for the search and association of the standardized channel",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listName",
+            "in": "query",
+            "required": false,
+            "description": "Este campo es requerido si se utiliza en el atributo 'additionalInfo.relatedLists' en la sincronización de canales de venta. Nombre de la lista.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Synchronization report obtained successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "description": "Synchronization status."
+                        },
+                        "errors": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "Error report found in the last synchronization"
+                        },
+                        "warnings": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "Report of notices found in the last synchronization"
+                        },
+                        "individualUpdates": {
+                          "type": "boolean",
+                          "description": "Determines if there were individual product or store updates"
+                        },
+                        "list": {
+                          "type": "object",
+                          "properties": {
+                            "listId": {
+                              "type": "string",
+                              "description": "List identifier"
+                            },
+                            "listName": {
+                              "type": "string",
+                              "description": "List name"
+                            },
+                            "schedules": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "day": {
+                                    "type": "string"
+                                  },
+                                  "openTime": {
+                                    "type": "string"
+                                  },
+                                  "closeTime": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "description": "Synchronized schedule of the list"
+                            },
+                            "categories": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "categoryId": {
+                                    "type": "string"
+                                  },
+                                  "categoryName": {
+                                    "type": "string"
+                                  },
+                                  "childCategories": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "categoryId": {
+                                          "type": "string"
+                                        },
+                                        "categoryName": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "description": "List of subcategories synchronized and associated with the category"
+                                  },
+                                  "productListing": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "productId": {
+                                          "type": "string"
+                                        },
+                                        "productName": {
+                                          "type": "string"
+                                        },
+                                        "productModifiers": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "modifierId": {
+                                                "type": "string"
+                                              },
+                                              "modifierName": {
+                                                "type": "string"
+                                              },
+                                              "modifierOptions": {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "optionId": {
+                                                      "type": "string"
+                                                    },
+                                                    "optionName": {
+                                                      "type": "string"
+                                                    }
+                                                  }
+                                                },
+                                                "description": "List of options synchronized and associated with the modifier"
+                                              }
+                                            }
+                                          },
+                                          "description": "List of modifiers synchronized and associated with the product"
+                                        }
+                                      }
+                                    },
+                                    "description": "List of products synchronized and associated with the category"
+                                  }
+                                }
+                              },
+                              "description": "List of synchronized categories"
+                            }
+                          },
+                          "description": "Complete report of synchronized data (categories, products, modifiers, options, etc.)"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Bad request"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/products": {
+      "post": {
+        "summary": "Add a product list",
+        "description": "This endpoint allows you to add a list in the system. Important: Each submitted request is processed as a new configuration, so if a product, category, modifier, etc. is not sent all your configuration will be deleted.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "list": {
+                    "type": "object",
+                    "description": "General information of the list where the defined products will be added",
+                    "properties": {
+                      "listName": { "type": "string", "description": "Name that identifies the list" }
+                    }
+                  },
+                  "modifierGroups": {
+                    "type": "array",
+                    "description": "Allows you to define a list of modifiers that will be used in the list",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "modifierId": { "type": "string" },
+                        "modifier": { "type": "string" },
+                        "minOptions": { "type": "integer" },
+                        "maxOptions": { "type": "integer" },
+                        "visible": { "type": "boolean" },
+                        "position": { "type": "integer" },
+                        "type": { "type": "string" },
+                        "modifierOptions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "optionId": { "type": "string" },
+                              "productId": { "type": "string" },
+                              "default": { "type": "boolean" },
+                              "position": { "type": "integer" },
+                              "additionalInfo": {
+                                "type": "object",
+                                "additionalProperties": true,
+                                "description": "Additional information using key-value pairs"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "products": {
+                    "type": "array",
+                    "description": "Allows you to define the products or items, as well as their organization in the list",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "productId": { "type": "string" },
+                        "name": { "type": "string" },
+                        "type": { "type": "string", "enum": ["PRODUCT", "MODIFIER", "COMPLEMENT"] },
+                        "description": { "type": "string" },
+                        "standardTime": { "type": "boolean" },
+                        "featured": { "type": "boolean" },
+                        "modifierId": { "type": "string" },
+                        "taxesInfo": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "vatRatePercentage": { "type": "integer" },
+                              "name": { "type": "string" },
+                              "type": { "type": "string" }
+                            }
+                          }
+                        },
+                        "priceInfo": {
+                          "type": "object",
+                          "properties": {
+                            "price": { "type": "number" },
+                            "pointPrice": { "type": "integer" },
+                            "suggestedPrice": { "type": "number" },
+                            "suggestedPointPrice": { "type": "integer" }
+                          }
+                        },
+                        "schedules": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "day": { "type": "string", "enum": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY", "SPECIAL"] },
+                              "startDate": { "type": "string", "format": "date" },
+                              "endDate": { "type": "string", "format": "date" },
+                              "startTime": { "type": "string", "format": "time" },
+                              "endTime": { "type": "string", "format": "time" }
+                            }
+                          }
+                        },
+                        "upselling": {
+                          "type": "array",
+                          "items": { "type": "string" },
+                          "description": "Set of unique product identifiers used in the upsell"
+                        },
+                        "crossSelling": {
+                          "type": "array",
+                          "items": { "type": "string" },
+                          "description": "Set of unique product identifiers used in cross-selling"
+                        },
+                        "tags": {
+                          "type": "array",
+                          "items": { "type": "string" },
+                          "description": "Allows you to assign tags to the product"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "imageCategoryId": { "type": "string" },
+                              "fileUrl": { "type": "string" }
+                            }
+                          }
+                        },
+                        "productModifiers": {
+                          "type": "array",
+                          "description": "Allows you to associate modifiers to the product",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "modifierId": { "type": "string" },
+                              "position": { "type": "integer" }
+                            }
+                          }
+                        },
+                        "additionalInfo": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "description": "Allows you to define additional information using key-value pairs"
+                        }
+                      }
+                    }
+                  },
+                  "categories": {
+                    "type": "array",
+                    "description": "Allows you to define product categories as well as their organization in the list",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "categoryId": { "type": "string" },
+                        "categoryName": { "type": "string" },
+                        "displayInList": { "type": "boolean" },
+                        "featured": { "type": "boolean" },
+                        "crossSellingCategory": { "type": "boolean" },
+                        "position": { "type": "integer" },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "imageCategoryId": { "type": "string" },
+                              "fileUrl": { "type": "string" }
+                            }
+                          }
+                        },
+                        "childCategories": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "categoryId": { "type": "string" },
+                              "categoryName": { "type": "string" }
+                            }
+                          }
+                        },
+                        "productListing": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "productId": { "type": "string" },
+                              "position": { "type": "integer" }
+                            }
+                          }
+                        },
+                        "schedules": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "day": { "type": "string" },
+                              "startDate": { "type": "string" },
+                              "endDate": { "type": "string" },
+                              "startTime": { "type": "string" },
+                              "endTime": { "type": "string" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "ecommerceChannelId": {
+                    "type": "integer",
+                    "description": "Unified sales channel identifier, refers to the standardized channel identifier"
+                  },
+                  "channelReferenceName": {
+                    "type": "string",
+                    "description": "Unique reference name, used for search and association of the standardized channel."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "List successfully registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "listId": { "type": "string" },
+                    "name": { "type": "string" },
+                    "active": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/domain-cliente/token": {
+      "post": {
+        "summary": "Get Token",
+        "description": "This service is exposed by Trade so that the client can obtain the access token that will be used in other methods",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "client_id": {
+                    "type": "integer",
+                    "description": "Client ID"
+                  },
+                  "client_secret": {
+                    "type": "string",
+                    "description": "Client secret"
+                  },
+                  "grant_type": {
+                    "type": "string",
+                    "description": "Concession type",
+                    "example": "client_credentials"
+                  }
+                },
+                "required": [
+                  "client_id",
+                  "client_secret",
+                  "grant_type"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token successfully obtained",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string",
+                      "description": "The access token"
+                    },
+                    "token_type": {
+                      "type": "string",
+                      "description": "Type token",
+                      "example": "Bearer"
+                    },
+                    "expires_in": {
+                      "type": "integer",
+                      "description": "Token expiration time in seconds"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "invalid_request"
+                    },
+                    "error_description": {
+                      "type": "string",
+                      "example": "Client authentication failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/domain-cliente/webhook/new-order": {
+      "post": {
+        "summary": "New order webhook",
+        "description": "This service will need to be implemented on the client side so that Trade can consume it. This will serve to notify the client every time a new order entered event occurs.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "Unique order identifier"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Order Status"
+                  },
+                  "customer": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Unique customer identifier"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Customer name"
+                      },
+                      "email": {
+                        "type": "string",
+                        "description": "Customer Email"
+                      }
+                    }
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "product_id": {
+                          "type": "string",
+                          "description": "Unique product identifier"
+                        },
+                        "quantity": {
+                          "type": "integer",
+                          "description": "Product quantity"
+                        },
+                        "price": {
+                          "type": "number",
+                          "description": "Product price"
+                        }
+                      }
+                    }
+                  },
+                  "total": {
+                    "type": "number",
+                    "description": "Order Total"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order successfully notified",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "OK"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "invalid_request"
+                    },
+                    "error_description": {
+                      "type": "string",
+                      "example": "The request body is invalid"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/{orderId}": {
+      "get": {
+        "summary": "Retrieve order details",
+        "description": "Gets detailed information of a specific order by its ID, including products, pricing, client details, store info, shipping, payments, marketing and additional info.",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the order to query. Example: '0000012194-081101'"
+          }
+        ],
+        "tags": [
+          "Orders",
+          "Read"
+        ],
+        "responses": {
+          "200": {
+            "description": "Order details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "orderId": {
+                      "type": "string",
+                      "description": "Unique order ID"
+                    },
+                    "accountId": {
+                      "type": "string",
+                      "description": "ID of the account that placed the order"
+                    },
+                    "account": {
+                      "type": "string",
+                      "description": "Account name"
+                    },
+                    "source": {
+                      "type": "string",
+                      "description": "Source of the order, e.g., App or Kiosco"
+                    },
+                    "platform": {
+                      "type": "string",
+                      "description": "Platform used to place the order, e.g., Android, iOS"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Order creation timestamp"
+                    },
+                    "channelId": {
+                      "type": "string",
+                      "description": "Channel ID of the order"
+                    },
+                    "channelName": {
+                      "type": "string",
+                      "description": "Channel name of the order"
+                    },
+                    "selectedShippingMethod": {
+                      "type": "string",
+                      "description": "Selected shipping method, e.g., delivery or pickup"
+                    },
+                    "accumulatePoints": {
+                      "type": "boolean",
+                      "description": "Whether the order accumulates loyalty points"
+                    },
+                    "redeemPoints": {
+                      "type": "boolean",
+                      "description": "Whether the order redeems loyalty points"
+                    },
+                    "stock": {
+                      "type": "boolean",
+                      "description": "Indicates if stock is available"
+                    },
+                    "discount": {
+                      "type": "boolean",
+                      "description": "Indicates if a discount was applied"
+                    },
+                    "orderComment": {
+                      "type": "string",
+                      "description": "General comment on the order"
+                    },
+                    "client": {
+                      "type": "object",
+                      "description": "Information about the client",
+                      "properties": {
+                        "uid": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "lastName": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "govIdType": {
+                          "type": "string"
+                        },
+                        "govIdNumber": {
+                          "type": "string"
+                        },
+                        "billingInformation": {
+                          "type": "object",
+                          "description": "Billing info for the client",
+                          "properties": {
+                            "businessName": {
+                              "type": "string"
+                            },
+                            "govIdType": {
+                              "type": "string"
+                            },
+                            "govIdNumber": {
+                              "type": "string"
+                            },
+                            "phone": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "address": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "additionalInfo": {
+                          "type": "object",
+                          "properties": {
+                            "birthdate": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "gender": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "store": {
+                      "type": "object",
+                      "description": "Store details where the order was placed",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "vendorId": {
+                          "type": "integer"
+                        },
+                        "vendorName": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "string"
+                        },
+                        "longitude": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "order": {
+                      "type": "object",
+                      "properties": {
+                        "products": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "productId": {
+                                "type": "string"
+                              },
+                              "product": {
+                                "type": "string"
+                              },
+                              "quantity": {
+                                "type": "integer"
+                              },
+                              "productComment": {
+                                "type": "string"
+                              },
+                              "rewardId": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "object",
+                                "properties": {
+                                  "unitPrice": {
+                                    "type": "object",
+                                    "properties": {
+                                      "currencyCode": { "type": "string" },
+                                      "totalBeforeSale": { "type": "string" },
+                                      "subtotalWithoutTaxes": { "type": "string" },
+                                      "discountPercentage": { "type": "string" },
+                                      "discountsValue": { "type": "string" },
+                                      "subtotalIncludeDiscounts": { "type": "string" },
+                                      "taxesPercentage": { "type": "string" },
+                                      "taxValue": { "type": "string" },
+                                      "total": { "type": "string" },
+                                      "suggestedPrice": { "type": "string" }
+                                    }
+                                  },
+                                  "totalPrice": {
+                                    "type": "object",
+                                    "properties": {
+                                      "currencyCode": { "type": "string" },
+                                      "totalBeforeSale": { "type": "string" },
+                                      "subtotalWithoutTaxes": { "type": "string" },
+                                      "discountPercentage": { "type": "string" },
+                                      "discountsValue": { "type": "string" },
+                                      "subtotalIncludeDiscounts": { "type": "string" },
+                                      "taxesPercentage": { "type": "string" },
+                                      "taxValue": { "type": "string" },
+                                      "total": { "type": "string" },
+                                      "suggestedPrice": { "type": "string" }
+                                    }
+                                  }
+                                }
+                              },
+                              "modifierGroups": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": { "type": "string" },
+                                    "description": { "type": "string" },
+                                    "selectedModifiers": { 
+                                      "type": "array", 
+                                      "items": { 
+                                        "type": "object", 
+                                        "properties": { 
+                                          "answerId": { "type": "string" }, 
+                                          "productId": { "type": "string" }, 
+                                          "product": { "type": "string" }, 
+                                          "rewardId": { "type": "string" }, 
+                                          "quantity": { "type": "integer" }, 
+                                          "removedQuantity": { 
+                                            "type": "string",
+                                            "nullable": true
+                                          },
+                                          "price": {
+                                            "type": "object",
+                                            "properties": {
+                                              "unitPrice":{
+                                                "type": "object",
+                                                "properties": {
+                                                  "currencyCode": { "type": "string" },
+                                                  "totalBeforeSale": { "type": "string" },
+                                                  "subtotalWithoutTaxes": { "type": "string" },
+                                                  "discountPercentage": { "type": "string" },
+                                                  "discountsValue": { "type": "string" },
+                                                  "subtotalIncludeDiscounts": { "type": "string" },
+                                                  "taxesPercentage": { "type": "string" },
+                                                  "taxValue": { "type": "string" },
+                                                  "total": { "type": "string" },
+                                                  "suggestedPrice": { "type": "string" }
+                                                }
+                                              },
+                                              "totalPrice": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "currencyCode": { "type": "string" },
+                                                  "totalBeforeSale": { "type": "string" },
+                                                  "subtotalWithoutTaxes": { "type": "string" },
+                                                  "discountPercentage": { "type": "string" },
+                                                  "discountsValue": { "type": "string" },
+                                                  "subtotalIncludeDiscounts": { "type": "string" },
+                                                  "taxesPercentage": { "type": "string" },
+                                                  "taxValue": { "type": "string" },
+                                                  "total": { "type": "string" },
+                                                  "suggestedPrice": { "type": "string" }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "additionalInfo": {
+                                "type": "object",
+                                "properties": {
+                                  "strategy": { "type": "string" },
+                                  "relatedProductId": { "type": "string" },
+                                  "redeemed": { "type": "boolean" },
+                                  "sort": { "type": "integer" },
+                                  "referenceUnitPrice": { "type": "object", "properties": { "currencyCode": { "type": "string" }, "totalBeforeSale": { "type": "string" }, "subtotalWithoutTaxes": { "type": "string" }, "discountPercentage": { "type": "string" }, "discountsValue": { "type": "string" }, "subtotalIncludeDiscounts": { "type": "string" }, "taxesPercentage": { "type": "string" }, "taxValue": { "type": "string" }, "total": { "type": "string" }, "suggestedPrice": { "type": "string" } } },
+                                  "referenceTotalPrice": { "type": "object", "properties": { "currencyCode": { "type": "string" }, "totalBeforeSale": { "type": "string" }, "subtotalWithoutTaxes": { "type": "string" }, "discountPercentage": { "type": "string" }, "discountsValue": { "type": "string" }, "subtotalIncludeDiscounts": { "type": "string" }, "taxesPercentage": { "type": "string" }, "taxValue": { "type": "string" }, "total": { "type": "string" }, "suggestedPrice": { "type": "string" } } },
+                                  "unitMeasurement": { "type": "string" }
+                                }
+                              }
+                            }
+                          }
+                        }, 
+                        "stock": {
+                          "type": "object",
+                          "properties": {
+                            "productId": { "type": "string" },
+                            "stock": { "type": "integer" }
+                          }
+                        }
+                      }
+                    },
+                    "shippingMethod": {
+                      "type": "object",
+                      "properties": {
+                        "delivery": {
+                          "type": "object",
+                          "properties": {
+                            "deliveryDate": { "type": "string" },
+                            "latitude": { "type": "string" },
+                            "longitude": { "type": "string" },
+                            "country": { "type": "string" },
+                            "city": { "type": "string" },
+                            "mainStreet": { "type": "string" },
+                            "number": { "type": "string" },
+                            "secondaryStreet": { "type": "string" },
+                            "reference": { "type": "string" },
+                            "propertyId": { "type": "integer" },
+                            "observationsAddress": { "type": "string" },
+                            "numberContactAddress": { "type": "string" },
+                            "zipCode": { "type": "string" },
+                            "nickName": { "type": "string" },
+                            "externalId": { "type": "string" },
+                            "id": { "type": "string" },
+                            "driverArrivalDateInStore": { "type": "string" },
+                            "additionalInfo": { 
+                              "type": "object", 
+                              "properties": { "deliveryConfirmationCode": { "type": "string" } } }
+                          }
+                        },  
+                        "pickup":{
+                          "type": "object",
+                          "properties": {
+                            "pickupDate": { "type": "string", "format": "date-time" },
+                            "prepDate": { "type": "string", "format": "date-time" },
+                            "prepTimeUnit": { "type": "string" },
+                            "prepTime": { "type": "integer" },
+                            "propertyId": { "type": "integer" },
+                            "carryOutOptions": { "type": "string" },
+                            "contactMethods": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": { "type": "string" },
+                                  "identifier": { "type": "string" },
+                                  "countryCode": { "type": "string" },
+                                  "phoneNumber": { "type": "string" }
+                                }
+                              }
+                            }
+                          }        
+                        }
+                      }  
+                    },
+                    "payments": {
+                      "type": "object",
+                      "properties": {
+                        "totals": {
+                          "type": "array",
+                          "items": {
+                            "type":"object",
+                            "properties":{
+                              "rewardId": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "totalBeforeSale": { "type": "string" },
+                              "subtotalWithoutTaxes": { "type": "string" },
+                              "discountPercentage": { "type": "string" },
+                              "discountsValue": { "type": "string" },
+                              "subtotalIncludeDiscounts": { "type": "string" },
+                              "taxesPercentage": { "type": "string" },
+                              "taxValue": { "type": "string" },
+                              "total": { "type": "string" }
+                            }
+                          }
+                        },  
+                        "shippingCost": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "quantity": { "type": "integer" },
+                              "productId": { "type": "string" },
+                              "rewardId": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "subtotalWithoutTaxes": { "type": "string" },
+                              "discountPercentage": { "type": "string" },
+                              "discountsValue": { "type": "string" },
+                              "subtotalIncludeDiscounts": { "type": "string" },
+                              "taxesPercentage": { "type": "string" },
+                              "taxValue": { "type": "string" },
+                              "total": { "type": "string" }
+                            }  
+                          }
+                        },
+                        "extraCharges": {
+                          "type":"array",
+                          "items":{
+                            "type":"object",
+                            "properties":{
+                              "quantity": { "type": "integer" },
+                              "productId": { "type": "string", "nullable": true },
+                              "description": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "subtotalWithoutTaxes": { "type": "string" },
+                              "discountPercentage": { "type": "string" },
+                              "discountsValue": { "type": "string" },
+                              "subtotalIncludeDiscounts": { "type": "string" },
+                              "taxesPercentage": { "type": "string" },
+                              "taxValue": { "type": "string" },
+                              "total": { "type": "string" }
+                            }
+                          }
+                        },
+                        "discounts":{
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties":{
+                              "rewardId": { "type": "string" },
+                              "productId": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "totalBeforeSale": { "type": "string" },
+                              "subtotalWithoutTaxes": { "type": "string" },
+                              "discountPercentage": { "type": "string" },
+                              "discountsValue": { "type": "string" },
+                              "subtotalIncludeDiscounts": { "type": "string" }
+                            }
+                          }
+                        },
+                        "taxes": {
+                          "type":"array",
+                          "items":{
+                            "type":"object",
+                            "properties": {
+                              "name": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "subtotalWithoutTaxes": { "type": "string" },
+                              "percentage": { "type": "string" },
+                              "total": { "type": "string" }
+                            }
+                          }
+                        },
+                        "paymentMethods": {
+                          "type": "array",
+                          "items": {
+                            "type":"object",
+                            "properties": {
+                              "processor": { "type": "string" },
+                              "currencyCode": { "type": "string" },
+                              "paymentMethodCode": { "type": "string" },
+                              "transactionType": { "type": "string", "nullable": true },
+                              "transactionId": { "type": "string", "nullable": true },
+                              "transactionStatus": { "type": "string", "nullable": true },
+                              "tid": { "type": "string", "nullable": true },
+                              "mid": { "type": "string", "nullable": true },
+                              "authorizationCode": { "type": "string", "nullable": true },
+                              "voucher": { "type": "string", "nullable": true },
+                              "referenceNumber": { "type": "string", "nullable": true },
+                              "exactPayment": { "type": "boolean" },
+                              "customerCashAmount": { "type": "string" },
+                              "totalBill": { "type": "string" },
+                              "acquirer": {
+                                "type": "object",
+                                "nullable":true,
+                                "properties": {
+                                  "code": { "type": "string" },
+                                  "name": { "type": "string" }
+                                }
+                              },
+                              "card": {
+                                "type": "object",
+                                "nullable": true,
+                                "properties": {
+                                  "mask": { "type": "string" },
+                                  "bin": { "type": "string" },
+                                  "lastFourDigits": { "type": "string" },
+                                  "brand": { "type": "string" },
+                                  "externalCardBrandId": { "type": "string" },
+                                  "holder": { "type": "string" },
+                                  "cardCountry": { "type": "string" }
+                              }
+                            },  
+                            "transactionDate": {
+                              "type": "object",
+                              "properties": {
+                                "date": { "type": "string", "format": "date-time" },
+                                "timeZoneType": { "type": "integer" },
+                                "timeZoneName": { "type": "string" },
+                                "weekNumber": { "type": "integer" }
+                              }
+                            },  
+                            "metadata": {
+                              "type": "object",
+                              "properties": {
+                                "aid": { "type": "string" },
+                                "responseCode": { "type": "string" },
+                                "transactionDate": { "type": "string" },
+                                "transactionTime": { "type": "string" },
+                                "cardBrand": { "type": "string" },
+                                "batch": { "type": "string" },
+                                "rrn": { "type": "string" },
+                                "taxAmount": { "type": "string" },
+                                "totalPurchaseAmount": { "type": "string" },
+                                "responseMessage": { "type": "string" },
+                                "authorizationResponseMessage": { "type": "string" }
+                                }  
+                              }
+                            }  
+                          }
+                        }
+                      }
+                    },
+                    "marketing": {
+                      "type": "object",
+                      "properties": {
+                        "loyalty": {
+                          "type": "object",
+                          "properties": {
+                            "accumulation": {
+                              "type": "object",
+                              "properties": {
+                                "storeCost": { "type": "string" },
+                                "marketingCost": { "type": "string" },
+                                "totalPoints": { "type": "string" }
+                              }
+                            },
+                            "redemption" :{
+                              "type": "object",
+                              "properties": {
+                                "storeCost": { "type": "string" },
+                                "marketingCost": { "type": "string" },
+                                "totalPoints": { "type": "string" }
+                              }
+                            },
+                            "accountBalancePoints":{"type":"string"}
+                          }
+                        },
+                        "coupons": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "rewardId": { "type": "string" },
+                              "name": { "type": "string" },
+                              "additionalInfo": { "type": "object" }
+                            }
+                          }  
+                        }
+                      }
+                    },
+                    "additionalInfo": {
+                      "type": "object",
+                      "properties": {
+                        "kiosk":{
+                          "type": "object",
+                          "properties":{
+                            "ip":{"type":"string"}
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "orderId": "0000012194-081101",
+                    "accountId": "10",
+                    "account": "Artisn App",
+                    "source": "App|Kiosco",
+                    "platform": "Android",
+                    "createdAt": "2022-11-02 08:14:00",
+                    "channelId": "1",
+                    "channelName": "Domicilio App",
+                    "selectedShippingMethod": "delivery|pickup",
+                    "accumulatePoints": true,
+                    "redeemPoints": true,
+                    "stock": false,
+                    "discount": true,
+                    "orderComment": "Comentario General del pedido",
+                    "client": {
+                      "uid": "Bwsyaszx36b5UXXdqFDFBi6ki7j1",
+                      "name": "Sebastian",
+                      "lastName": "Rodriguez",
+                      "phone": "0972241639",
+                      "email": "sebas.rodriguez83@gmail.com",
+                      "govIdType": "DNI",
+                      "govIdTypeExternal": null,
+                      "govIdNumber": "1751930486",
+                      "externalId": null,
+                      "id": "402399",
+                      "billingInformation": {
+                        "businessName": "Sebastian Rodriguez",
+                        "govIdType": "CI",
+                        "govIdTypeExternal": null,
+                        "govIdNumber": "1751930486",
+                        "phone": "0969150917",
+                        "email": "sebas.rodriguez83@gmail.com",
+                        "address": "La Venecia 1 S57 415 y E4C",
+                        "externalId": "1255",
+                        "id": "205474"
+                      },
+                      "additionalInfo": {
+                        "birthdate": "1984-09-18",
+                        "gender": "masculino"
+                      }
+                    },
+                    "store": {
+                      "id": 10,
+                      "name": "Gran Santa Fe",
+                      "code": "T001",
+                      "vendorId": 8,
+                      "vendorName": "Blue Co",
+                      "latitude": "-2.32423423",
+                      "longitude": "-80.21312312"
+                    },
+                    "order": {
+                      "products": [
+                        {
+                          "productId": "991117",
+                          "product": "Hamburguesa + papas",
+                          "quantity": 1,
+                          "productComment": "incluye upsale y desct. pago puntos",
+                          "rewardId": "UUID_DESCPUNTOS",
+                          "price": {
+                            "unitPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "7.7826",
+                              "discountPercentage": "100.0000",
+                              "discountsValue": "7.7826",
+                              "subtotalIncludeDiscounts": "0.0000",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "0.0000",
+                              "total": "0.0000",
+                              "suggestedPrice": "8.9900"
+                            },
+                            "totalPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "7.7826",
+                              "discountPercentage": "100.0000",
+                              "discountsValue": "7.7826",
+                              "subtotalIncludeDiscounts": "0.0000",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "0.0000",
+                              "total": "0.0000",
+                              "suggestedPrice": "8.9900"
+                            }
+                          },
+                          "modifierGroups": [
+                            {
+                              "id": "1121",
+                              "description": "Escoja su acompañante",
+                              "selectedModifiers": [
+                                {
+                                  "answerId": "1055",
+                                  "productId": "1025",
+                                  "product": "Papas",
+                                  "rewardId": "UUID_DESCPUNTOS",
+                                  "quantity": 1,
+                                  "removedQuantity": null,
+                                  "price": {
+                                    "unitPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "1.7304",
+                                      "discountPercentage": "100",
+                                      "discountsValue": "1.7304",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "2.2500"
+                                    },
+                                    "totalPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "1.7304",
+                                      "discountPercentage": "100",
+                                      "discountsValue": "1.7304",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "2.2500"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1133",
+                              "description": "Personalice su hamburguesa. Agregue o quite ingredientes",
+                              "selectedModifiers": [
+                                {
+                                  "answerId": "1088",
+                                  "productId": "1025",
+                                  "rewardId": null,
+                                  "product": "Sin Tomate",
+                                  "quantity": null,
+                                  "removedQuantity": 1,
+                                  "price": {
+                                    "unitPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "0.0000",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "0.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "0.0000"
+                                    },
+                                    "totalPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "0.0000",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "0.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "0.0000"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "additionalInfo": {
+                            "strategy": "Upsale",
+                            "relatedProductId": "99105",
+                            "redeemed": true,
+                            "sort": 1,
+                            "referenceUnitPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "6.0783",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "6.0783",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "0.9177",
+                              "total": "6.9900",
+                              "suggestedPrice": "11.2000"
+                            },
+                            "referenceTotalPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "6.0783",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "6.0783",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "0.9177",
+                              "total": "6.9900",
+                              "suggestedPrice": "11.2000"
+                            },
+                            "unitMeasurement": "unidad|caja"
+                          }
+                        },
+                        {
+                          "productId": "991117",
+                          "product": "Sanduche y bebida. Extra nachos + salsa bbq",
+                          "quantity": 2,
+                          "productComment": "Producto con modificador 3er nivel",
+                          "rewardId": null,
+                          "price": {
+                            "unitPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "6.9478",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "6.9478",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "1.0422",
+                              "total": "7.9900",
+                              "suggestedPrice": "10.9900"
+                            },
+                            "totalPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "13.8956",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "13.8956",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "2.0843",
+                              "total": "15.9799",
+                              "suggestedPrice": "21.9800"
+                            }
+                          },
+                          "modifierGroups": [
+                            {
+                              "id": "1120",
+                              "description": "Escoja su bebida",
+                              "selectedModifiers": [
+                                {
+                                  "productId": "1025",
+                                  "answerId": "1065",
+                                  "product": "Pepsi",
+                                  "quantity": 2,
+                                  "removedQuantity": null,
+                                  "price": {
+                                    "unitPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "0.0000",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "0.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "0.9900"
+                                    },
+                                    "totalPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "0.0000",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "0.0000",
+                                      "taxesPercentage": "0.0000",
+                                      "taxValue": "0.0000",
+                                      "total": "0.0000",
+                                      "suggestedPrice": "1.9800"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1125",
+                              "description": "Agregue extra nachos, ensalada o postre",
+                              "selectedModifiers": [
+                                {
+                                  "productId": "1035",
+                                  "answerId": "1044",
+                                  "product": "Nachos",
+                                  "quantity": 2,
+                                  "removedQuantity": null,
+                                  "price": {
+                                    "unitPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "4.3391",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "4.3391",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "0.6509",
+                                      "total": "4.9900",
+                                      "suggestedPrice": "0.0000"
+                                    },
+                                    "totalPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "8.6782",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "8.6782",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "1.3017",
+                                      "total": "9.9799",
+                                      "suggestedPrice": "0.0000"
+                                    }
+                                  },
+                                  "modifierGroups": [
+                                    {
+                                      "id": "1127",
+                                      "description": "Seleccione el tipo de salsa",
+                                      "selectedModifiers": [
+                                        {
+                                          "productId": "1033",
+                                          "answerId": "1018",
+                                          "product": "Salsa BBQ",
+                                          "quantity": 1,
+                                          "removedQuantity": null,
+                                          "price": {
+                                            "unitPrice": {
+                                              "currencyCode": "USD",
+                                              "totalBeforeSale": "0.0000",
+                                              "subtotalWithoutTaxes": "2.2174",
+                                              "discountPercentage": "0.0000",
+                                              "discountsValue": "0.0000",
+                                              "subtotalIncludeDiscounts": "2.2174",
+                                              "taxesPercentage": "15.0000",
+                                              "taxValue": "0.3326",
+                                              "total": "2.5500",
+                                              "suggestedPrice": "4.7500"
+                                            },
+                                            "totalPrice": {
+                                              "currencyCode": "USD",
+                                              "totalBeforeSale": "0.0000",
+                                              "subtotalWithoutTaxes": "2.2174",
+                                              "discountPercentage": "0.0000",
+                                              "discountsValue": "0.0000",
+                                              "subtotalIncludeDiscounts": "2.2174",
+                                              "taxesPercentage": "15.0000",
+                                              "taxValue": "0.3326",
+                                              "total": "2.5500",
+                                              "suggestedPrice": "4.7500"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "additionalInfo": {}
+                        },
+                        {
+                          "productId": "44368",
+                          "product": "Wings + papas",
+                          "quantity": 1,
+                          "productComment": "incluye reward de producto.",
+                          "rewardId": "UUID_CUPON_PRODUCT",
+                          "price": {
+                            "unitPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "8.6870",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "8.6870",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "1.3031",
+                              "total": "9.9901",
+                              "suggestedPrice": "12.9900"
+                            },
+                            "totalPrice": {
+                              "currencyCode": "USD",
+                              "totalBeforeSale": "0.0000",
+                              "subtotalWithoutTaxes": "8.6870",
+                              "discountPercentage": "0.0000",
+                              "discountsValue": "0.0000",
+                              "subtotalIncludeDiscounts": "8.6870",
+                              "taxesPercentage": "15.0000",
+                              "taxValue": "1.3031",
+                              "total": "9.9901",
+                              "suggestedPrice": "12.9900"
+                            }
+                          },
+                          "modifierGroups": [
+                            {
+                              "id": "1121",
+                              "description": "Escoja su acompañante",
+                              "selectedModifiers": [
+                                {
+                                  "productId": "1025",
+                                  "product": "Papas",
+                                  "quantity": 1,
+                                  "removedQuantity": null,
+                                  "price": {
+                                    "unitPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "1.9565",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "1.9565",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "0.2935",
+                                      "total": "2.2500",
+                                      "suggestedPrice": "2.2500"
+                                    },
+                                    "totalPrice": {
+                                      "currencyCode": "USD",
+                                      "totalBeforeSale": "0.0000",
+                                      "subtotalWithoutTaxes": "1.9565",
+                                      "discountPercentage": "0.0000",
+                                      "discountsValue": "0.0000",
+                                      "subtotalIncludeDiscounts": "1.9565",
+                                      "taxesPercentage": "15.0000",
+                                      "taxValue": "0.2935",
+                                      "total": "2.2500",
+                                      "suggestedPrice": "2.2500"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "additionalInfo": {}
+                        }
+                      ],
+                      "stock": [
+                        {
+                          "productId": "10030",
+                          "stock": 30
+                        }
+                      ]
+                    },
+                    "shippingMethod": {
+                      "delivery": {
+                        "deliveryDate": "2022-07-05 18:24:00",
+                        "latitude": "-2.2244266000000",
+                        "longitude": "-80.9044868000000",
+                        "country": "Colombia",
+                        "city": "Bogota",
+                        "mainStreet": "Calle 100 # 15-34",
+                        "number": "",
+                        "secondaryStreet": "",
+                        "reference": "Casa gris",
+                        "propertyId": 1,
+                        "observationsAddress": "No sirve el intercomunicador",
+                        "numberContactAddress": "101019987435",
+                        "zipCode": "170904",
+                        "nickName": "casa",
+                        "externalId": "2056",
+                        "id": "3012312",
+                        "driverArrivalDateInStore": "2024-02-21T12:47:27Z",
+                        "additionalInfo": {
+                          "deliveryConfirmationCode": "PZ051"
+                        }
+                      },
+                      "pickup": {
+                        "pickupDate": "2022-07-05 18:39:00",
+                        "prepDate": "2022-07-05 18:24:00",
+                        "prepTimeUnit": "minute",
+                        "prepTime": 15,
+                        "propertyId": 1,
+                        "carryOutOptions": "PickUp-LLevar",
+                        "contactMethods": [
+                          {
+                            "type": "pager",
+                            "identifier": "PG123"
+                          },
+                          {
+                            "type": "sms",
+                            "countryCode": "+57",
+                            "phoneNumber": "3001234567"
+                          },
+                          {
+                            "type": "whatsapp",
+                            "countryCode": "+57",
+                            "phoneNumber": "3007654321"
+                          }
+                        ]
+                      }
+                    },
+                    "payments": {
+                      "totals": [
+                        {
+                          "rewardId": "UUID_CUPON_DESC_TOTAL",
+                          "currencyCode": "USD",
+                          "totalBeforeSale": "0.0000",
+                          "subtotalWithoutTaxes": "39.3478",
+                          "discountPercentage": "20.0000",
+                          "discountsValue": "7.8696",
+                          "subtotalIncludeDiscounts": "31.4782",
+                          "taxesPercentage": "15.0000",
+                          "taxValue": "4.7217",
+                          "total": "36.2000"
+                        }
+                      ],
+                      "shippingCost": [
+                        {
+                          "quantity": 1,
+                          "productId": "111",
+                          "rewardId": "UUID_CUPON_FREEDELIVERY",
+                          "currencyCode": "USD",
+                          "subtotalWithoutTaxes": "2.3913",
+                          "discountPercentage": "100.0000",
+                          "discountsValue": "2.3913",
+                          "subtotalIncludeDiscounts": "0.0000",
+                          "taxesPercentage": "15.0000",
+                          "taxValue": "0.0000",
+                          "total": "0.0000"
+                        }
+                      ],
+                      "extraCharges": [
+                        {
+                          "quantity": 1,
+                          "productId": "125",
+                          "description": "tip",
+                          "currencyCode": "USD",
+                          "subtotalWithoutTaxes": "0.8696",
+                          "discountPercentage": "0.0000",
+                          "discountsValue": "0.0000",
+                          "subtotalIncludeDiscounts": "0.8696",
+                          "taxesPercentage": "15.0000",
+                          "taxValue": "0.1304",
+                          "total": "1.0000"
+                        },
+                        {
+                          "quantity": 1,
+                          "productId": null,
+                          "description": "packing cost",
+                          "currencyCode": "USD",
+                          "subtotalWithoutTaxes": "3.0435",
+                          "discountPercentage": "0.0000",
+                          "discountsValue": "0.0000",
+                          "subtotalIncludeDiscounts": "3.0435",
+                          "taxesPercentage": "15.0000",
+                          "taxValue": "0.4565",
+                          "total": "3.5000"
+                        }
+                      ],
+                      "discounts": [
+                        {
+                          "rewardId": "UUI_DESCPUNTOS",
+                          "productId": "991117",
+                          "currencyCode": "USD",
+                          "totalBeforeSale": "0.0000",
+                          "subtotalWithoutTaxes": "7.7826",
+                          "discountPercentage": "100.0000",
+                          "discountsValue": "7.7826",
+                          "subtotalIncludeDiscounts": "0.0000"
+                        },
+                        {
+                          "rewardId": "UUI_DESCPUNTOS",
+                          "productId": "1025",
+                          "currencyCode": "USD",
+                          "totalBeforeSale": "0.0000",
+                          "subtotalWithoutTaxes": "1.7304",
+                          "discountPercentage": "100",
+                          "discountsValue": "1.7304",
+                          "subtotalIncludeDiscounts": "0.0000"
+                        },
+                        {
+                          "rewardId": "UUID_CUPON_FREEDELIVERY",
+                          "productId": "111",
+                          "currencyCode": "USD",
+                          "totalBeforeSale": "0.0000",
+                          "subtotalWithoutTaxes": "2.3913",
+                          "discountPercentage": "100.0000",
+                          "discountsValue": "2.3913",
+                          "subtotalIncludeDiscounts": "0.0000"
+                        },
+                        {
+                          "rewardId": "UUID_CUPON_DESC_TOTAL",
+                          "productId": "111",
+                          "currencyCode": "USD",
+                          "totalBeforeSale": "0.0000",
+                          "subtotalWithoutTaxes": "2.3913",
+                          "discountPercentage": "100.0000",
+                          "discountsValue": "2.3913",
+                          "subtotalIncludeDiscounts": "0.0000"
+                        }
+                      ],
+                      "taxes": [
+                        {
+                          "name": "IVA 15%",
+                          "currencyCode": "USD",
+                          "subtotalWithoutTaxes": "31.4782",
+                          "percentage": "15.0000",
+                          "total": "4.7217"
+                        }
+                      ],
+                      "paymentMethods": [
+                        {
+                          "processor": "Kushki",
+                          "currencyCode": "USD",
+                          "paymentMethodCode": "2",
+                          "transactionType": "credit",
+                          "transactionId": "049258058662543450",
+                          "transactionStatus": "APPROVED",
+                          "tid": "CA303015",
+                          "mid": "2000026002",
+                          "authorizationCode": "428364",
+                          "voucher": "358642",
+                          "referenceNumber": "704891",
+                          "exactPayment": true,
+                          "customerCashAmount": "0.0000",
+                          "totalBill": "30.0000",
+                          "acquirer": {
+                            "code": "004",
+                            "name": "BANCO GUAYAQUIL"
+                          },
+                          "card": {
+                            "mask": "459424XXXXXXX456",
+                            "bin": "459424",
+                            "lastFourDigits": "1456",
+                            "brand": "MAST",
+                            "externalCardBrandId": "28FA9351-5F07-EB11-80F1-000D3A019254",
+                            "holder": "Sebastian Rodriguez",
+                            "cardCountry": "Ecuador"
+                          },
+                          "transactionDate": {
+                            "date": "2022-11-02 08:15:30",
+                            "timeZoneType": 3,
+                            "timeZoneName": "America/Guayaquil",
+                            "weekNumber": 1
+                          },
+                          "metadata": {
+                            "aid": "Specific to Ecuador (application identifier)",
+                            "responseCode": "Transaction response code, '00' for success",
+                            "transactionDate": "Date of the transaction in format YYYYMMDD",
+                            "transactionTime": "Time of the transaction in format HHMMSS",
+                            "cardBrand": "Card brand (e.g., VISA, MASTERCARD, ELECTRON)",
+                            "batch": "Batch to which the transaction belongs",
+                            "rrn": "Recovery Reference Number (RRN)",
+                            "taxAmount": "Tax amount in the transaction (e.g., VAT)",
+                            "totalPurchaseAmount": "Total value of the purchase",
+                            "responseMessage": "Response message (e.g., 'OK')",
+                            "authorizationResponseMessage": "Authorization response message (e.g., 'APPROVED TRANSACTION')"
+                          }
+                        },
+                        {
+                          "processor": "Efectivo",
+                          "currencyCode": "USD",
+                          "paymentMethodCode": "1",
+                          "transactionType": null,
+                          "transactionId": null,
+                          "transactionStatus": null,
+                          "tid": null,
+                          "mid": null,
+                          "authorizationCode": null,
+                          "voucher": null,
+                          "referenceNumber": null,
+                          "exactPayment": true,
+                          "customerCashAmount": "0.0000",
+                          "totalBill": "6.2000",
+                          "acquirer": null,
+                          "card": null,
+                          "transactionDate": {
+                            "date": "2022-11-02 08:15:40",
+                            "timeZoneType": 3,
+                            "timeZoneName": "America/Guayaquil",
+                            "weekNumber": 1
+                          },
+                          "metadata": {
+                            "aid": "Specific to Ecuador (application identifier)",
+                            "responseCode": "Transaction response code, '00' for success",
+                            "transactionDate": "Date of the transaction in format YYYYMMDD",
+                            "transactionTime": "Time of the transaction in format HHMMSS",
+                            "cardBrand": "Card brand (e.g., VISA, MASTERCARD, ELECTRON)",
+                            "batch": "Batch to which the transaction belongs",
+                            "rrn": "Recovery Reference Number (RRN)",
+                            "taxAmount": "Tax amount in the transaction (e.g., VAT)",
+                            "totalPurchaseAmount": "Total value of the purchase",
+                            "responseMessage": "Response message (e.g., 'OK')",
+                            "authorizationResponseMessage": "Authorization response message (e.g., 'APPROVED TRANSACTION')"
+                          }
+                        }
+                      ]
+                    },
+                    "marketing": {
+                      "loyalty": {
+                        "accumulation": {
+                          "storeCost": "100.0000",
+                          "marketingCost": "112.0000",
+                          "totalPoints": "212.0000"
+                        },
+                        "redemption": {
+                          "storeCost": "80.0000",
+                          "marketingCost": "160.0000",
+                          "totalPoints": "240.0000"
+                        },
+                        "accountBalancePoints": "20"
+                      },
+                      "coupons": [
+                        {
+                          "rewardId": "UUI_DESCPUNTOS",
+                          "name": "Descuento para pago con puntos",
+                          "additionalInfo": {}
+                        },
+                        {
+                          "rewardId": "UUID_CUPON_PRODUCT",
+                          "name": "Cupon de producto",
+                          "additionalInfo": {}
+                        },
+                        {
+                          "rewardId": "UUID_CUPON_FREEDELIVERY",
+                          "name": "Beneficio Free Delivery",
+                          "additionalInfo": {}
+                        },
+                        {
+                          "rewardId": "UUID_CUPON_DESC_TOTAL",
+                          "name": "DEscuento al total de la orden",
+                          "additionalInfo": {}
+                        }
+                      ]
+                    },
+                    "additionalInfo": {
+                      "kiosk": {
+                        "ip": "10.101.4.32"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string", "example": "Unauthorized" }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "error": { "type": "string", "example": "Order not found" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/products/{vendorId}": {
+      "put": {
+        "summary": "Update product information",
+        "description": "This endpoint allows you to update product information",
+        "parameters": [
+          {
+            "name": "vendorId",
+            "in": "query",
+            "required": true,
+            "description": "Unique brand identifier",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "storeId": {
+                    "type": "string",
+                    "description": "Unique store identifier"
+                  },
+                  "productId": {
+                    "type": "string",
+                    "description": "Unique product identifier"
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "description": "Product status"
+                  },
+                  "priceInfo": {
+                    "type": "object",
+                    "properties": {
+                      "price": {
+                        "type": "number",
+                        "description": "Allows you to define the final price of the product (this price will be displayed in the app or the website)"
+                      },
+                      "pointPrice": {
+                        "type": "integer",
+                        "description": "Allows the price in points",
+                        "nullable": true
+                      }
+                    }
+                  },
+                  "scheduledActiveStatus": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Future date on which you want to activate the product"
+                  },
+                  "scheduledInactiveStatus": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Future date on which you want to inactivate the product"
+                  }
+                },
+                "required": ["storeId", "productId", "active", "priceInfo"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product information successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product updated successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Bad request"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/coupon/redeem": {
+      "post": {
+        "summary": "Redeem local promotion",
+        "description": "Allows you to redeem a local coupon using a UID and promotion code",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string",
+                    "description": "Unique user identifier",
+                    "example": "KQAR50EkIGM33tIVbs5w5GIDthe2"
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "Promotion code",
+                    "example": "D72A1088-980C-4942-9BAB-45430D2D1007"
+                  },
+                  "external_id": {
+                    "type": "string",
+                    "description": "External ID",
+                    "example": "D72A1088-980C-4942-9BAB-45430D2D1007"
+                  }
+                },
+                "required": [
+                  "uid",
+                  "code",
+                  "external_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Coupon successfully redeemed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "success message",
+                      "example": "Coupon successfully redeemed"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Operation status",
+                      "example": "success"
+                    }
+                  },
+                  "required": ["message", "status"]
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Successful redemption",
+                    "value": {
+                      "message": "Coupon successfully redeemed",
+                      "status": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Coupon not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Coupon not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/authentication/login": {
+      "post": {
+        "summary": "Authentication",
+        "description": "Authentication del usuario mediante login.",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "description": "Required field"
+                  },
+                  "client_secret": {
+                    "type": "string",
+                    "description": "Required field"
+                  },
+                  "grant_type": {
+                    "type": "string",
+                    "enum": ["client_credentials"]
+                  }
+                },
+                "required": ["client_id", "client_secret", "grant_type"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string"
+                    },
+                    "token_type": {
+                      "type": "string"
+                    },
+                    "expires_in": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/tracking": {
+      "post": {
+        "summary": "Orders - Tracking",
+        "description": "Record tracking information for a specific order",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "order ID",
+                    "example": "0000001427-010701"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Order Status",
+                    "example": "OrderReceived"
+                  },
+                  "trackingInfo": {
+                    "type": "object",
+                    "description": "Tracking information",
+                    "properties": {
+                      "trackurl": {
+                        "type": "string",
+                        "description": "Tracking URL",
+                        "example": "https://kfc-co.tracker.dragontail.com/?UID=hE58xI"
+                      },
+                      "trackingNumber": {
+                        "type": "string",
+                        "description": "Tracking number",
+                        "example": "RAP-0100-trackNUmber"
+                      },
+                      "deliveryConfirmationCode": {
+                        "type": "string",
+                        "description": "Delivery confirmation code",
+                        "example": "PZ051"
+                      },
+                      "shippingCoordinates": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "latitude": {
+                              "type": "string",
+                              "example": "-0.20234732693531"
+                            },
+                            "longitude": {
+                              "type": "string",
+                              "example": "-78.486171941476"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "order_id",
+                  "status",
+                  "trackingInfo"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tracking information recorded correctly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "success message",
+                      "example": "Tracking successfully registered"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Operation status",
+                      "example": "success"
+                    }
+                  },
+                  "required": ["message", "status"]
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Successful registration",
+                    "value": {
+                      "message": "Tracking successfully registered",
+                      "status": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        }
+      }
+    },
+    "/api/order/status": {
+      "post": {
+        "summary": "Orders - status change",
+        "description": "Oauth authentication with client credentials",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "Order ID",
+                    "example": "0000013353-092501"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "New order status",
+                    "example": "Canceled"
+                  }
+                },
+                "required": ["order_id", "status"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order status changed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "success message",
+                      "example": "Order status changed successfully"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Operation status",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error description",
+                      "example": "Invalid data"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/transfer": {
+      "put": {
+        "summary": "Orders - transfer",
+        "description": "Autenticación oauth con client credentials",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order": {
+                    "type": "string",
+                    "description": "Order ID",
+                    "example": "0000000246-010103"
+                  },
+                  "from_store": {
+                    "type": "string",
+                    "description": "Origin Store Code",
+                    "example": "K046"
+                  },
+                  "to_store": {
+                    "type": "string",
+                    "description": "Target store code",
+                    "example": "K153"
+                  },
+                  "processed_by": {
+                    "type": "string",
+                    "description": "Name of the person processing the transfer",
+                    "example": "Juanito P"
+                  },
+                  "transfer_reason": {
+                    "type": "string",
+                    "description": "Reason for transfer",
+                    "example": "Pickup order test transfer"
+                  },
+                  "shipping_address": {
+                    "type": "string",
+                    "description": "Shipping address (optional)",
+                    "nullable": true,
+                    "example": ""
+                  }
+                },
+                "required": ["order", "from_store", "to_store", "processed_by", "transfer_reason"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order transferred successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "success message",
+                      "example": "Order transferred successfully"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Operation status",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error description",
+                      "example": "Invalid data"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/dispatched": {
+      "post": {
+        "summary": "Pickup orders - dispatched",
+        "description": "Oauth authentication with client credentials",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "codigo_app": {
+                    "type": "string",
+                    "description": "Application code",
+                    "example": "0000007860-010106"
+                  },
+                  "id_transaccion": {
+                    "type": "string",
+                    "description": "transaction ID",
+                    "example": "XH4TDASD7812LDTST"
+                  }
+                },
+                "required": ["codigo_app", "id_transaccion"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order successfully shipped",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "success message",
+                      "example": "Order successfully shipped"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Operation status",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error description",
+                      "example": "Invalid data"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/products/{update}": {
+      "put": {
+        "summary": "Update product",
+        "description": "This endpoint updates information for an existing product",
+        "operationId": "updateProduct",
+        "requestBody": {
+          "description": "Updated product information",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": { "type": "string", "example": "Coffee-product-id" },
+                  "name": { "type": "string", "example": "Small Coffee" },
+                  "type": { "type": "string", "example": "PRODUCT" },
+                  "description": { "type": "string", "example": "The bestest Coffee" },
+                  "standardTime": { "type": "boolean", "example": true },
+                  "featured": { "type": "boolean", "example": true },
+                  "schedules": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "day": { "type": "string", "example": "MONDAY" },
+                        "startDate": { "type": "string", "format": "date", "example": "2019-02-24" },
+                        "endDate": { "type": "string", "format": "date", "example": "2019-02-25" },
+                        "startTime": { "type": "string", "format": "time", "example": "08:00" },
+                        "endTime": { "type": "string", "format": "time", "example": "12:00" }
+                      }
+                    }
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": { "type": "string", "example": "to share" }
+                  },
+                  "upselling": {
+                    "type": "array",
+                    "items": { "type": "string", "example": "lg-coffee" }
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "imageCategoryId": { "type": "string", "example": "product" },
+                        "fileUrl": { "type": "string", "format": "uri", "example": "https://path/to/file.png" }
+                      }
+                    }
+                  },
+                  "taxesInfo": {
+                    "type": "object",
+                    "properties": {
+                      "taxRate": { "type": "number", "example": 0 },
+                      "vatRatePercentage": { "type": "number", "example": 0 }
+                    }
+                  },
+                  "priceInfo": {
+                    "type": "object",
+                    "properties": {
+                      "price": { "type": "number", "example": 4.99 },
+                      "pointPrice": { "type": "number", "nullable": true, "example": null }
+                    }
+                  },
+                  "categories": {
+                    "type": "array",
+                    "items": { "type": "string", "example": "Coffes-category-id" }
+                  },
+                  "additionalInfo": {
+                    "type": "object",
+                    "properties": {
+                      "menu_level": { "type": "integer", "example": 0 }
+                    }
+                  }
+                },
+                "required": ["productId", "name", "type", "description"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Producto actualizado exitosamente." },
+                    "productId": { "type": "string", "example": "Coffee-product-id" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string", "example": "Invalid data" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },                        
+    "/api/order/infoPayments": {
+      "get": {
+        "summary": "Orders - payment information",
+        "description": "Oauth authentication with client credentials",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Start date to filter payments",
+            "example": "2022-02-01"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "End date to filter payments",
+            "example": "2022-02-16"
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "allowEmptyValue": true,
+            "description": "Country (optional)",
+            "example": "ecuador"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "allowEmptyValue": true,
+            "description": "Account (optional)",
+            "example": ""
+          },
+          {
+            "name": "vendor_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "allowEmptyValue": true,
+            "description": "Seller ID (optional)",
+            "example": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment information successfully obtained",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "success message",
+                      "example": "Payment information successfully obtained"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Operation status",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error description",
+                      "example": "Invalid data"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/products/{productId}": {
+      "get": {
+        "summary": "Retrieve product information",
+        "description": "Returns detailed information about a specific product based on the provided parameters.",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "description": "ID of the product to query.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "catalogueId",
+            "in": "query",
+            "required": true,
+            "description": "Catalogue ID.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "required": true,
+            "description": "Channel ID.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "required": true,
+            "description": "Store ID.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "vendorId",
+            "in": "query",
+            "required": true,
+            "description": "Vendor ID.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "withCategories",
+            "in": "query",
+            "required": false,
+            "description": "Indicates whether categories should be included in the response.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with product information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "200"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "OK"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Detailed product information.",
+                      "example": {
+                        "measure": "1 unit",
+                        "stock": 0,
+                        "name": "7 PIECES",
+                        "suggestedPrice": "$0.00",
+                        "prices": {
+                          "NORMAL": {
+                            "category": "NORMAL",
+                            "symbol": "$",
+                            "grossPrice": 11.2957,
+                            "netPrice": 12.99
+                          }
+                        },
+                        "description": "7 pieces of chicken.",
+                        "productId": "24720"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "400"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid request"
+                    },
+                    "error": {
+                      "type": "object",
+                      "description": "Error details."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/externalId/{externalId}": {
+      "get": {
+        "summary": "Get product details",
+        "description": "Retrieve detailed information about a product based on externalId, vendorId, storeId, and channelId.",
+        "parameters": [
+          {
+            "name": "externalId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The external ID of the product."
+          },
+          {
+            "name": "vendorId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The vendor ID."
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The store ID."
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The channel ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with product details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string" },
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "measure": { "type": "string" },
+                        "stock": { "type": "integer" },
+                        "name": { "type": "string" },
+                        "suggestedPrice": { "type": "string" },
+                        "prices": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                              "category": { "type": "string" },
+                              "symbol": { "type": "string" },
+                              "grossPrice": { "type": "number" },
+                              "netPrice": { "type": "number" }
+                            }
+                          }
+                        },
+                        "description": { "type": "string" },
+                        "isPriceVip": { "type": "boolean" },
+                        "hasModifiers": { "type": "boolean" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input or missing parameters."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/v3/lists/{listId}": {
+      "put": {
+        "summary": "Register or edit a list",
+        "description": "This endpoint allows you to register or edit a list in the system. Important: Each submitted request is processed as a new configuration, so if a product, category, modifier, etc. is not sent all your configuration will be deleted",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "list": {
+                    "type": "object",
+                    "description": "General information of the list to be created",
+                    "properties": {
+                      "ecommerceChannelId": {
+                        "type": "integer",
+                        "description": "Unified sales channel identifier, refers to the standardized channel identifier."
+                      },
+                      "channelReferenceName": {
+                        "type": "string",
+                        "description": "Unique reference name, used for search and association of the standardized channel."
+                      },
+                      "listId": {
+                        "type": "string",
+                        "description": "Unique identifier of the list. Ex: pickup-menu, daily-menu, ..."
+                      },
+                      "listName": {
+                        "type": "string",
+                        "description": "Name that identifies the list. Ex: 'menu app'"
+                      },
+                      "vendorId": {
+                        "type": "string",
+                        "description": "Unique brand identifier, provided by Trade."
+                      },
+                      "storeId": {
+                        "type": "string",
+                        "description": "Unique identifier of the store, refers to the storeId parameter of the creation of stores and sales channels. The 'replicate_in_all' value allows the current list to be replicated for all stores"
+                      },
+                      "channelId": {
+                        "type": "string",
+                        "description": "Unique identifier of the sales channel, refers to the channelId parameter of the creation of stores and sales channels."
+                      },
+                      "schedules": {
+                        "type": "array",
+                        "description": "Allows you to apply a schedule to the list.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "day": {
+                              "type": "string"
+                            },
+                            "startDate": {
+                              "type": "string"
+                            },
+                            "endDate": {
+                              "type": "string"
+                            },
+                            "startTime": {
+                              "type": "string"
+                            },
+                            "endTime": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "categories": {
+                    "type": "array",
+                    "description": "Permite definir las categorías de productos, así como su organización en la lista.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "categoryId": {
+                          "type": "string"
+                        },
+                        "categoryName": {
+                          "type": "string"
+                        },
+                        "displayInList": {
+                          "type": "boolean"
+                        },
+                        "featured": {
+                          "type": "boolean"
+                        },
+                        "crossSellingCategory": {
+                          "type": "boolean"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "imageCategoryId": {
+                                "type": "string"
+                              },
+                              "fileUrl": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "childCategories": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "categoryId": {
+                                "type": "string"
+                              },
+                              "categoryName": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "productListing": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "productId": {
+                                "type": "string"
+                              },
+                              "position": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "schedules": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "day": {
+                                "type": "string"
+                              },
+                              "startDate": {
+                                "type": "string"
+                              },
+                              "endDate": {
+                                "type": "string"
+                              },
+                              "startTime": {
+                                "type": "string"
+                              },
+                              "endTime": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "products": {
+                    "type": "array",
+                    "description": "Permite definir los productos o items, así como su organización en la lista.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "productId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "standardTime": {
+                          "type": "boolean"
+                        },
+                        "featured": {
+                          "type": "boolean"
+                        },
+                        "priceInfo": {
+                          "type": "object",
+                          "properties": {
+                            "price": {
+                              "type": "number"
+                            },
+                            "salePrice": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "productModifiers": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "modifierId": {
+                                "type": "string"
+                              },
+                              "position": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "schedules": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "day": {
+                                "type": "string"
+                              },
+                              "startDate": {
+                                "type": "string"
+                              },
+                              "endDate": {
+                                "type": "string"
+                              },
+                              "startTime": {
+                                "type": "string"
+                              },
+                              "endTime": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "imageCategoryId": {
+                                "type": "string"
+                              },
+                              "fileUrl": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "modifierGroups": {
+                    "type": "array",
+                    "description": "Permite definir un listado de modificadores que se utilizarán en la lista.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "modifierId": {
+                          "type": "string"
+                        },
+                        "modifier": {
+                          "type": "string"
+                        },
+                        "minOptions": {
+                          "type": "integer"
+                        },
+                        "maxOptions": {
+                          "type": "integer"
+                        },
+                        "visible": {
+                          "type": "boolean"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "modifierOptions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "optionId": {
+                                "type": "string"
+                              },
+                              "productId": {
+                                "type": "string"
+                              },
+                              "default": {
+                                "type": "boolean"
+                              },
+                              "position": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scheduledActivities": {
+                    "type": "array",
+                    "description": "Permite programar la activación e inactivación de productos en una fecha futura.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "productId": {
+                          "type": "string"
+                        },
+                        "scheduledActiveStatus": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "scheduledInactiveStatus": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lista registrada o editada exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "listId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuthBody": {
+        "required": [
+          "client_id",
+          "client_secret",
+          "grant_type"
+        ],
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "description": "Unique client identifier",
+            "type": "string"
+          },
+          "client_secret": {
+            "description": "Unique client secret",
+            "type": "string"
+          },
+          "grant_type": {
+            "description": "Access type",
+            "type": "string"
+          }
+        }
+      },
+      "Store": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "New store 805"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "storeId": {
+            "type": "integer",
+            "example": 805
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            }
+          },
+          "vendorId": {
+            "description": "Unique brand identifier. *This identifier is provided by Trade.",
+            "type": "integer",
+            "example": 16
+          },
+          "schedulesByChannel": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SchedulesByChannel"
+            }
+          },
+          "storeCode": {
+            "type": "string",
+            "example": "T005"
+          },
+          "taxesInfo": {
+            "$ref": "#/components/schemas/TaxesInfo"
+          },
+          "contactInfo": {
+            "$ref": "#/components/schemas/ContactInfo"
+          },
+          "deliveryInfo": {
+            "$ref": "#/components/schemas/DeliveryInfo"
+          },
+          "locationInfo": {
+            "$ref": "#/components/schemas/LocationInfo"
+          },
+          "storeChannels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "0F049503-85CF-E511-80C6-000D3A3261F3"
+            }
+          }
+        }
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "DELIVERY"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "SchedulesByChannel": {
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "example": "0F049503-85CF-E511-80C6-000D3A3261F3"
+          },
+          "schedules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Schedule"
+            }
+          }
+        }
+      },
+      "Schedule": {
+        "type": "object",
+        "properties": {
+          "day": {
+            "type": "string",
+            "example": "FRIDAY"
+          },
+          "endTime": {
+            "type": "string",
+            "example": "22:30"
+          },
+          "startTime": {
+            "type": "string",
+            "example": "10:00"
+          }
+        }
+      },
+      "TaxesInfo": {
+        "type": "object",
+        "properties": {
+          "taxRate": {
+            "type": "number",
+            "example": 0
+          },
+          "vatRatePercentage": {
+            "type": "number",
+            "example": 12
+          }
+        }
+      },
+      "ContactInfo": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "example": "23955400"
+          },
+          "address": {
+            "type": "string",
+            "example": "PICHINCHA / QUITO / INAQUITO / AV. AMERICA N37-288 Y VILLALENGUA"
+          }
+        }
+      },
+      "DeliveryInfo": {
+        "type": "object",
+        "properties": {
+          "cookTime": {
+            "type": "string",
+            "example": "10"
+          },
+          "deliveryId": {
+            "type": "integer",
+            "example": 46356
+          },
+          "minimumOrder": {
+            "type": "string",
+            "example": "0.00"
+          },
+          "shippingCost": {
+            "type": "number",
+            "example": 1.99
+          }
+        }
+      },
+      "LocationInfo": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "example": "QUITO"
+          },
+          "latitude": {
+            "type": "string",
+            "example": "-0.17250869436401206"
+          },
+          "longitude": {
+            "type": "string",
+            "example": "-78.49125266075134"
+          }
+        }
+      },
+      "Channel": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "channel": {
+            "type": "string",
+            "example": "Llevar"
+          },
+          "vendorId": {
+            "type": "integer",
+            "example": 16
+          },
+          "channelId": {
+            "type": "string",
+            "example": "0E049503-85CF-E511-80C6-000D3A3261F3"
+          },
+          "additionalInfo": {
+            "$ref": "#/components/schemas/AdditionalInfo"
+          },
+          "channelReferenceName": {
+            "type": "string",
+            "example": "Llevar PICKUP"
+          }
+        }
+      },
+      "AdditionalInfo": {
+        "type": "object",
+        "properties": {
+          "mediaId": {
+            "type": "string",
+            "example": "E683B6FE-65A9-4D01-B07B-FA1A3C8BCA8D"
+          },
+          "mediaName": {
+            "type": "string",
+            "example": "PICKUP"
+          },
+          "relatedLists": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedList"
+            }
+          }
+        }
+      },
+      "RelatedList": {
+        "type": "object",
+        "properties": {
+          "listId": {
+            "type": "string",
+            "example": "42203FD3-0194-EA11-80EE-000D3A019254"
+          },
+          "listName": {
+            "type": "string",
+            "example": "PICKUP ECOMMERCE T"
+          }
+        }
+      },
+      "StoreResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Store"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "storeImage": {
+                "description": "Store image",
+                "type": "array"
+              },
+              "paymentMethodAvailability": {
+                "description": "",
+                "type": "string"
+              },
+              "paymentMethodInfo": {
+                "description": "",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "List": {
+        "type": "object",
+        "properties": {
+          "listId": {
+            "type": "string",
+            "example": "1"
+          },
+          "name": {
+            "type": "string",
+            "example": "MENU DOMICILIO"
+          },
+          "active": {
+            "type": "boolean",
+            "example": "true | false"
+          }
+        }
+      },
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "description": "Authentication error code.",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        }
+      },
+      "Plant": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the plant",
+            "type": "string"
+          },
+          "tag": {
+            "description": "Tag to specify the type",
+            "type": "string"
+          }
+        }
+      },
+      "NewPlant": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Plant"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Identification number of the plant",
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "Error": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

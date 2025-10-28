@@ -45,12 +45,6 @@
     "name": "Dashboard",
     "url": "https://app.x-mart.io/auth/signin"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
   "anchors": [
     {
       "name": "Create an account",
@@ -70,32 +64,34 @@
         "ingles/introduction", 
         "ingles/Our API",
         "ingles/quickstart",
-      {
-        "group": "Concepts",
-        "pages": [
-          "ingles/Concepts/Stores",
-          "ingles/Concepts/list",
-          "ingles/Concepts/Channels"]
-      }
-    ],
-    "version": "English"
-  },
-  {
-    "group": "Primeros Pasos",
-    "pages": [
-      "espanol/introduccion", 
-      "espanol/Our API",
-      "espanol/quickstart",
+        {
+          "group": "Concepts",
+          "pages": [
+            "ingles/Concepts/Stores",
+            "ingles/Concepts/list",
+            "ingles/Concepts/Channels"
+          ]
+        }
+      ],
+      "version": "English"
+    },
     {
-      "group": "Conceptos",
+      "group": "Primeros Pasos",
       "pages": [
-        "espanol/Concepts/Stores",
-        "espanol/Concepts/list",
-        "espanol/Concepts/Channels"]
-    }
-  ],
-  "version": "Español"
-},
+        "espanol/introduccion", 
+        "espanol/Our API",
+        "espanol/quickstart",
+        {
+          "group": "Conceptos",
+          "pages": [
+            "espanol/Concepts/Stores",
+            "espanol/Concepts/list",
+            "espanol/Concepts/Channels"
+          ]
+        }
+      ],
+      "version": "Español"
+    },
     {
       "group": "Guides",
       "pages": [
@@ -117,50 +113,117 @@
       "version": "Español"
     },
     
-
-
-
-
-
-
-
-  
-    {  
-      "group": "Auth",
-      "pages": ["api-reference/authentication/login/post"]
-    },
-    {  
-      "group": "Stores and Sales Channels",
-      "pages": ["api-reference/v3/stores/get",
-      "api-reference/v3/channels-stores/post",
-      "api-reference/v3/stores/getId",
-      "api-reference/v3/stores/put"]
-    },
-    {  
-      "group": "Lists",
-      "pages": ["api-reference/v3/lists/get","api-reference/v3/lists/put"]
-    },
-    {  
-      "group": "Products",
-      "pages": ["api-reference/v3/products/post","api-reference/v3/products/put","api-reference/v3/products/putpro"]
-    },
-    {
-      "group": "Injection Web Services",
-      "pages": ["api-reference/injection/postorder","api-reference/injection/get"]
-    },
-    {
-      "group": "Order Fulfillment",
-      "pages": ["api-reference/fulfillment/posttrack"
-            ,"api-reference/fulfillment/poststatus","api-reference/fulfillment/postdispatched","api-reference/fulfillment/puttransfer"
-            ]
-    },
-    {
-      "group": "Switch Transactional",
-      "pages": ["api-reference/fulfillment/getpay"]
-    }
-    ],
-    "footerSocials": {
-    "website": "https://www.artisn.io/xmart"
-    }
-    }
     
+    {
+      "group": "API-Reference",
+      "pages": [
+        {
+          "group": "Auth",
+          "pages": ["ingles/api-reference/authentication/login/post"]
+        },
+        {
+          "group": "Stores and Sales Channels",
+          "pages": [
+            "api-reference/v3/stores/get",
+            "api-reference/v3/channels-stores/post",
+            "api-reference/v3/stores/getId",
+            "api-reference/v3/stores/put"
+          ]
+        },
+        {
+          "group": "Lists",
+          "pages": [
+            "api-reference/v3/lists/get",
+            "api-reference/v3/lists/put"
+          ]
+        },
+        {
+          "group": "Products",
+          "pages": [
+            "api-reference/v3/products/post",
+            "api-reference/v3/products/put",
+            "api-reference/v3/products/putpro"
+          ]
+        },
+        {
+          "group": "Injection Web Services",
+          "pages": [
+            "api-reference/injection/postorder",
+            "api-reference/injection/get"
+          ]
+        },
+        {
+          "group": "Order Fulfillment",
+          "pages": [
+            "api-reference/fulfillment/posttrack",
+            "api-reference/fulfillment/poststatus",
+            "api-reference/fulfillment/postdispatched",
+            "api-reference/fulfillment/puttransfer"
+          ]
+        },
+        {
+          "group": "Switch Transactional",
+          "pages": ["api-reference/fulfillment/getpay"]
+        }
+      ],
+      "version": "English"
+    },
+    {
+      "group": "API-Reference",
+      "pages": [
+        {
+          "group": "Autenticación",
+          "pages": ["espanol/api-reference/authentication/login/post"]
+        },
+        {
+          "group": "Tiendas y canales de venta",
+          "pages": [
+            "espanol/api-reference/v3/stores/get",
+            "espanol/api-reference/v3/channels-stores/post",
+            "espanol/api-reference/v3/stores/getId",
+            "espanol/api-reference/v3/stores/put"
+          ]
+        },
+        {
+          "group": "Listas",
+          "pages": [
+            "espanol/api-reference/v3/lists/get",
+            "espanol/api-reference/v3/lists/put"
+          ]
+        },
+        {
+          "group": "Productos",
+          "pages": [
+            "espanol/api-reference/v3/products/post",
+            "espanol/api-reference/v3/products/put",
+            "espanol/api-reference/v3/products/putpro"
+          ]
+        },
+        {
+          "group": "Servicio Web de Inyección",
+          "pages": [
+            "espanol/api-reference/injection/postorder",
+            "espanol/api-reference/injection/get"
+          ]
+        },
+        {
+          "group": "Cambios de estado",
+          "pages": [
+            "espanol/api-reference/fulfillment/posttrack",
+            "espanol/api-reference/fulfillment/poststatus",
+            "espanol/api-reference/fulfillment/postdispatched",
+            "espanol/api-reference/fulfillment/puttransfer"
+          ]
+        },
+        {
+          "group": "Switch Transactional",
+          "pages": ["espanol/api-reference/fulfillment/getpay"]
+        }
+      ],
+      "version": "Español"
+    }
+  ],
+  "footerSocials": {
+    "website": "https://www.artisn.io/xmart"
+  }
+}
