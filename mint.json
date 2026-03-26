@@ -164,6 +164,34 @@
         {
           "group": "Switch Transactional",
           "pages": ["api-reference/fulfillment/getpay"]
+        },
+        {
+          "group": "Fiscal Engine",
+          "pages": [
+            {
+              "group": "Orders",
+              "pages": [
+                "api-reference/fiscal/post-enrich-order",
+                "api-reference/fiscal/post-enrich-order-forward",
+                "api-reference/fiscal/get-admin-orders"
+              ]
+            },
+            {
+              "group": "Admin",
+              "pages": [
+                "api-reference/fiscal/get-admin-fiscal-groups",
+                "api-reference/fiscal/post-admin-fiscal-groups",
+                "api-reference/fiscal/get-admin-fiscal-groups-id",
+                "api-reference/fiscal/put-admin-fiscal-groups-id",
+                "api-reference/fiscal/delete-admin-fiscal-groups-id",
+                "api-reference/fiscal/get-admin-product-fiscal-categories",
+                "api-reference/fiscal/post-admin-product-fiscal-categories",
+                "api-reference/fiscal/get-admin-product-fiscal-categories-productid",
+                "api-reference/fiscal/put-admin-product-fiscal-categories-productid",
+                "api-reference/fiscal/delete-admin-product-fiscal-categories-productid"
+              ]
+            }
+          ]
         }
       ],
       "version": "English"
@@ -218,6 +246,34 @@
         {
           "group": "Switch Transactional",
           "pages": ["espanol/api-reference/fulfillment/getpay"]
+        },
+        {
+          "group": "Motor Fiscal",
+          "pages": [
+            {
+              "group": "Órdenes",
+              "pages": [
+                "espanol/api-reference/fiscal/post-enrich-order",
+                "espanol/api-reference/fiscal/post-enrich-order-forward",
+                "espanol/api-reference/fiscal/get-admin-orders"
+              ]
+            },
+            {
+              "group": "Admin",
+              "pages": [
+                "espanol/api-reference/fiscal/get-admin-fiscal-groups",
+                "espanol/api-reference/fiscal/post-admin-fiscal-groups",
+                "espanol/api-reference/fiscal/get-admin-fiscal-groups-id",
+                "espanol/api-reference/fiscal/put-admin-fiscal-groups-id",
+                "espanol/api-reference/fiscal/delete-admin-fiscal-groups-id",
+                "espanol/api-reference/fiscal/get-admin-product-fiscal-categories",
+                "espanol/api-reference/fiscal/post-admin-product-fiscal-categories",
+                "espanol/api-reference/fiscal/get-admin-product-fiscal-categories-productid",
+                "espanol/api-reference/fiscal/put-admin-product-fiscal-categories-productid",
+                "espanol/api-reference/fiscal/delete-admin-product-fiscal-categories-productid"
+              ]
+            }
+          ]
         }
       ],
       "version": "Español"

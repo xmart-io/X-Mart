@@ -14,6 +14,23 @@
     },
     {
       "url": "https://api.kfc-group.desarrollo-redbrand.com"
+    },
+    {
+      "url": "https://{apiId}.execute-api.{region}.amazonaws.com/{stage}",
+      "description": "API Gateway (PRIVATE; invocación típica vía VPC endpoint).",
+      "variables": {
+        "apiId": {
+          "default": "{api-id}",
+          "description": "ID del API REST desplegado."
+        },
+        "region": {
+          "default": "us-east-1"
+        },
+        "stage": {
+          "default": "dev",
+          "description": "Mismo valor que parámetro EnvironmentName del stack."
+        }
+      }
     }
   ],
   "security": [
@@ -493,7 +510,10 @@
                     "type": "object",
                     "description": "General information of the list where the defined products will be added",
                     "properties": {
-                      "listName": { "type": "string", "description": "Name that identifies the list" }
+                      "listName": {
+                        "type": "string",
+                        "description": "Name that identifies the list"
+                      }
                     }
                   },
                   "modifierGroups": {
@@ -502,22 +522,44 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "modifierId": { "type": "string" },
-                        "modifier": { "type": "string" },
-                        "minOptions": { "type": "integer" },
-                        "maxOptions": { "type": "integer" },
-                        "visible": { "type": "boolean" },
-                        "position": { "type": "integer" },
-                        "type": { "type": "string" },
+                        "modifierId": {
+                          "type": "string"
+                        },
+                        "modifier": {
+                          "type": "string"
+                        },
+                        "minOptions": {
+                          "type": "integer"
+                        },
+                        "maxOptions": {
+                          "type": "integer"
+                        },
+                        "visible": {
+                          "type": "boolean"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
                         "modifierOptions": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "optionId": { "type": "string" },
-                              "productId": { "type": "string" },
-                              "default": { "type": "boolean" },
-                              "position": { "type": "integer" },
+                              "optionId": {
+                                "type": "string"
+                              },
+                              "productId": {
+                                "type": "string"
+                              },
+                              "default": {
+                                "type": "boolean"
+                              },
+                              "position": {
+                                "type": "integer"
+                              },
                               "additionalInfo": {
                                 "type": "object",
                                 "additionalProperties": true,
@@ -535,31 +577,64 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "productId": { "type": "string" },
-                        "name": { "type": "string" },
-                        "type": { "type": "string", "enum": ["PRODUCT", "MODIFIER", "COMPLEMENT"] },
-                        "description": { "type": "string" },
-                        "standardTime": { "type": "boolean" },
-                        "featured": { "type": "boolean" },
-                        "modifierId": { "type": "string" },
+                        "productId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "PRODUCT",
+                            "MODIFIER",
+                            "COMPLEMENT"
+                          ]
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "standardTime": {
+                          "type": "boolean"
+                        },
+                        "featured": {
+                          "type": "boolean"
+                        },
+                        "modifierId": {
+                          "type": "string"
+                        },
                         "taxesInfo": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "vatRatePercentage": { "type": "integer" },
-                              "name": { "type": "string" },
-                              "type": { "type": "string" }
+                              "vatRatePercentage": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
                         "priceInfo": {
                           "type": "object",
                           "properties": {
-                            "price": { "type": "number" },
-                            "pointPrice": { "type": "integer" },
-                            "suggestedPrice": { "type": "number" },
-                            "suggestedPointPrice": { "type": "integer" }
+                            "price": {
+                              "type": "number"
+                            },
+                            "pointPrice": {
+                              "type": "integer"
+                            },
+                            "suggestedPrice": {
+                              "type": "number"
+                            },
+                            "suggestedPointPrice": {
+                              "type": "integer"
+                            }
                           }
                         },
                         "schedules": {
@@ -567,27 +642,57 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "day": { "type": "string", "enum": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY", "SPECIAL"] },
-                              "startDate": { "type": "string", "format": "date" },
-                              "endDate": { "type": "string", "format": "date" },
-                              "startTime": { "type": "string", "format": "time" },
-                              "endTime": { "type": "string", "format": "time" }
+                              "day": {
+                                "type": "string",
+                                "enum": [
+                                  "MONDAY",
+                                  "TUESDAY",
+                                  "WEDNESDAY",
+                                  "THURSDAY",
+                                  "FRIDAY",
+                                  "SATURDAY",
+                                  "SUNDAY",
+                                  "SPECIAL"
+                                ]
+                              },
+                              "startDate": {
+                                "type": "string",
+                                "format": "date"
+                              },
+                              "endDate": {
+                                "type": "string",
+                                "format": "date"
+                              },
+                              "startTime": {
+                                "type": "string",
+                                "format": "time"
+                              },
+                              "endTime": {
+                                "type": "string",
+                                "format": "time"
+                              }
                             }
                           }
                         },
                         "upselling": {
                           "type": "array",
-                          "items": { "type": "string" },
+                          "items": {
+                            "type": "string"
+                          },
                           "description": "Set of unique product identifiers used in the upsell"
                         },
                         "crossSelling": {
                           "type": "array",
-                          "items": { "type": "string" },
+                          "items": {
+                            "type": "string"
+                          },
                           "description": "Set of unique product identifiers used in cross-selling"
                         },
                         "tags": {
                           "type": "array",
-                          "items": { "type": "string" },
+                          "items": {
+                            "type": "string"
+                          },
                           "description": "Allows you to assign tags to the product"
                         },
                         "images": {
@@ -595,8 +700,12 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "imageCategoryId": { "type": "string" },
-                              "fileUrl": { "type": "string" }
+                              "imageCategoryId": {
+                                "type": "string"
+                              },
+                              "fileUrl": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
@@ -606,8 +715,12 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "modifierId": { "type": "string" },
-                              "position": { "type": "integer" }
+                              "modifierId": {
+                                "type": "string"
+                              },
+                              "position": {
+                                "type": "integer"
+                              }
                             }
                           }
                         },
@@ -625,19 +738,35 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "categoryId": { "type": "string" },
-                        "categoryName": { "type": "string" },
-                        "displayInList": { "type": "boolean" },
-                        "featured": { "type": "boolean" },
-                        "crossSellingCategory": { "type": "boolean" },
-                        "position": { "type": "integer" },
+                        "categoryId": {
+                          "type": "string"
+                        },
+                        "categoryName": {
+                          "type": "string"
+                        },
+                        "displayInList": {
+                          "type": "boolean"
+                        },
+                        "featured": {
+                          "type": "boolean"
+                        },
+                        "crossSellingCategory": {
+                          "type": "boolean"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
                         "images": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "imageCategoryId": { "type": "string" },
-                              "fileUrl": { "type": "string" }
+                              "imageCategoryId": {
+                                "type": "string"
+                              },
+                              "fileUrl": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
@@ -646,8 +775,12 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "categoryId": { "type": "string" },
-                              "categoryName": { "type": "string" }
+                              "categoryId": {
+                                "type": "string"
+                              },
+                              "categoryName": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
@@ -656,8 +789,12 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "productId": { "type": "string" },
-                              "position": { "type": "integer" }
+                              "productId": {
+                                "type": "string"
+                              },
+                              "position": {
+                                "type": "integer"
+                              }
                             }
                           }
                         },
@@ -666,11 +803,21 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "day": { "type": "string" },
-                              "startDate": { "type": "string" },
-                              "endDate": { "type": "string" },
-                              "startTime": { "type": "string" },
-                              "endTime": { "type": "string" }
+                              "day": {
+                                "type": "string"
+                              },
+                              "startDate": {
+                                "type": "string"
+                              },
+                              "endDate": {
+                                "type": "string"
+                              },
+                              "startTime": {
+                                "type": "string"
+                              },
+                              "endTime": {
+                                "type": "string"
+                              }
                             }
                           }
                         }
@@ -698,9 +845,15 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "listId": { "type": "string" },
-                    "name": { "type": "string" },
-                    "active": { "type": "boolean" }
+                    "listId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
                   }
                 }
               }
@@ -713,7 +866,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string" }
+                    "message": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -1000,31 +1155,31 @@
                       "properties": {
                         "uid": {
                           "type": "string",
-                          "description":"First customer identifier"
+                          "description": "First customer identifier"
                         },
                         "name": {
                           "type": "string",
-                          "description":"name"
+                          "description": "name"
                         },
                         "lastName": {
                           "type": "string",
-                          "description":"lastname"
+                          "description": "lastname"
                         },
                         "phone": {
                           "type": "string",
-                          "description":"phone"
+                          "description": "phone"
                         },
                         "email": {
                           "type": "string",
-                          "description":"email"
+                          "description": "email"
                         },
                         "govIdType": {
                           "type": "string",
-                          "description":"Type of Identification (e.g. 'DNI', 'CI', 'RUC', 'PASSPORT')"
+                          "description": "Type of Identification (e.g. 'DNI', 'CI', 'RUC', 'PASSPORT')"
                         },
                         "govIdNumber": {
                           "type": "string",
-                          "description":"Identification Number"
+                          "description": "Identification Number"
                         },
                         "billingInformation": {
                           "type": "object",
@@ -1032,27 +1187,27 @@
                           "properties": {
                             "businessName": {
                               "type": "string",
-                              "description":"name"
+                              "description": "name"
                             },
                             "govIdType": {
                               "type": "string",
-                              "description":"Type of Identification (e.g. 'DNI', 'CI', 'RUC', 'PASSPORT')"
+                              "description": "Type of Identification (e.g. 'DNI', 'CI', 'RUC', 'PASSPORT')"
                             },
                             "govIdNumber": {
                               "type": "string",
-                              "description":"Identification Number"
+                              "description": "Identification Number"
                             },
                             "phone": {
                               "type": "string",
-                              "description":"phone"
+                              "description": "phone"
                             },
                             "email": {
                               "type": "string",
-                              "description":"email"
+                              "description": "email"
                             },
                             "address": {
                               "type": "string",
-                              "description":"address"
+                              "description": "address"
                             }
                           }
                         },
@@ -1061,12 +1216,12 @@
                           "properties": {
                             "birthdate": {
                               "type": "string",
-                              "description":"Date of birth in the format yyyy-MM-dd",
+                              "description": "Date of birth in the format yyyy-MM-dd",
                               "format": "date"
                             },
                             "gender": {
                               "type": "string",
-                              "description":"gender"
+                              "description": "gender"
                             }
                           }
                         }
@@ -1078,31 +1233,31 @@
                       "properties": {
                         "id": {
                           "type": "integer",
-                          "description":"Unique identifier"
+                          "description": "Unique identifier"
                         },
                         "name": {
                           "type": "string",
-                          "description":"name"
+                          "description": "name"
                         },
                         "code": {
                           "type": "string",
-                          "description":"code"
+                          "description": "code"
                         },
                         "vendorId": {
                           "type": "integer",
-                          "description":"Identifier of the string that belongs"
+                          "description": "Identifier of the string that belongs"
                         },
                         "vendorName": {
                           "type": "string",
-                          "description":"Brand name"
+                          "description": "Brand name"
                         },
                         "latitude": {
                           "type": "string",
-                          "description":"latitude"
+                          "description": "latitude"
                         },
                         "longitude": {
                           "type": "string",
-                          "description":"longitude"
+                          "description": "longitude"
                         }
                       }
                     },
@@ -1116,23 +1271,23 @@
                             "properties": {
                               "productId": {
                                 "type": "string",
-                                "description":"Unique identifier"
+                                "description": "Unique identifier"
                               },
                               "product": {
                                 "type": "string",
-                                "description":"name product"
+                                "description": "name product"
                               },
                               "quantity": {
                                 "type": "integer",
-                                "description":"quantity"
+                                "description": "quantity"
                               },
                               "productComment": {
                                 "type": "string",
-                                "description":"Customer review for the product"
+                                "description": "Customer review for the product"
                               },
                               "rewardId": {
                                 "type": "string",
-                                "description":"Benefit identifier or associated coupon."
+                                "description": "Benefit identifier or associated coupon."
                               },
                               "price": {
                                 "type": "object",
@@ -1140,71 +1295,91 @@
                                   "unitPrice": {
                                     "type": "object",
                                     "properties": {
-                                      "currencyCode": { 
+                                      "currencyCode": {
                                         "type": "string",
-                                        "description":"Currency code (example USD)" },
-                                      "totalBeforeSale": { 
+                                        "description": "Currency code (example USD)"
+                                      },
+                                      "totalBeforeSale": {
                                         "type": "string",
-                                        "description":"Product value before discounts" },
-                                      "subtotalWithoutTaxes": { 
+                                        "description": "Product value before discounts"
+                                      },
+                                      "subtotalWithoutTaxes": {
                                         "type": "string",
-                                        "description":"Subtotal excluding taxes" },
-                                      "discountPercentage": { 
-                                        "type": "string" ,
-                                        "description":"Discount percentage applied"},
-                                      "discountsValue": { 
+                                        "description": "Subtotal excluding taxes"
+                                      },
+                                      "discountPercentage": {
                                         "type": "string",
-                                        "description":"Discount amount applied." },
-                                      "subtotalIncludeDiscounts": { 
+                                        "description": "Discount percentage applied"
+                                      },
+                                      "discountsValue": {
                                         "type": "string",
-                                        "description":"Product value before discounts" },
-                                      "taxesPercentage": { 
+                                        "description": "Discount amount applied."
+                                      },
+                                      "subtotalIncludeDiscounts": {
                                         "type": "string",
-                                        "description":"Applied tax percentage" },
-                                      "taxValue": { 
+                                        "description": "Product value before discounts"
+                                      },
+                                      "taxesPercentage": {
                                         "type": "string",
-                                        "description":"Tax value" },
-                                      "total": { 
+                                        "description": "Applied tax percentage"
+                                      },
+                                      "taxValue": {
                                         "type": "string",
-                                        "description":"Final product total" },
-                                      "suggestedPrice": { 
+                                        "description": "Tax value"
+                                      },
+                                      "total": {
                                         "type": "string",
-                                        "description":"Suggested product price" }
+                                        "description": "Final product total"
+                                      },
+                                      "suggestedPrice": {
+                                        "type": "string",
+                                        "description": "Suggested product price"
+                                      }
                                     }
                                   },
                                   "totalPrice": {
                                     "type": "object",
                                     "properties": {
-                                      "currencyCode": { 
+                                      "currencyCode": {
                                         "type": "string",
-                                        "description":"Currency code (example USD)" },
-                                      "totalBeforeSale": { 
+                                        "description": "Currency code (example USD)"
+                                      },
+                                      "totalBeforeSale": {
                                         "type": "string",
-                                        "description":"Product value before discounts" },
-                                      "subtotalWithoutTaxes": { 
+                                        "description": "Product value before discounts"
+                                      },
+                                      "subtotalWithoutTaxes": {
                                         "type": "string",
-                                        "description":"Subtotal without taxes" },
-                                      "discountPercentage": { 
+                                        "description": "Subtotal without taxes"
+                                      },
+                                      "discountPercentage": {
                                         "type": "string",
-                                        "description":"Applied discount percentage" },
-                                      "discountsValue": { 
+                                        "description": "Applied discount percentage"
+                                      },
+                                      "discountsValue": {
                                         "type": "string",
-                                        "description":"Applied discount value" },
-                                      "subtotalIncludeDiscounts": { 
+                                        "description": "Applied discount value"
+                                      },
+                                      "subtotalIncludeDiscounts": {
                                         "type": "string",
-                                        "description":"Subtotal after applying discounts" },
-                                      "taxesPercentage": { 
+                                        "description": "Subtotal after applying discounts"
+                                      },
+                                      "taxesPercentage": {
                                         "type": "string",
-                                      "description":"Applied tax percentage" },
-                                      "taxValue": { 
+                                        "description": "Applied tax percentage"
+                                      },
+                                      "taxValue": {
                                         "type": "string",
-                                        "description":"Tax value. / Value of taxes" },
-                                      "total": { 
+                                        "description": "Tax value. / Value of taxes"
+                                      },
+                                      "total": {
                                         "type": "string",
-                                        "description":"Final product total" },
-                                      "suggestedPrice": { 
+                                        "description": "Final product total"
+                                      },
+                                      "suggestedPrice": {
                                         "type": "string",
-                                        "description":"Suggested product price" }
+                                        "description": "Suggested product price"
+                                      }
                                     }
                                   }
                                 }
@@ -1214,104 +1389,133 @@
                                 "items": {
                                   "type": "object",
                                   "properties": {
-                                    "id": { "type": "string" },
-                                    "description": { "type": "string" },
-                                    "selectedModifiers": { 
-                                      "type": "array", 
-                                      "items": { 
-                                        "type": "object", 
-                                        "properties": { 
-                                          "answerId": { 
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "type": "string"
+                                    },
+                                    "selectedModifiers": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "answerId": {
                                             "type": "string",
-                                            "description":"Response or selection identifier" }, 
-                                          "productId": { 
+                                            "description": "Response or selection identifier"
+                                          },
+                                          "productId": {
                                             "type": "string",
-                                            "description":"Modifier product identifier" }, 
-                                          "product": { 
+                                            "description": "Modifier product identifier"
+                                          },
+                                          "product": {
                                             "type": "string",
-                                            "description":"Modifier product name" }, 
-                                          "rewardId": { 
+                                            "description": "Modifier product name"
+                                          },
+                                          "rewardId": {
                                             "type": "string",
-                                            "description":"Reward identifier if applicable" }, 
-                                          "quantity": { 
+                                            "description": "Reward identifier if applicable"
+                                          },
+                                          "quantity": {
                                             "type": "integer",
-                                            "description":"Selected quantity of the modifier" }, 
-                                          "removedQuantity": { 
+                                            "description": "Selected quantity of the modifier"
+                                          },
+                                          "removedQuantity": {
                                             "type": "string",
-                                            "description":"Removed quantity if applicable",
+                                            "description": "Removed quantity if applicable",
                                             "nullable": true
                                           },
                                           "price": {
                                             "type": "object",
                                             "properties": {
-                                              "unitPrice":{
+                                              "unitPrice": {
                                                 "type": "object",
                                                 "properties": {
-                                                  "currencyCode": { 
+                                                  "currencyCode": {
                                                     "type": "string",
-                                                    "description":"Currency code (example USD)" },
-                                                  "totalBeforeSale": { 
+                                                    "description": "Currency code (example USD)"
+                                                  },
+                                                  "totalBeforeSale": {
                                                     "type": "string",
-                                                    "description":"Product value before discounts" },
-                                                  "subtotalWithoutTaxes": { 
+                                                    "description": "Product value before discounts"
+                                                  },
+                                                  "subtotalWithoutTaxes": {
                                                     "type": "string",
-                                                    "description":"Subtotal without taxes"},
-                                                  "discountPercentage": { 
+                                                    "description": "Subtotal without taxes"
+                                                  },
+                                                  "discountPercentage": {
                                                     "type": "string",
-                                                    "description":"Applied discount percentage" },
-                                                  "discountsValue": { 
+                                                    "description": "Applied discount percentage"
+                                                  },
+                                                  "discountsValue": {
                                                     "type": "string",
-                                                    "description":"Applied discount value" },
-                                                  "subtotalIncludeDiscounts": { 
+                                                    "description": "Applied discount value"
+                                                  },
+                                                  "subtotalIncludeDiscounts": {
                                                     "type": "string",
-                                                    "description":"Subtotal after applying discounts" },
-                                                  "taxesPercentage": { 
+                                                    "description": "Subtotal after applying discounts"
+                                                  },
+                                                  "taxesPercentage": {
                                                     "type": "string",
-                                                    "description":"Applied tax percentage" },
-                                                  "taxValue": { 
+                                                    "description": "Applied tax percentage"
+                                                  },
+                                                  "taxValue": {
                                                     "type": "string",
-                                                    "description":"Tax value. / Value of taxes" },
-                                                  "total": { 
+                                                    "description": "Tax value. / Value of taxes"
+                                                  },
+                                                  "total": {
                                                     "type": "string",
-                                                    "description":"Final product total" },
-                                                  "suggestedPrice": { 
+                                                    "description": "Final product total"
+                                                  },
+                                                  "suggestedPrice": {
                                                     "type": "string",
-                                                    "description":"Suggested product price" }
+                                                    "description": "Suggested product price"
+                                                  }
                                                 }
                                               },
                                               "totalPrice": {
                                                 "type": "object",
                                                 "properties": {
-                                                  "currencyCode": { 
+                                                  "currencyCode": {
                                                     "type": "string",
-                                                    "description":"Currency code (example USD)" },
-                                                  "totalBeforeSale": { 
+                                                    "description": "Currency code (example USD)"
+                                                  },
+                                                  "totalBeforeSale": {
                                                     "type": "string",
-                                                    "description":"Product value before discounts" },
-                                                  "subtotalWithoutTaxes": { 
+                                                    "description": "Product value before discounts"
+                                                  },
+                                                  "subtotalWithoutTaxes": {
                                                     "type": "string",
-                                                    "description":"Subtotal without taxes" },
-                                                  "discountPercentage": { 
+                                                    "description": "Subtotal without taxes"
+                                                  },
+                                                  "discountPercentage": {
                                                     "type": "string",
-                                                    "description":"Applied discount percentage" },
-                                                  "discountsValue": { 
+                                                    "description": "Applied discount percentage"
+                                                  },
+                                                  "discountsValue": {
                                                     "type": "string",
-                                                    "description":"Applied discount value" },
-                                                  "subtotalIncludeDiscounts": { 
+                                                    "description": "Applied discount value"
+                                                  },
+                                                  "subtotalIncludeDiscounts": {
                                                     "type": "string",
-                                                    "description":"Subtotal after applying discounts" },
-                                                  "taxesPercentage": { 
+                                                    "description": "Subtotal after applying discounts"
+                                                  },
+                                                  "taxesPercentage": {
                                                     "type": "string",
-                                                  "description":"Applied tax percentage" },
-                                                  "taxValue": { 
+                                                    "description": "Applied tax percentage"
+                                                  },
+                                                  "taxValue": {
                                                     "type": "string",
-                                                    "description":"Tax value. / Value of taxes" },
-                                                  "total": { 
+                                                    "description": "Tax value. / Value of taxes"
+                                                  },
+                                                  "total": {
                                                     "type": "string",
-                                                    "description":"Final product total" },
-                                                  "suggestedPrice": { 
+                                                    "description": "Final product total"
+                                                  },
+                                                  "suggestedPrice": {
                                                     "type": "string",
-                                                    "description":"Suggested product price" }
+                                                    "description": "Suggested product price"
+                                                  }
                                                 }
                                               }
                                             }
@@ -1325,31 +1529,109 @@
                               "additionalInfo": {
                                 "type": "object",
                                 "properties": {
-                                  "strategy": { 
+                                  "strategy": {
                                     "type": "string",
-                                    "description":"Applied strategy (example Upsale)" },
-                                  "relatedProductId": { 
+                                    "description": "Applied strategy (example Upsale)"
+                                  },
+                                  "relatedProductId": {
                                     "type": "string",
-                                    "description":"Related product identifier" },
-                                  "redeemed": { 
+                                    "description": "Related product identifier"
+                                  },
+                                  "redeemed": {
                                     "type": "boolean",
-                                    "description":"Indicates if the product was redeemed" },
-                                  "sort": { 
+                                    "description": "Indicates if the product was redeemed"
+                                  },
+                                  "sort": {
                                     "type": "integer",
-                                    "description":"Product position in the selection order" },
-                                  "referenceUnitPrice": { "type": "object", "properties": { "currencyCode": { "type": "string" }, "totalBeforeSale": { "type": "string" }, "subtotalWithoutTaxes": { "type": "string" }, "discountPercentage": { "type": "string" }, "discountsValue": { "type": "string" }, "subtotalIncludeDiscounts": { "type": "string" }, "taxesPercentage": { "type": "string" }, "taxValue": { "type": "string" }, "total": { "type": "string" }, "suggestedPrice": { "type": "string" } } },
-                                  "referenceTotalPrice": { "type": "object", "properties": { "currencyCode": { "type": "string" }, "totalBeforeSale": { "type": "string" }, "subtotalWithoutTaxes": { "type": "string" }, "discountPercentage": { "type": "string" }, "discountsValue": { "type": "string" }, "subtotalIncludeDiscounts": { "type": "string" }, "taxesPercentage": { "type": "string" }, "taxValue": { "type": "string" }, "total": { "type": "string" }, "suggestedPrice": { "type": "string" } } },
-                                  "unitMeasurement": { "type": "string" }
+                                    "description": "Product position in the selection order"
+                                  },
+                                  "referenceUnitPrice": {
+                                    "type": "object",
+                                    "properties": {
+                                      "currencyCode": {
+                                        "type": "string"
+                                      },
+                                      "totalBeforeSale": {
+                                        "type": "string"
+                                      },
+                                      "subtotalWithoutTaxes": {
+                                        "type": "string"
+                                      },
+                                      "discountPercentage": {
+                                        "type": "string"
+                                      },
+                                      "discountsValue": {
+                                        "type": "string"
+                                      },
+                                      "subtotalIncludeDiscounts": {
+                                        "type": "string"
+                                      },
+                                      "taxesPercentage": {
+                                        "type": "string"
+                                      },
+                                      "taxValue": {
+                                        "type": "string"
+                                      },
+                                      "total": {
+                                        "type": "string"
+                                      },
+                                      "suggestedPrice": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "referenceTotalPrice": {
+                                    "type": "object",
+                                    "properties": {
+                                      "currencyCode": {
+                                        "type": "string"
+                                      },
+                                      "totalBeforeSale": {
+                                        "type": "string"
+                                      },
+                                      "subtotalWithoutTaxes": {
+                                        "type": "string"
+                                      },
+                                      "discountPercentage": {
+                                        "type": "string"
+                                      },
+                                      "discountsValue": {
+                                        "type": "string"
+                                      },
+                                      "subtotalIncludeDiscounts": {
+                                        "type": "string"
+                                      },
+                                      "taxesPercentage": {
+                                        "type": "string"
+                                      },
+                                      "taxValue": {
+                                        "type": "string"
+                                      },
+                                      "total": {
+                                        "type": "string"
+                                      },
+                                      "suggestedPrice": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "unitMeasurement": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             }
                           }
-                        }, 
+                        },
                         "stock": {
                           "type": "object",
                           "properties": {
-                            "productId": { "type": "string" },
-                            "stock": { "type": "integer" }
+                            "productId": {
+                              "type": "string"
+                            },
+                            "stock": {
+                              "type": "integer"
+                            }
                           }
                         }
                       }
@@ -1360,68 +1642,141 @@
                         "delivery": {
                           "type": "object",
                           "properties": {
-                            "deliveryDate": { 
+                            "deliveryDate": {
                               "type": "string",
-                              "description":"Delivery date and time per shipment, type yyyy-MM-dd HH:mm:ss" },
-                            "latitude": { 
+                              "description": "Delivery date and time per shipment, type yyyy-MM-dd HH:mm:ss"
+                            },
+                            "latitude": {
                               "type": "string",
-                              "description":"latitude of the delivery location coordinates" },
-                            "longitude": { 
+                              "description": "latitude of the delivery location coordinates"
+                            },
+                            "longitude": {
                               "type": "string",
-                              "description":"longitude of the delivery location coordinates" },
-                            "country": { 
+                              "description": "longitude of the delivery location coordinates"
+                            },
+                            "country": {
                               "type": "string",
-                              "description":"country" },
-                            "city": { 
+                              "description": "country"
+                            },
+                            "city": {
                               "type": "string",
-                              "description":"city" },
-                            "mainStreet": { 
+                              "description": "city"
+                            },
+                            "mainStreet": {
                               "type": "string",
-                              "description":"mainStreet" },
-                            "number": { 
+                              "description": "mainStreet"
+                            },
+                            "number": {
                               "type": "string",
-                              "description":"number" },
-                            "secondaryStreet": { 
+                              "description": "number"
+                            },
+                            "secondaryStreet": {
                               "type": "string",
-                              "description":"secondaryStreet" },
-                            "reference": { "type": "string", "description":"reference" },
-                            "propertyId": { "type": "integer","description":"Property type identifier" },
-                            "observationsAddress": { "type": "string","description":"Notes about the address / Address observations" },
-                            "numberContactAddress": { "type": "string","description":"Contact Number" },
-                            "zipCode": { "type": "string","description":"zipCode" },
-                            "nickName": { "type": "string","description":"Identification Name" },
-                            "externalId": { "type": "string","description":"Identifier granted by external integrations" },
-                            "id": { "type": "string","description":"Unique identifier" },
-                            "driverArrivalDateInStore": { "type": "string","description":"Specifies the estimated date and time a delivery driver can arrive at the store to pick up an order" },
-                            "additionalInfo": { 
-                              "type": "object", 
-                              "properties": { "deliveryConfirmationCode": { "type": "string","description":"Order delivery confirmation code" } } }
+                              "description": "secondaryStreet"
+                            },
+                            "reference": {
+                              "type": "string",
+                              "description": "reference"
+                            },
+                            "propertyId": {
+                              "type": "integer",
+                              "description": "Property type identifier"
+                            },
+                            "observationsAddress": {
+                              "type": "string",
+                              "description": "Notes about the address / Address observations"
+                            },
+                            "numberContactAddress": {
+                              "type": "string",
+                              "description": "Contact Number"
+                            },
+                            "zipCode": {
+                              "type": "string",
+                              "description": "zipCode"
+                            },
+                            "nickName": {
+                              "type": "string",
+                              "description": "Identification Name"
+                            },
+                            "externalId": {
+                              "type": "string",
+                              "description": "Identifier granted by external integrations"
+                            },
+                            "id": {
+                              "type": "string",
+                              "description": "Unique identifier"
+                            },
+                            "driverArrivalDateInStore": {
+                              "type": "string",
+                              "description": "Specifies the estimated date and time a delivery driver can arrive at the store to pick up an order"
+                            },
+                            "additionalInfo": {
+                              "type": "object",
+                              "properties": {
+                                "deliveryConfirmationCode": {
+                                  "type": "string",
+                                  "description": "Order delivery confirmation code"
+                                }
+                              }
+                            }
                           }
-                        },  
-                        "pickup":{
+                        },
+                        "pickup": {
                           "type": "object",
                           "properties": {
-                            "pickupDate": { "type": "string","description":"Pickup date and time, type yyyy-MM-dd HH:mm:ss", "format": "date-time" },
-                            "prepDate": { "type": "string","description":"Preparation date and time, type yyyy-MM-dd HH:mm:ss", "format": "date-time" },
-                            "prepTimeUnit": { "type": "string","description":"Time unit, for preparation" },
-                            "prepTime": { "type": "integer","description":"Preparation time" },
-                            "propertyId": { "type": "integer","description":"Property type identification" },
-                            "carryOutOptions": { "type": "string","description":"Delivery type, e.g. Takeaway (PickUp-LLevar), Dine-in" },
+                            "pickupDate": {
+                              "type": "string",
+                              "description": "Pickup date and time, type yyyy-MM-dd HH:mm:ss",
+                              "format": "date-time"
+                            },
+                            "prepDate": {
+                              "type": "string",
+                              "description": "Preparation date and time, type yyyy-MM-dd HH:mm:ss",
+                              "format": "date-time"
+                            },
+                            "prepTimeUnit": {
+                              "type": "string",
+                              "description": "Time unit, for preparation"
+                            },
+                            "prepTime": {
+                              "type": "integer",
+                              "description": "Preparation time"
+                            },
+                            "propertyId": {
+                              "type": "integer",
+                              "description": "Property type identification"
+                            },
+                            "carryOutOptions": {
+                              "type": "string",
+                              "description": "Delivery type, e.g. Takeaway (PickUp-LLevar), Dine-in"
+                            },
                             "contactMethods": {
                               "type": "array",
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "type": { "type": "string","description":"Contact type for notifications. Can be pager, sms, or whatsapp" },
-                                  "identifier": { "type": "string","description":"Contact identifier (used only if type is pager)" },
-                                  "countryCode": { "type": "string","description":"Country code in international format (used for sms and whatsapp)" },
-                                  "phoneNumber": { "type": "string","description":"Phone number without the country code (used for sms and whatsapp)" }
+                                  "type": {
+                                    "type": "string",
+                                    "description": "Contact type for notifications. Can be pager, sms, or whatsapp"
+                                  },
+                                  "identifier": {
+                                    "type": "string",
+                                    "description": "Contact identifier (used only if type is pager)"
+                                  },
+                                  "countryCode": {
+                                    "type": "string",
+                                    "description": "Country code in international format (used for sms and whatsapp)"
+                                  },
+                                  "phoneNumber": {
+                                    "type": "string",
+                                    "description": "Phone number without the country code (used for sms and whatsapp)"
+                                  }
                                 }
                               }
                             }
-                          }        
+                          }
                         }
-                      }  
+                      }
                     },
                     "payments": {
                       "type": "object",
@@ -1429,154 +1784,413 @@
                         "totals": {
                           "type": "array",
                           "items": {
-                            "type":"object",
-                            "properties":{
-                              "rewardId": { "type": "string","description":"Coupon or reward identifier" },
-                              "currencyCode": { "type": "string","description":"Currency code" },
-                              "totalBeforeSale": { "type": "string","description":"Total value before catalog discounts" },
-                              "subtotalWithoutTaxes": { "type": "string","description":"Subtotal without taxes" },
-                              "discountPercentage": { "type": "string","description":"Discount percentage" },
-                              "discountsValue": { "type": "string","description":"Discount value" },
-                              "subtotalIncludeDiscounts": { "type": "string","description":"Subtotal with discounts" },
-                              "taxesPercentage": { "type": "string","description":"Tax Percentage" },
-                              "taxValue": { "type": "string","description":"Tax value" },
-                              "total": { "type": "string","description":"Total" }
+                            "type": "object",
+                            "properties": {
+                              "rewardId": {
+                                "type": "string",
+                                "description": "Coupon or reward identifier"
+                              },
+                              "currencyCode": {
+                                "type": "string",
+                                "description": "Currency code"
+                              },
+                              "totalBeforeSale": {
+                                "type": "string",
+                                "description": "Total value before catalog discounts"
+                              },
+                              "subtotalWithoutTaxes": {
+                                "type": "string",
+                                "description": "Subtotal without taxes"
+                              },
+                              "discountPercentage": {
+                                "type": "string",
+                                "description": "Discount percentage"
+                              },
+                              "discountsValue": {
+                                "type": "string",
+                                "description": "Discount value"
+                              },
+                              "subtotalIncludeDiscounts": {
+                                "type": "string",
+                                "description": "Subtotal with discounts"
+                              },
+                              "taxesPercentage": {
+                                "type": "string",
+                                "description": "Tax Percentage"
+                              },
+                              "taxValue": {
+                                "type": "string",
+                                "description": "Tax value"
+                              },
+                              "total": {
+                                "type": "string",
+                                "description": "Total"
+                              }
                             }
                           }
-                        },  
+                        },
                         "shippingCost": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "quantity": { "type": "integer","description":"quantity" },
-                              "productId": { "type": "string","description":"product id" },
-                              "rewardId": { "type": "string","description":"Coupon or reward identifier" },
-                              "currencyCode": { "type": "string","description":"Currency code" },
-                              "subtotalWithoutTaxes": { "type": "string" ,"description":"Subtotal without taxes"},
-                              "discountPercentage": { "type": "string" ,"description":"Discount percentage"},
-                              "discountsValue": { "type": "string" ,"description":"Discount value"},
-                              "subtotalIncludeDiscounts": { "type": "string" ,"description":"Subtotal with discounts"},
-                              "taxesPercentage": { "type": "string","description":"Tax Percentage" },
-                              "taxValue": { "type": "string" ,"description":"Tax value"},
-                              "total": { "type": "string","description":"total" }
-                            }  
-                          }
-                        },
-                        "extraCharges": {
-                          "type":"array",
-                          "items":{
-                            "type":"object",
-                            "properties":{
-                              "quantity": { "type": "integer","description":"quantity" },
-                              "productId": { "type": "string","description":"product id", "nullable": true },
-                              "description": { "type": "string","description":"description" },
-                              "currencyCode": { "type": "string" ,"description":"Currency Code"},
-                              "subtotalWithoutTaxes": { "type": "string","description":"Subtotal without taxes" },
-                              "discountPercentage": { "type": "string" ,"description":"Discount percentage"},
-                              "discountsValue": { "type": "string" ,"description":"Discount value"},
-                              "subtotalIncludeDiscounts": { "type": "string" ,"description":"Subtotal with discounts"},
-                              "taxesPercentage": { "type": "string" ,"description":"Tax Percentage"},
-                              "taxValue": { "type": "string" ,"description":"Tax value"},
-                              "total": { "type": "string","description":"total" }
+                              "quantity": {
+                                "type": "integer",
+                                "description": "quantity"
+                              },
+                              "productId": {
+                                "type": "string",
+                                "description": "product id"
+                              },
+                              "rewardId": {
+                                "type": "string",
+                                "description": "Coupon or reward identifier"
+                              },
+                              "currencyCode": {
+                                "type": "string",
+                                "description": "Currency code"
+                              },
+                              "subtotalWithoutTaxes": {
+                                "type": "string",
+                                "description": "Subtotal without taxes"
+                              },
+                              "discountPercentage": {
+                                "type": "string",
+                                "description": "Discount percentage"
+                              },
+                              "discountsValue": {
+                                "type": "string",
+                                "description": "Discount value"
+                              },
+                              "subtotalIncludeDiscounts": {
+                                "type": "string",
+                                "description": "Subtotal with discounts"
+                              },
+                              "taxesPercentage": {
+                                "type": "string",
+                                "description": "Tax Percentage"
+                              },
+                              "taxValue": {
+                                "type": "string",
+                                "description": "Tax value"
+                              },
+                              "total": {
+                                "type": "string",
+                                "description": "total"
+                              }
                             }
                           }
                         },
-                        "discounts":{
+                        "extraCharges": {
                           "type": "array",
                           "items": {
                             "type": "object",
-                            "properties":{
-                              "rewardId": { "type": "string","description":"Coupon or reward identifier" },
-                              "productId": { "type": "string" ,"description":"product id"},
-                              "currencyCode": { "type": "string" ,"description":"Currency Code"},
-                              "totalBeforeSale": { "type": "string" ,"description":"Total value before catalog discounts"},
-                              "subtotalWithoutTaxes": { "type": "string" ,"description":"Subtotal without taxes"},
-                              "discountPercentage": { "type": "string" ,"description":"Discount percentage"},
-                              "discountsValue": { "type": "string" ,"description":"Discount value"},
-                              "subtotalIncludeDiscounts": { "type": "string" ,"description":"Subtotal with discounts"}
+                            "properties": {
+                              "quantity": {
+                                "type": "integer",
+                                "description": "quantity"
+                              },
+                              "productId": {
+                                "type": "string",
+                                "description": "product id",
+                                "nullable": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "description": "description"
+                              },
+                              "currencyCode": {
+                                "type": "string",
+                                "description": "Currency Code"
+                              },
+                              "subtotalWithoutTaxes": {
+                                "type": "string",
+                                "description": "Subtotal without taxes"
+                              },
+                              "discountPercentage": {
+                                "type": "string",
+                                "description": "Discount percentage"
+                              },
+                              "discountsValue": {
+                                "type": "string",
+                                "description": "Discount value"
+                              },
+                              "subtotalIncludeDiscounts": {
+                                "type": "string",
+                                "description": "Subtotal with discounts"
+                              },
+                              "taxesPercentage": {
+                                "type": "string",
+                                "description": "Tax Percentage"
+                              },
+                              "taxValue": {
+                                "type": "string",
+                                "description": "Tax value"
+                              },
+                              "total": {
+                                "type": "string",
+                                "description": "total"
+                              }
+                            }
+                          }
+                        },
+                        "discounts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "rewardId": {
+                                "type": "string",
+                                "description": "Coupon or reward identifier"
+                              },
+                              "productId": {
+                                "type": "string",
+                                "description": "product id"
+                              },
+                              "currencyCode": {
+                                "type": "string",
+                                "description": "Currency Code"
+                              },
+                              "totalBeforeSale": {
+                                "type": "string",
+                                "description": "Total value before catalog discounts"
+                              },
+                              "subtotalWithoutTaxes": {
+                                "type": "string",
+                                "description": "Subtotal without taxes"
+                              },
+                              "discountPercentage": {
+                                "type": "string",
+                                "description": "Discount percentage"
+                              },
+                              "discountsValue": {
+                                "type": "string",
+                                "description": "Discount value"
+                              },
+                              "subtotalIncludeDiscounts": {
+                                "type": "string",
+                                "description": "Subtotal with discounts"
+                              }
                             }
                           }
                         },
                         "taxes": {
-                          "type":"array",
-                          "items":{
-                            "type":"object",
+                          "type": "array",
+                          "items": {
+                            "type": "object",
                             "properties": {
-                              "name": { "type": "string" ,"description":"Tax name"},
-                              "currencyCode": { "type": "string","description":"Currency Code" },
-                              "subtotalWithoutTaxes": { "type": "string","description":"Subtotal without taxes" },
-                              "percentage": { "type": "string" ,"description":"percentage"},
-                              "total": { "type": "string","description":"total" }
+                              "name": {
+                                "type": "string",
+                                "description": "Tax name"
+                              },
+                              "currencyCode": {
+                                "type": "string",
+                                "description": "Currency Code"
+                              },
+                              "subtotalWithoutTaxes": {
+                                "type": "string",
+                                "description": "Subtotal without taxes"
+                              },
+                              "percentage": {
+                                "type": "string",
+                                "description": "percentage"
+                              },
+                              "total": {
+                                "type": "string",
+                                "description": "total"
+                              }
                             }
                           }
                         },
                         "paymentMethods": {
                           "type": "array",
                           "items": {
-                            "type":"object",
+                            "type": "object",
                             "properties": {
-                              "processor": { "type": "string","description":"Payment processor" },
-                              "currencyCode": { "type": "string","description":"Currency code" },
-                              "paymentMethodCode": { "type": "string","description":"Payment method code" },
-                              "transactionType": { "type": "string","description":"Transaction type", "nullable": true },
-                              "transactionId": { "type": "string", "description":"Unique transaction identifier","nullable": true },
-                              "transactionStatus": { "type": "string","description":"Transaction status" ,"nullable": true },
-                              "tid": { "type": "string","description":"Terminal identification number" ,"nullable": true },
-                              "mid": { "type": "string", "description":"Merchant identification code","nullable": true },
-                              "authorizationCode": { "type": "string", "description":"Authorization code","nullable": true },
-                              "voucher": { "type": "string","description":"Generated voucher" ,"nullable": true },
-                              "referenceNumber": { "type": "string", "description":"Reference number","nullable": true },
-                              "exactPayment": { "type": "boolean","description":"Indicates if the payment is canceled with the same value" },
-                              "customerCashAmount": { "type": "string" ,"description":"Cash amount that the customer will pay"},
-                              "totalBill": { "type": "string" ,"description":"Total value (decimal format)"},
+                              "processor": {
+                                "type": "string",
+                                "description": "Payment processor"
+                              },
+                              "currencyCode": {
+                                "type": "string",
+                                "description": "Currency code"
+                              },
+                              "paymentMethodCode": {
+                                "type": "string",
+                                "description": "Payment method code"
+                              },
+                              "transactionType": {
+                                "type": "string",
+                                "description": "Transaction type",
+                                "nullable": true
+                              },
+                              "transactionId": {
+                                "type": "string",
+                                "description": "Unique transaction identifier",
+                                "nullable": true
+                              },
+                              "transactionStatus": {
+                                "type": "string",
+                                "description": "Transaction status",
+                                "nullable": true
+                              },
+                              "tid": {
+                                "type": "string",
+                                "description": "Terminal identification number",
+                                "nullable": true
+                              },
+                              "mid": {
+                                "type": "string",
+                                "description": "Merchant identification code",
+                                "nullable": true
+                              },
+                              "authorizationCode": {
+                                "type": "string",
+                                "description": "Authorization code",
+                                "nullable": true
+                              },
+                              "voucher": {
+                                "type": "string",
+                                "description": "Generated voucher",
+                                "nullable": true
+                              },
+                              "referenceNumber": {
+                                "type": "string",
+                                "description": "Reference number",
+                                "nullable": true
+                              },
+                              "exactPayment": {
+                                "type": "boolean",
+                                "description": "Indicates if the payment is canceled with the same value"
+                              },
+                              "customerCashAmount": {
+                                "type": "string",
+                                "description": "Cash amount that the customer will pay"
+                              },
+                              "totalBill": {
+                                "type": "string",
+                                "description": "Total value (decimal format)"
+                              },
                               "acquirer": {
                                 "type": "object",
-                                "nullable":true,
+                                "nullable": true,
                                 "properties": {
-                                  "code": { "type": "string" ,"description":"Bank or Financial Institution code"},
-                                  "name": { "type": "string" ,"description":"Bank or Financial Institution name"}
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Bank or Financial Institution code"
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "description": "Bank or Financial Institution name"
+                                  }
                                 }
                               },
                               "card": {
                                 "type": "object",
                                 "nullable": true,
                                 "properties": {
-                                  "mask": { "type": "string","description":"Mask (likely referring to a masked card number)" },
-                                  "bin": { "type": "string" ,"description":"Bin"},
-                                  "lastFourDigits": { "type": "string" ,"description":"Last 4 digits"},
-                                  "brand": { "type": "string" ,"description":"Payment processor brand"},
-                                  "externalCardBrandId": { "type": "string" ,"description":"Identifier granted by external integrations."},
-                                  "holder": { "type": "string" ,"description":"Cardholder name / Owner's name"},
-                                  "cardCountry": { "type": "string" ,"description":"Country"}
+                                  "mask": {
+                                    "type": "string",
+                                    "description": "Mask (likely referring to a masked card number)"
+                                  },
+                                  "bin": {
+                                    "type": "string",
+                                    "description": "Bin"
+                                  },
+                                  "lastFourDigits": {
+                                    "type": "string",
+                                    "description": "Last 4 digits"
+                                  },
+                                  "brand": {
+                                    "type": "string",
+                                    "description": "Payment processor brand"
+                                  },
+                                  "externalCardBrandId": {
+                                    "type": "string",
+                                    "description": "Identifier granted by external integrations."
+                                  },
+                                  "holder": {
+                                    "type": "string",
+                                    "description": "Cardholder name / Owner's name"
+                                  },
+                                  "cardCountry": {
+                                    "type": "string",
+                                    "description": "Country"
+                                  }
+                                }
+                              },
+                              "transactionDate": {
+                                "type": "object",
+                                "properties": {
+                                  "date": {
+                                    "type": "string",
+                                    "description": "Transaction date and time in yyyy-MM-dd HH:mm:ss format",
+                                    "format": "date-time"
+                                  },
+                                  "timeZoneType": {
+                                    "type": "integer",
+                                    "description": "Time zone identifier"
+                                  },
+                                  "timeZoneName": {
+                                    "type": "string",
+                                    "description": "Time zone name"
+                                  },
+                                  "weekNumber": {
+                                    "type": "integer",
+                                    "description": "Transaction week number"
+                                  }
+                                }
+                              },
+                              "metadata": {
+                                "type": "object",
+                                "properties": {
+                                  "aid": {
+                                    "type": "string",
+                                    "description": "Only applies to Ecuador (specific field)"
+                                  },
+                                  "responseCode": {
+                                    "type": "string",
+                                    "description": "Transaction response code, '00' for success"
+                                  },
+                                  "transactionDate": {
+                                    "type": "string",
+                                    "description": "Specific transaction date in YYYYMMDD format"
+                                  },
+                                  "transactionTime": {
+                                    "type": "string",
+                                    "description": "Specific transaction time in HHMMSS format"
+                                  },
+                                  "cardBrand": {
+                                    "type": "string",
+                                    "description": "Card type (VISA, MASTERCARD, ELECTRON, etc.)"
+                                  },
+                                  "batch": {
+                                    "type": "string",
+                                    "description": "Batch the transaction belongs to"
+                                  },
+                                  "rrn": {
+                                    "type": "string",
+                                    "description": "Recovery Reference Number"
+                                  },
+                                  "taxAmount": {
+                                    "type": "string",
+                                    "description": "VAT value in the transaction (tax)"
+                                  },
+                                  "totalPurchaseAmount": {
+                                    "type": "string",
+                                    "description": "total Purchase Amount"
+                                  },
+                                  "responseMessage": {
+                                    "type": "string",
+                                    "description": "Response message (example 'OK' or similar)"
+                                  },
+                                  "authorizationResponseMessage": {
+                                    "type": "string",
+                                    "description": "Authorization message (e.g., 'TRANS. APPROVED')"
+                                  }
+                                }
                               }
-                            },  
-                            "transactionDate": {
-                              "type": "object",
-                              "properties": {
-                                "date": { "type": "string", "description":"Transaction date and time in yyyy-MM-dd HH:mm:ss format","format": "date-time" },
-                                "timeZoneType": { "type": "integer" ,"description":"Time zone identifier"},
-                                "timeZoneName": { "type": "string" ,"description":"Time zone name"},
-                                "weekNumber": { "type": "integer" ,"description":"Transaction week number"}
-                              }
-                            },  
-                            "metadata": {
-                              "type": "object",
-                              "properties": {
-                                "aid": { "type": "string","description":"Only applies to Ecuador (specific field)" },
-                                "responseCode": { "type": "string" ,"description":"Transaction response code, '00' for success"},
-                                "transactionDate": { "type": "string" ,"description":"Specific transaction date in YYYYMMDD format"},
-                                "transactionTime": { "type": "string" ,"description":"Specific transaction time in HHMMSS format"},
-                                "cardBrand": { "type": "string" ,"description":"Card type (VISA, MASTERCARD, ELECTRON, etc.)"},
-                                "batch": { "type": "string" ,"description":"Batch the transaction belongs to"},
-                                "rrn": { "type": "string" ,"description":"Recovery Reference Number"},
-                                "taxAmount": { "type": "string" ,"description":"VAT value in the transaction (tax)"},
-                                "totalPurchaseAmount": { "type": "string" ,"description":"total Purchase Amount"},
-                                "responseMessage": { "type": "string" ,"description":"Response message (example 'OK' or similar)"},
-                                "authorizationResponseMessage": { "type": "string" ,"description":"Authorization message (e.g., 'TRANS. APPROVED')"}
-                                }  
-                              }
-                            }  
+                            }
                           }
                         }
                       }
@@ -1590,20 +2204,41 @@
                             "accumulation": {
                               "type": "object",
                               "properties": {
-                                "storeCost": { "type": "string","description":"Points accumulated by in-store purchase" },
-                                "marketingCost": { "type": "string" ,"description":"Points accumulated from marketing"},
-                                "totalPoints": { "type": "string" ,"description":"Total accumulated points"}
+                                "storeCost": {
+                                  "type": "string",
+                                  "description": "Points accumulated by in-store purchase"
+                                },
+                                "marketingCost": {
+                                  "type": "string",
+                                  "description": "Points accumulated from marketing"
+                                },
+                                "totalPoints": {
+                                  "type": "string",
+                                  "description": "Total accumulated points"
+                                }
                               }
                             },
-                            "redemption" :{
+                            "redemption": {
                               "type": "object",
                               "properties": {
-                                "storeCost": { "type": "string" ,"description":"Points redeemed from in-store accumulated points"},
-                                "marketingCost": { "type": "string" ,"description":"Points redeemed from marketing accumulated points"},
-                                "totalPoints": { "type": "string","description":"Total redeemed points" }
+                                "storeCost": {
+                                  "type": "string",
+                                  "description": "Points redeemed from in-store accumulated points"
+                                },
+                                "marketingCost": {
+                                  "type": "string",
+                                  "description": "Points redeemed from marketing accumulated points"
+                                },
+                                "totalPoints": {
+                                  "type": "string",
+                                  "description": "Total redeemed points"
+                                }
                               }
                             },
-                            "accountBalancePoints":{"type":"string","description":"Customer points balance" }
+                            "accountBalancePoints": {
+                              "type": "string",
+                              "description": "Customer points balance"
+                            }
                           }
                         },
                         "coupons": {
@@ -1611,21 +2246,33 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "rewardId": { "type": "string" ,"description":"Applied coupon identifier (o Applied coupon ID)"},
-                              "name": { "type": "string" ,"description":"Coupon name"},
-                              "additionalInfo": { "type": "object" ,"description":"Additional information"}
+                              "rewardId": {
+                                "type": "string",
+                                "description": "Applied coupon identifier (o Applied coupon ID)"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Coupon name"
+                              },
+                              "additionalInfo": {
+                                "type": "object",
+                                "description": "Additional information"
+                              }
                             }
-                          }  
+                          }
                         }
                       }
                     },
                     "additionalInfo": {
                       "type": "object",
                       "properties": {
-                        "kiosk":{
+                        "kiosk": {
                           "type": "object",
-                          "properties":{
-                            "ip":{"type":"string","description":"Kiosk IP address"}
+                          "properties": {
+                            "ip": {
+                              "type": "string",
+                              "description": "Kiosk IP address"
+                            }
                           }
                         }
                       }
@@ -2366,7 +3013,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": { "type": "string", "example": "Unauthorized" }
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
                   }
                 }
               }
@@ -2378,7 +3028,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": { "error": { "type": "string", "example": "Order not found" } }
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Order not found"
+                    }
+                  }
                 }
               }
             }
@@ -2446,7 +3101,12 @@
                     "description": "Future date on which you want to inactivate the product"
                   }
                 },
-                "required": ["storeId", "productId", "active", "priceInfo"]
+                "required": [
+                  "storeId",
+                  "productId",
+                  "active",
+                  "priceInfo"
+                ]
               }
             }
           }
@@ -2547,7 +3207,10 @@
                       "example": "success"
                     }
                   },
-                  "required": ["message", "status"]
+                  "required": [
+                    "message",
+                    "status"
+                  ]
                 },
                 "examples": {
                   "success": {
@@ -2618,10 +3281,16 @@
                   },
                   "grant_type": {
                     "type": "string",
-                    "enum": ["client_credentials"]
+                    "enum": [
+                      "client_credentials"
+                    ]
                   }
                 },
-                "required": ["client_id", "client_secret", "grant_type"]
+                "required": [
+                  "client_id",
+                  "client_secret",
+                  "grant_type"
+                ]
               }
             }
           }
@@ -2743,7 +3412,10 @@
                       "example": "success"
                     }
                   },
-                  "required": ["message", "status"]
+                  "required": [
+                    "message",
+                    "status"
+                  ]
                 },
                 "examples": {
                   "success": {
@@ -2790,7 +3462,10 @@
                     "example": "Canceled"
                   }
                 },
-                "required": ["order_id", "status"]
+                "required": [
+                  "order_id",
+                  "status"
+                ]
               }
             }
           }
@@ -2886,7 +3561,13 @@
                     "example": ""
                   }
                 },
-                "required": ["order", "from_store", "to_store", "processed_by", "transfer_reason"]
+                "required": [
+                  "order",
+                  "from_store",
+                  "to_store",
+                  "processed_by",
+                  "transfer_reason"
+                ]
               }
             }
           }
@@ -2961,7 +3642,10 @@
                     "example": "XH4TDASD7812LDTST"
                   }
                 },
-                "required": ["codigo_app", "id_transaccion"]
+                "required": [
+                  "codigo_app",
+                  "id_transaccion"
+                ]
               }
             }
           }
@@ -3022,69 +3706,143 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "productId": { "type": "string", "example": "Coffee-product-id" },
-                  "name": { "type": "string", "example": "Small Coffee" },
-                  "type": { "type": "string", "example": "PRODUCT" },
-                  "description": { "type": "string", "example": "The bestest Coffee" },
-                  "standardTime": { "type": "boolean", "example": true },
-                  "featured": { "type": "boolean", "example": true },
+                  "productId": {
+                    "type": "string",
+                    "example": "Coffee-product-id"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Small Coffee"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "PRODUCT"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "The bestest Coffee"
+                  },
+                  "standardTime": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "featured": {
+                    "type": "boolean",
+                    "example": true
+                  },
                   "schedules": {
                     "type": "array",
                     "items": {
                       "type": "object",
                       "properties": {
-                        "day": { "type": "string", "example": "MONDAY" },
-                        "startDate": { "type": "string", "format": "date", "example": "2019-02-24" },
-                        "endDate": { "type": "string", "format": "date", "example": "2019-02-25" },
-                        "startTime": { "type": "string", "format": "time", "example": "08:00" },
-                        "endTime": { "type": "string", "format": "time", "example": "12:00" }
+                        "day": {
+                          "type": "string",
+                          "example": "MONDAY"
+                        },
+                        "startDate": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2019-02-24"
+                        },
+                        "endDate": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2019-02-25"
+                        },
+                        "startTime": {
+                          "type": "string",
+                          "format": "time",
+                          "example": "08:00"
+                        },
+                        "endTime": {
+                          "type": "string",
+                          "format": "time",
+                          "example": "12:00"
+                        }
                       }
                     }
                   },
                   "tags": {
                     "type": "array",
-                    "items": { "type": "string", "example": "to share" }
+                    "items": {
+                      "type": "string",
+                      "example": "to share"
+                    }
                   },
                   "upselling": {
                     "type": "array",
-                    "items": { "type": "string", "example": "lg-coffee" }
+                    "items": {
+                      "type": "string",
+                      "example": "lg-coffee"
+                    }
                   },
                   "images": {
                     "type": "array",
                     "items": {
                       "type": "object",
                       "properties": {
-                        "imageCategoryId": { "type": "string", "example": "product" },
-                        "fileUrl": { "type": "string", "format": "uri", "example": "https://path/to/file.png" }
+                        "imageCategoryId": {
+                          "type": "string",
+                          "example": "product"
+                        },
+                        "fileUrl": {
+                          "type": "string",
+                          "format": "uri",
+                          "example": "https://path/to/file.png"
+                        }
                       }
                     }
                   },
                   "taxesInfo": {
                     "type": "object",
                     "properties": {
-                      "taxRate": { "type": "number", "example": 0 },
-                      "vatRatePercentage": { "type": "number", "example": 0 }
+                      "taxRate": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "vatRatePercentage": {
+                        "type": "number",
+                        "example": 0
+                      }
                     }
                   },
                   "priceInfo": {
                     "type": "object",
                     "properties": {
-                      "price": { "type": "number", "example": 4.99 },
-                      "pointPrice": { "type": "number", "nullable": true, "example": null }
+                      "price": {
+                        "type": "number",
+                        "example": 4.99
+                      },
+                      "pointPrice": {
+                        "type": "number",
+                        "nullable": true,
+                        "example": null
+                      }
                     }
                   },
                   "categories": {
                     "type": "array",
-                    "items": { "type": "string", "example": "Coffes-category-id" }
+                    "items": {
+                      "type": "string",
+                      "example": "Coffes-category-id"
+                    }
                   },
                   "additionalInfo": {
                     "type": "object",
                     "properties": {
-                      "menu_level": { "type": "integer", "example": 0 }
+                      "menu_level": {
+                        "type": "integer",
+                        "example": 0
+                      }
                     }
                   }
                 },
-                "required": ["productId", "name", "type", "description"]
+                "required": [
+                  "productId",
+                  "name",
+                  "type",
+                  "description"
+                ]
               }
             }
           }
@@ -3097,8 +3855,14 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string", "example": "Producto actualizado exitosamente." },
-                    "productId": { "type": "string", "example": "Coffee-product-id" }
+                    "message": {
+                      "type": "string",
+                      "example": "Producto actualizado exitosamente."
+                    },
+                    "productId": {
+                      "type": "string",
+                      "example": "Coffee-product-id"
+                    }
                   }
                 }
               }
@@ -3111,7 +3875,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": { "type": "string", "example": "Invalid data" }
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid data"
+                    }
                   }
                 }
               }
@@ -3119,7 +3886,7 @@
           }
         }
       }
-    },                        
+    },
     "/api/order/infoPayments": {
       "get": {
         "summary": "Orders - payment information",
@@ -3413,31 +4180,59 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": { "type": "string" },
-                    "status": { "type": "string" },
-                    "message": { "type": "string" },
+                    "code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "measure": { "type": "string" },
-                        "stock": { "type": "integer" },
-                        "name": { "type": "string" },
-                        "suggestedPrice": { "type": "string" },
+                        "measure": {
+                          "type": "string"
+                        },
+                        "stock": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "suggestedPrice": {
+                          "type": "string"
+                        },
                         "prices": {
                           "type": "object",
                           "additionalProperties": {
                             "type": "object",
                             "properties": {
-                              "category": { "type": "string" },
-                              "symbol": { "type": "string" },
-                              "grossPrice": { "type": "number" },
-                              "netPrice": { "type": "number" }
+                              "category": {
+                                "type": "string"
+                              },
+                              "symbol": {
+                                "type": "string"
+                              },
+                              "grossPrice": {
+                                "type": "number"
+                              },
+                              "netPrice": {
+                                "type": "number"
+                              }
                             }
                           }
                         },
-                        "description": { "type": "string" },
-                        "isPriceVip": { "type": "boolean" },
-                        "hasModifiers": { "type": "boolean" }
+                        "description": {
+                          "type": "string"
+                        },
+                        "isPriceVip": {
+                          "type": "boolean"
+                        },
+                        "hasModifiers": {
+                          "type": "boolean"
+                        }
                       }
                     }
                   }
@@ -3820,6 +4615,1042 @@
           }
         ]
       }
+    },
+    "/enrich-order": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Enriquecer orden con impuestos",
+        "description": "Calcula impuestos sobre líneas principales (`order.products[].price.totalPrice`) y modificadores según reglas fiscales\ny guarda la orden en base de datos (upsert por `orderId`).\nEl cuerpo puede ser `OrderPayload` en la raíz o envuelto en un objeto con propiedad `payload`.\nRequisitos: body no vacío; `orderId` presente en el payload para respuesta 200.\n",
+        "operationId": "enrichOrder",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrichOrderRequest"
+              },
+              "examples": {
+                "simple": {
+                  "summary": "Payload mínimo",
+                  "description": "Una orden, una tienda, un ítem con precio; mismo cuerpo válido para `/enrich-order-forward`.",
+                  "value": {
+                    "payload": {
+                      "orderId": "ord-001",
+                      "store": {
+                        "id": "21"
+                      },
+                      "order": {
+                        "products": [
+                          {
+                            "modifierGroups": [
+                              {
+                                "selectedModifiers": [
+                                  {
+                                    "productId": "sku-001",
+                                    "price": {
+                                      "totalPrice": {
+                                        "total": 10.5
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "conPayload": {
+                  "summary": "Forma recomendada — payload anidado",
+                  "description": "Orden bajo la propiedad `payload` (compatible con envoltorios upstream).",
+                  "value": {
+                    "payload": {
+                      "orderId": "ord-2025-001",
+                      "source": "pos",
+                      "store": {
+                        "id": "store-br-01",
+                        "code": "BR01",
+                        "name": "Tienda Centro"
+                      },
+                      "order": {
+                        "products": [
+                          {
+                            "productId": "sku-burger-001",
+                            "modifierGroups": [
+                              {
+                                "selectedModifiers": [
+                                  {
+                                    "productId": "mod-cheese",
+                                    "quantity": 1,
+                                    "price": {
+                                      "unitPrice": {
+                                        "currencyCode": "BRL",
+                                        "subtotalWithoutTaxes": 2.5
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "payments": {
+                        "totals": [
+                          {
+                            "currencyCode": "BRL",
+                            "total": 32.9
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "plano": {
+                  "summary": "OrderPayload en la raíz",
+                  "description": "Mismo contrato sin envoltorio `payload` (el handler acepta ambos).",
+                  "value": {
+                    "orderId": "ord-2025-002",
+                    "source": "kiosk",
+                    "store": {
+                      "id": "store-br-02"
+                    },
+                    "order": {
+                      "products": [
+                        {
+                          "productId": "sku-drink-010"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Orden enriquecida y persistida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderSuccessResponse"
+                },
+                "examples": {
+                  "ok": {
+                    "summary": "Respuesta exitosa",
+                    "value": {
+                      "message": "Orden enriquecida exitosamente.",
+                      "orderDbId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                      "orderId": "ord-2025-001",
+                      "payload": {
+                        "orderId": "ord-2025-001",
+                        "source": "pos",
+                        "store": {
+                          "id": "store-br-01"
+                        },
+                        "order": {
+                          "products": []
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Body ausente, validación (p. ej. sin orderId), o datos fiscales incompletos:\nsin NCM/catálogo para un `productId`, sin regla en la matriz de la tienda para el NCM, o sin bloque `price.totalPrice` (null/undefined). Importes 0 en `totalPrice` no son error.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderErrorResponse"
+                },
+                "examples": {
+                  "sinBody": {
+                    "summary": "Sin cuerpo",
+                    "value": {
+                      "message": "Body requerido."
+                    }
+                  },
+                  "sinOrderId": {
+                    "summary": "Falta orderId",
+                    "value": {
+                      "message": "No se encontro orderId en el payload."
+                    }
+                  },
+                  "fiscalProducto": {
+                    "summary": "Producto sin NCM en catálogo",
+                    "value": {
+                      "message": "No se encontró categoría fiscal (NCM) para el producto con productId=\"sku-123\".",
+                      "code": "FISCAL_PRODUCTO_SIN_NCM"
+                    }
+                  },
+                  "fiscalMatriz": {
+                    "summary": "NCM sin regla en matriz de la tienda",
+                    "value": {
+                      "message": "No hay regla fiscal en la matriz de la tienda (store_id=21) para NCM=\"21069090\" (producto productId=\"sku-123\").",
+                      "code": "FISCAL_MATRIZ_SIN_NCM"
+                    }
+                  },
+                  "fiscalPrecio": {
+                    "summary": "Falta bloque totalPrice",
+                    "value": {
+                      "message": "Falta el bloque price.totalPrice para el producto productId=\"sku-123\".",
+                      "code": "FISCAL_PRECIO_AUSENTE"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al enriquecer o al persistir",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderErrorResponse"
+                },
+                "examples": {
+                  "error": {
+                    "summary": "Error interno",
+                    "value": {
+                      "message": "No se pudo enriquecer la orden.",
+                      "error": "Error: ..."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enrich-order-forward": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Enriquecer, guardar y notificar por webhook",
+        "description": "Mismo cuerpo que `POST /enrich-order`. Tras enriquecer y persistir, envía un POST JSON al webhook\n(`ORDER_WEBHOOK_URL`) con **únicamente el payload enriquecido** (misma forma que el campo `payload`\nde la respuesta 200 de `/enrich-order`).\nLa respuesta HTTP de **esta** API solo indica si el flujo y el webhook respondieron bien; no devuelve la orden.\n",
+        "operationId": "enrichOrderForward",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrichOrderRequest"
+              },
+              "examples": {
+                "simple": {
+                  "summary": "Payload mínimo (igual que en /enrich-order)",
+                  "value": {
+                    "payload": {
+                      "orderId": "ord-001",
+                      "store": {
+                        "id": "21"
+                      },
+                      "order": {
+                        "products": [
+                          {
+                            "modifierGroups": [
+                              {
+                                "selectedModifiers": [
+                                  {
+                                    "productId": "sku-001",
+                                    "price": {
+                                      "totalPrice": {
+                                        "total": 10.5
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "igualQueEnrichOrder": {
+                  "summary": "Mismo contrato que /enrich-order",
+                  "value": {
+                    "payload": {
+                      "orderId": "ord-2025-001",
+                      "source": "pos",
+                      "store": {
+                        "id": "store-br-01"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Orden persistida y webhook respondió 2xx",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichForwardOkResponse"
+                },
+                "examples": {
+                  "ok": {
+                    "summary": "Notificación entregada",
+                    "value": {
+                      "message": "Orden enriquecida, guardada y notificada al destino."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Igual que `POST /enrich-order` (body, orderId, o errores fiscales con `code`).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno, ORDER_WEBHOOK_URL vacía, o fallo al enriquecer/persistir",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderErrorResponse"
+                },
+                "examples": {
+                  "sinWebhook": {
+                    "summary": "URL de webhook no configurada",
+                    "value": {
+                      "message": "ORDER_WEBHOOK_URL no configurada."
+                    }
+                  },
+                  "proceso": {
+                    "summary": "Error genérico tras validación del webhook",
+                    "value": {
+                      "message": "No se pudo completar el proceso.",
+                      "error": "Error: ..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "El destino no respondió, error de red, o respuesta HTTP no 2xx del webhook",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderErrorResponse"
+                },
+                "examples": {
+                  "badGateway": {
+                    "summary": "Webhook 4xx/5xx",
+                    "value": {
+                      "message": "El webhook de destino respondió con error.",
+                      "error": "HTTP 503: Service Unavailable"
+                    }
+                  },
+                  "red": {
+                    "summary": "Sin respuesta HTTP / fallo de red",
+                    "value": {
+                      "message": "No se pudo contactar el webhook de destino.",
+                      "error": "TypeError: fetch failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/orders": {
+      "get": {
+        "tags": [
+          "Admin",
+          "Orders"
+        ],
+        "operationId": "listOrders",
+        "summary": "Listar órdenes persistidas (paginado)",
+        "description": "Orden por `created_at` descendente. Filtros opcionales por tienda, origen, estado, texto en `order_id`,\nrango de fechas de creación e intentos de webhook.\n",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "description": "Página (base 1)."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "description": "Tamaño de página (máximo 100)."
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por `store_id`."
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por origen (ej. pos)."
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado (ej. ENRICHED)."
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Subcadena en `order_id` (búsqueda case-insensitive; `%` y `_` literales escapados)."
+          },
+          {
+            "name": "createdFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Inclusive: filtra `created_at` >= este instante. Usar ISO 8601 con zona explícita\n(ej. `2025-06-15T00:00:00.000Z`) para evitar ambigüedad local vs UTC.\nSi se envían `createdFrom` y `createdTo`, debe cumplirse `createdFrom` <= `createdTo` (si no, 400).\n"
+          },
+          {
+            "name": "createdTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Inclusive: filtra `created_at` <= este instante. Un día calendario completo suele requerir\nel fin del día en UTC (ej. `2025-06-15T23:59:59.999Z`), no solo `T00:00:00`, para no excluir\nórdenes creadas después de medianoche ese día. Misma regla de orden que `createdFrom`.\n"
+          },
+          {
+            "name": "webhookAttemptsMin",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Mínimo de `webhook_attempts`."
+          },
+          {
+            "name": "webhookAttemptsMax",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Máximo de `webhook_attempts`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Página de resultados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parámetros de query inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Método no permitido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al consultar la base de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/fiscal-groups": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "listFiscalGroups",
+        "summary": "Listar fiscal_groups",
+        "responses": {
+          "200": {
+            "description": "Lista ordenada por fecha de creación descendente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FiscalGroup"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "createFiscalGroup",
+        "summary": "Crear fiscal_group",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FiscalGroupCreate"
+              },
+              "example": {
+                "externalId": "3s-group-8891",
+                "name": "KFC ABC MARUM (SP)",
+                "uf": "SP",
+                "taxRegime": "Simples",
+                "stores": [
+                  {
+                    "store_id": "store_101",
+                    "store_name": "KFC Paulista"
+                  },
+                  {
+                    "store_id": "store_102",
+                    "store_name": "KFC Campinas"
+                  }
+                ],
+                "taxMatrix": {
+                  "21069090": {
+                    "NCM": "21069090",
+                    "CEST": "17.047.00",
+                    "CST_ICMS": "00",
+                    "ICMS_rate": 18,
+                    "CST_PIS": "01",
+                    "PIS_rate": 1.65,
+                    "CST_COFINS": "01",
+                    "COFINS_rate": 7.6,
+                    "CFOP": "5102"
+                  },
+                  "22021000": {
+                    "NCM": "22021000",
+                    "CEST": "03.007.00",
+                    "CST_ICMS": "00",
+                    "ICMS_rate": 18,
+                    "CST_PIS": "01",
+                    "PIS_rate": 1.65,
+                    "CST_COFINS": "01",
+                    "COFINS_rate": 7.6
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FiscalGroup"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Body inválido o campos requeridos ausentes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Violación de unicidad (Postgres 23505)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/fiscal-groups/{id}": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "getFiscalGroup",
+        "summary": "Obtener fiscal_group por UUID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fiscal_group encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FiscalGroup"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "id no UUID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "updateFiscalGroup",
+        "summary": "Actualizar fiscal_group (parcial)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FiscalGroupPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FiscalGroup"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "deleteFiscalGroup",
+        "summary": "Eliminar fiscal_group",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Eliminado"
+          },
+          "400": {
+            "description": "id no UUID u otra validación fallida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/product-fiscal-categories": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "listProductFiscalCategories",
+        "summary": "Listar product_fiscal_category",
+        "responses": {
+          "200": {
+            "description": "Lista de categorías fiscales",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductFiscalCategory"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "createProductFiscalCategory",
+        "summary": "Crear categoría fiscal de producto",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductFiscalCategoryCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductFiscalCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Body inválido o campos requeridos ausentes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflicto (unicidad)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/product-fiscal-categories/{productId}": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "getProductFiscalCategory",
+        "summary": "Obtener por productId (texto)",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categoría encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductFiscalCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "productId inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "updateProductFiscalCategory",
+        "summary": "Actualizar categoría (no se puede enviar productId en body)",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductFiscalCategoryPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductFiscalCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "deleteProductFiscalCategory",
+        "summary": "Eliminar categoría por productId",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Eliminado"
+          },
+          "400": {
+            "description": "productId inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -4175,6 +6006,469 @@
           },
           "message": {
             "type": "string"
+          }
+        }
+      },
+      "EnrichOrderRequest": {
+        "description": "Raíz flexible: puede incluir `payload` u omitirse (entonces los campos de orden van en la raíz).\nSe permiten propiedades adicionales no listadas.\n",
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/OrderPayload"
+          }
+        }
+      },
+      "OrderPayload": {
+        "type": "object",
+        "additionalProperties": true,
+        "description": "Datos de la orden (productos, tienda, pagos). `orderId` obligatorio para 200.",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "example": "ord-2025-001"
+          },
+          "source": {
+            "type": "string",
+            "example": "pos"
+          },
+          "store": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "order": {
+            "type": "object",
+            "properties": {
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "payments": {
+            "type": "object"
+          }
+        }
+      },
+      "EnrichOrderSuccessResponse": {
+        "type": "object",
+        "required": [
+          "message",
+          "orderDbId",
+          "orderId",
+          "payload"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Orden enriquecida exitosamente."
+          },
+          "orderDbId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID interno en Postgres (tabla de órdenes)."
+          },
+          "orderId": {
+            "type": "string",
+            "description": "Identificador de negocio recibido en la petición."
+          },
+          "payload": {
+            "description": "Payload enriquecido: OrderPayload en la raíz, u objeto con propiedad `payload` anidando OrderPayload.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/OrderPayload"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "payload"
+                ],
+                "properties": {
+                  "payload": {
+                    "$ref": "#/components/schemas/OrderPayload"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "EnrichOrderErrorResponse": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string",
+            "description": "Detalle encadenado en errores 500 o 502."
+          },
+          "code": {
+            "type": "string",
+            "description": "Presente en 400 por datos fiscales: FISCAL_PRODUCTO_SIN_NCM, FISCAL_MATRIZ_SIN_NCM, FISCAL_PRECIO_AUSENTE (solo si falta el bloque `totalPrice`, no por importes en 0).\n"
+          }
+        }
+      },
+      "EnrichForwardOkResponse": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Orden enriquecida, guardada y notificada al destino."
+          }
+        }
+      },
+      "ApiErrorMessage": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "OrderListItem": {
+        "type": "object",
+        "description": "Fila de `orders` tal como la devuelve Postgres/Drizzle (payloads JSON).",
+        "required": [
+          "id",
+          "orderId",
+          "status",
+          "payload",
+          "enrichedPayload",
+          "webhookAttempts"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "orderId": {
+            "type": "string"
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "nullable": true
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "enrichedPayload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "webhookAttempts": {
+            "type": "integer"
+          },
+          "webhookLastResponse": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": true,
+            "description": "Última respuesta del webhook (JSON) o null."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "OrderListResponse": {
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "page",
+          "pageSize",
+          "totalPages"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderListItem"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Total de filas que cumplen los filtros (sin paginar)."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "totalPages": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Número de páginas; 0 si no hay resultados."
+          }
+        }
+      },
+      "FiscalGroupStoreEntry": {
+        "type": "object",
+        "description": "Elemento del arreglo JSON `stores` (asociación tienda ↔ grupo fiscal).",
+        "required": [
+          "store_id"
+        ],
+        "properties": {
+          "store_id": {
+            "type": "string",
+            "description": "Identificador de tienda; el motor fiscal busca coincidencia por este valor (string)."
+          },
+          "store_name": {
+            "type": "string",
+            "description": "Nombre legible (opcional, no usado en el cálculo de impuestos)."
+          }
+        }
+      },
+      "StoresJson": {
+        "type": "array",
+        "description": "Arreglo JSON persistido en `fiscal_groups.stores`. Debe incluir al menos un objeto con `store_id`\npara que `findFiscalGroupByStoreId` pueda resolver la tienda desde `payload.store.id`.\n",
+        "items": {
+          "$ref": "#/components/schemas/FiscalGroupStoreEntry"
+        }
+      },
+      "TaxMatrixEntry": {
+        "type": "object",
+        "description": "Reglas por NCM; misma forma que `src/types/fiscal.ts` (`TaxMatrixEntry`).",
+        "properties": {
+          "NCM": {
+            "type": "string",
+            "description": "Código NCM (suele coincidir con la clave del mapa)."
+          },
+          "CEST": {
+            "type": "string",
+            "nullable": true
+          },
+          "CST_ICMS": {
+            "type": "string"
+          },
+          "ICMS_rate": {
+            "type": "number"
+          },
+          "ICMS_reduction": {
+            "type": "number",
+            "nullable": true
+          },
+          "CST_PIS": {
+            "type": "string"
+          },
+          "PIS_rate": {
+            "type": "number"
+          },
+          "CST_COFINS": {
+            "type": "string"
+          },
+          "COFINS_rate": {
+            "type": "number"
+          },
+          "CFOP": {
+            "type": "string"
+          },
+          "FCP_rate": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "additionalProperties": true
+      },
+      "TaxMatrixJson": {
+        "type": "object",
+        "description": "Mapa código NCM → reglas (`tax_matrix` en BD). Claves típicamente numéricas de 8 dígitos (string).\nEl motor usa `taxMatrix[ncm]` tras resolver el NCM del catálogo de producto.\n",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/TaxMatrixEntry"
+        }
+      },
+      "FiscalGroup": {
+        "type": "object",
+        "additionalProperties": true,
+        "description": "Propiedades en camelCase según respuesta Drizzle/JSON.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "uf": {
+            "type": "string"
+          },
+          "taxRegime": {
+            "type": "string"
+          },
+          "stores": {
+            "$ref": "#/components/schemas/StoresJson"
+          },
+          "taxMatrix": {
+            "$ref": "#/components/schemas/TaxMatrixJson"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FiscalGroupCreate": {
+        "type": "object",
+        "required": [
+          "externalId",
+          "name",
+          "uf",
+          "taxRegime",
+          "stores",
+          "taxMatrix"
+        ],
+        "properties": {
+          "externalId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "uf": {
+            "type": "string"
+          },
+          "taxRegime": {
+            "type": "string"
+          },
+          "stores": {
+            "$ref": "#/components/schemas/StoresJson"
+          },
+          "taxMatrix": {
+            "$ref": "#/components/schemas/TaxMatrixJson"
+          }
+        }
+      },
+      "FiscalGroupPatch": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "externalId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "uf": {
+            "type": "string"
+          },
+          "taxRegime": {
+            "type": "string"
+          },
+          "stores": {
+            "$ref": "#/components/schemas/StoresJson"
+          },
+          "taxMatrix": {
+            "$ref": "#/components/schemas/TaxMatrixJson"
+          }
+        }
+      },
+      "ProductFiscalCategory": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "externalProductId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ncm": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProductFiscalCategoryCreate": {
+        "type": "object",
+        "required": [
+          "productId",
+          "productName",
+          "ncm"
+        ],
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "ncm": {
+            "type": "string"
+          },
+          "externalProductId": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ProductFiscalCategoryPatch": {
+        "type": "object",
+        "properties": {
+          "productName": {
+            "type": "string"
+          },
+          "ncm": {
+            "type": "string"
+          },
+          "externalProductId": {
+            "type": "string",
+            "nullable": true
           }
         }
       }
