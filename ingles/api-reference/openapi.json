@@ -14,6 +14,23 @@
     },
     {
       "url": "https://api.kfc-group.desarrollo-redbrand.com"
+    },
+    {
+      "url": "https://{apiId}.execute-api.{region}.amazonaws.com/{stage}",
+      "description": "API Gateway (PRIVATE; invocación típica vía VPC endpoint).",
+      "variables": {
+        "apiId": {
+          "default": "{api-id}",
+          "description": "ID del API REST desplegado."
+        },
+        "region": {
+          "default": "us-east-1"
+        },
+        "stage": {
+          "default": "dev",
+          "description": "Mismo valor que parámetro EnvironmentName del stack."
+        }
+      }
     }
   ],
   "security": [
@@ -493,7 +510,10 @@
                     "type": "object",
                     "description": "General information of the list where the defined products will be added",
                     "properties": {
-                      "listName": { "type": "string", "description": "Name that identifies the list" }
+                      "listName": {
+                        "type": "string",
+                        "description": "Name that identifies the list"
+                      }
                     }
                   },
                   "modifierGroups": {
@@ -502,22 +522,44 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "modifierId": { "type": "string" },
-                        "modifier": { "type": "string" },
-                        "minOptions": { "type": "integer" },
-                        "maxOptions": { "type": "integer" },
-                        "visible": { "type": "boolean" },
-                        "position": { "type": "integer" },
-                        "type": { "type": "string" },
+                        "modifierId": {
+                          "type": "string"
+                        },
+                        "modifier": {
+                          "type": "string"
+                        },
+                        "minOptions": {
+                          "type": "integer"
+                        },
+                        "maxOptions": {
+                          "type": "integer"
+                        },
+                        "visible": {
+                          "type": "boolean"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
                         "modifierOptions": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "optionId": { "type": "string" },
-                              "productId": { "type": "string" },
-                              "default": { "type": "boolean" },
-                              "position": { "type": "integer" },
+                              "optionId": {
+                                "type": "string"
+                              },
+                              "productId": {
+                                "type": "string"
+                              },
+                              "default": {
+                                "type": "boolean"
+                              },
+                              "position": {
+                                "type": "integer"
+                              },
                               "additionalInfo": {
                                 "type": "object",
                                 "additionalProperties": true,
@@ -535,31 +577,64 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "productId": { "type": "string" },
-                        "name": { "type": "string" },
-                        "type": { "type": "string", "enum": ["PRODUCT", "MODIFIER", "COMPLEMENT"] },
-                        "description": { "type": "string" },
-                        "standardTime": { "type": "boolean" },
-                        "featured": { "type": "boolean" },
-                        "modifierId": { "type": "string" },
+                        "productId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "PRODUCT",
+                            "MODIFIER",
+                            "COMPLEMENT"
+                          ]
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "standardTime": {
+                          "type": "boolean"
+                        },
+                        "featured": {
+                          "type": "boolean"
+                        },
+                        "modifierId": {
+                          "type": "string"
+                        },
                         "taxesInfo": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "vatRatePercentage": { "type": "integer" },
-                              "name": { "type": "string" },
-                              "type": { "type": "string" }
+                              "vatRatePercentage": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
                         "priceInfo": {
                           "type": "object",
                           "properties": {
-                            "price": { "type": "number" },
-                            "pointPrice": { "type": "integer" },
-                            "suggestedPrice": { "type": "number" },
-                            "suggestedPointPrice": { "type": "integer" }
+                            "price": {
+                              "type": "number"
+                            },
+                            "pointPrice": {
+                              "type": "integer"
+                            },
+                            "suggestedPrice": {
+                              "type": "number"
+                            },
+                            "suggestedPointPrice": {
+                              "type": "integer"
+                            }
                           }
                         },
                         "schedules": {
@@ -567,27 +642,57 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "day": { "type": "string", "enum": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY", "SPECIAL"] },
-                              "startDate": { "type": "string", "format": "date" },
-                              "endDate": { "type": "string", "format": "date" },
-                              "startTime": { "type": "string", "format": "time" },
-                              "endTime": { "type": "string", "format": "time" }
+                              "day": {
+                                "type": "string",
+                                "enum": [
+                                  "MONDAY",
+                                  "TUESDAY",
+                                  "WEDNESDAY",
+                                  "THURSDAY",
+                                  "FRIDAY",
+                                  "SATURDAY",
+                                  "SUNDAY",
+                                  "SPECIAL"
+                                ]
+                              },
+                              "startDate": {
+                                "type": "string",
+                                "format": "date"
+                              },
+                              "endDate": {
+                                "type": "string",
+                                "format": "date"
+                              },
+                              "startTime": {
+                                "type": "string",
+                                "format": "time"
+                              },
+                              "endTime": {
+                                "type": "string",
+                                "format": "time"
+                              }
                             }
                           }
                         },
                         "upselling": {
                           "type": "array",
-                          "items": { "type": "string" },
+                          "items": {
+                            "type": "string"
+                          },
                           "description": "Set of unique product identifiers used in the upsell"
                         },
                         "crossSelling": {
                           "type": "array",
-                          "items": { "type": "string" },
+                          "items": {
+                            "type": "string"
+                          },
                           "description": "Set of unique product identifiers used in cross-selling"
                         },
                         "tags": {
                           "type": "array",
-                          "items": { "type": "string" },
+                          "items": {
+                            "type": "string"
+                          },
                           "description": "Allows you to assign tags to the product"
                         },
                         "images": {
@@ -595,8 +700,12 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "imageCategoryId": { "type": "string" },
-                              "fileUrl": { "type": "string" }
+                              "imageCategoryId": {
+                                "type": "string"
+                              },
+                              "fileUrl": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
@@ -606,8 +715,12 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "modifierId": { "type": "string" },
-                              "position": { "type": "integer" }
+                              "modifierId": {
+                                "type": "string"
+                              },
+                              "position": {
+                                "type": "integer"
+                              }
                             }
                           }
                         },
@@ -625,19 +738,35 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "categoryId": { "type": "string" },
-                        "categoryName": { "type": "string" },
-                        "displayInList": { "type": "boolean" },
-                        "featured": { "type": "boolean" },
-                        "crossSellingCategory": { "type": "boolean" },
-                        "position": { "type": "integer" },
+                        "categoryId": {
+                          "type": "string"
+                        },
+                        "categoryName": {
+                          "type": "string"
+                        },
+                        "displayInList": {
+                          "type": "boolean"
+                        },
+                        "featured": {
+                          "type": "boolean"
+                        },
+                        "crossSellingCategory": {
+                          "type": "boolean"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
                         "images": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "imageCategoryId": { "type": "string" },
-                              "fileUrl": { "type": "string" }
+                              "imageCategoryId": {
+                                "type": "string"
+                              },
+                              "fileUrl": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
@@ -646,8 +775,12 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "categoryId": { "type": "string" },
-                              "categoryName": { "type": "string" }
+                              "categoryId": {
+                                "type": "string"
+                              },
+                              "categoryName": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
@@ -656,8 +789,12 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "productId": { "type": "string" },
-                              "position": { "type": "integer" }
+                              "productId": {
+                                "type": "string"
+                              },
+                              "position": {
+                                "type": "integer"
+                              }
                             }
                           }
                         },
@@ -666,11 +803,21 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "day": { "type": "string" },
-                              "startDate": { "type": "string" },
-                              "endDate": { "type": "string" },
-                              "startTime": { "type": "string" },
-                              "endTime": { "type": "string" }
+                              "day": {
+                                "type": "string"
+                              },
+                              "startDate": {
+                                "type": "string"
+                              },
+                              "endDate": {
+                                "type": "string"
+                              },
+                              "startTime": {
+                                "type": "string"
+                              },
+                              "endTime": {
+                                "type": "string"
+                              }
                             }
                           }
                         }
@@ -698,9 +845,15 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "listId": { "type": "string" },
-                    "name": { "type": "string" },
-                    "active": { "type": "boolean" }
+                    "listId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
                   }
                 }
               }
@@ -713,7 +866,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string" }
+                    "message": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -1113,31 +1268,71 @@
                                   "unitPrice": {
                                     "type": "object",
                                     "properties": {
-                                      "currencyCode": { "type": "string" },
-                                      "totalBeforeSale": { "type": "string" },
-                                      "subtotalWithoutTaxes": { "type": "string" },
-                                      "discountPercentage": { "type": "string" },
-                                      "discountsValue": { "type": "string" },
-                                      "subtotalIncludeDiscounts": { "type": "string" },
-                                      "taxesPercentage": { "type": "string" },
-                                      "taxValue": { "type": "string" },
-                                      "total": { "type": "string" },
-                                      "suggestedPrice": { "type": "string" }
+                                      "currencyCode": {
+                                        "type": "string"
+                                      },
+                                      "totalBeforeSale": {
+                                        "type": "string"
+                                      },
+                                      "subtotalWithoutTaxes": {
+                                        "type": "string"
+                                      },
+                                      "discountPercentage": {
+                                        "type": "string"
+                                      },
+                                      "discountsValue": {
+                                        "type": "string"
+                                      },
+                                      "subtotalIncludeDiscounts": {
+                                        "type": "string"
+                                      },
+                                      "taxesPercentage": {
+                                        "type": "string"
+                                      },
+                                      "taxValue": {
+                                        "type": "string"
+                                      },
+                                      "total": {
+                                        "type": "string"
+                                      },
+                                      "suggestedPrice": {
+                                        "type": "string"
+                                      }
                                     }
                                   },
                                   "totalPrice": {
                                     "type": "object",
                                     "properties": {
-                                      "currencyCode": { "type": "string" },
-                                      "totalBeforeSale": { "type": "string" },
-                                      "subtotalWithoutTaxes": { "type": "string" },
-                                      "discountPercentage": { "type": "string" },
-                                      "discountsValue": { "type": "string" },
-                                      "subtotalIncludeDiscounts": { "type": "string" },
-                                      "taxesPercentage": { "type": "string" },
-                                      "taxValue": { "type": "string" },
-                                      "total": { "type": "string" },
-                                      "suggestedPrice": { "type": "string" }
+                                      "currencyCode": {
+                                        "type": "string"
+                                      },
+                                      "totalBeforeSale": {
+                                        "type": "string"
+                                      },
+                                      "subtotalWithoutTaxes": {
+                                        "type": "string"
+                                      },
+                                      "discountPercentage": {
+                                        "type": "string"
+                                      },
+                                      "discountsValue": {
+                                        "type": "string"
+                                      },
+                                      "subtotalIncludeDiscounts": {
+                                        "type": "string"
+                                      },
+                                      "taxesPercentage": {
+                                        "type": "string"
+                                      },
+                                      "taxValue": {
+                                        "type": "string"
+                                      },
+                                      "total": {
+                                        "type": "string"
+                                      },
+                                      "suggestedPrice": {
+                                        "type": "string"
+                                      }
                                     }
                                   }
                                 }
@@ -1147,53 +1342,107 @@
                                 "items": {
                                   "type": "object",
                                   "properties": {
-                                    "id": { "type": "string" },
-                                    "description": { "type": "string" },
-                                    "selectedModifiers": { 
-                                      "type": "array", 
-                                      "items": { 
-                                        "type": "object", 
-                                        "properties": { 
-                                          "answerId": { "type": "string" }, 
-                                          "productId": { "type": "string" }, 
-                                          "product": { "type": "string" }, 
-                                          "rewardId": { "type": "string" }, 
-                                          "quantity": { "type": "integer" }, 
-                                          "removedQuantity": { 
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "type": "string"
+                                    },
+                                    "selectedModifiers": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "answerId": {
+                                            "type": "string"
+                                          },
+                                          "productId": {
+                                            "type": "string"
+                                          },
+                                          "product": {
+                                            "type": "string"
+                                          },
+                                          "rewardId": {
+                                            "type": "string"
+                                          },
+                                          "quantity": {
+                                            "type": "integer"
+                                          },
+                                          "removedQuantity": {
                                             "type": "string",
                                             "nullable": true
                                           },
                                           "price": {
                                             "type": "object",
                                             "properties": {
-                                              "unitPrice":{
+                                              "unitPrice": {
                                                 "type": "object",
                                                 "properties": {
-                                                  "currencyCode": { "type": "string" },
-                                                  "totalBeforeSale": { "type": "string" },
-                                                  "subtotalWithoutTaxes": { "type": "string" },
-                                                  "discountPercentage": { "type": "string" },
-                                                  "discountsValue": { "type": "string" },
-                                                  "subtotalIncludeDiscounts": { "type": "string" },
-                                                  "taxesPercentage": { "type": "string" },
-                                                  "taxValue": { "type": "string" },
-                                                  "total": { "type": "string" },
-                                                  "suggestedPrice": { "type": "string" }
+                                                  "currencyCode": {
+                                                    "type": "string"
+                                                  },
+                                                  "totalBeforeSale": {
+                                                    "type": "string"
+                                                  },
+                                                  "subtotalWithoutTaxes": {
+                                                    "type": "string"
+                                                  },
+                                                  "discountPercentage": {
+                                                    "type": "string"
+                                                  },
+                                                  "discountsValue": {
+                                                    "type": "string"
+                                                  },
+                                                  "subtotalIncludeDiscounts": {
+                                                    "type": "string"
+                                                  },
+                                                  "taxesPercentage": {
+                                                    "type": "string"
+                                                  },
+                                                  "taxValue": {
+                                                    "type": "string"
+                                                  },
+                                                  "total": {
+                                                    "type": "string"
+                                                  },
+                                                  "suggestedPrice": {
+                                                    "type": "string"
+                                                  }
                                                 }
                                               },
                                               "totalPrice": {
                                                 "type": "object",
                                                 "properties": {
-                                                  "currencyCode": { "type": "string" },
-                                                  "totalBeforeSale": { "type": "string" },
-                                                  "subtotalWithoutTaxes": { "type": "string" },
-                                                  "discountPercentage": { "type": "string" },
-                                                  "discountsValue": { "type": "string" },
-                                                  "subtotalIncludeDiscounts": { "type": "string" },
-                                                  "taxesPercentage": { "type": "string" },
-                                                  "taxValue": { "type": "string" },
-                                                  "total": { "type": "string" },
-                                                  "suggestedPrice": { "type": "string" }
+                                                  "currencyCode": {
+                                                    "type": "string"
+                                                  },
+                                                  "totalBeforeSale": {
+                                                    "type": "string"
+                                                  },
+                                                  "subtotalWithoutTaxes": {
+                                                    "type": "string"
+                                                  },
+                                                  "discountPercentage": {
+                                                    "type": "string"
+                                                  },
+                                                  "discountsValue": {
+                                                    "type": "string"
+                                                  },
+                                                  "subtotalIncludeDiscounts": {
+                                                    "type": "string"
+                                                  },
+                                                  "taxesPercentage": {
+                                                    "type": "string"
+                                                  },
+                                                  "taxValue": {
+                                                    "type": "string"
+                                                  },
+                                                  "total": {
+                                                    "type": "string"
+                                                  },
+                                                  "suggestedPrice": {
+                                                    "type": "string"
+                                                  }
                                                 }
                                               }
                                             }
@@ -1207,23 +1456,105 @@
                               "additionalInfo": {
                                 "type": "object",
                                 "properties": {
-                                  "strategy": { "type": "string" },
-                                  "relatedProductId": { "type": "string" },
-                                  "redeemed": { "type": "boolean" },
-                                  "sort": { "type": "integer" },
-                                  "referenceUnitPrice": { "type": "object", "properties": { "currencyCode": { "type": "string" }, "totalBeforeSale": { "type": "string" }, "subtotalWithoutTaxes": { "type": "string" }, "discountPercentage": { "type": "string" }, "discountsValue": { "type": "string" }, "subtotalIncludeDiscounts": { "type": "string" }, "taxesPercentage": { "type": "string" }, "taxValue": { "type": "string" }, "total": { "type": "string" }, "suggestedPrice": { "type": "string" } } },
-                                  "referenceTotalPrice": { "type": "object", "properties": { "currencyCode": { "type": "string" }, "totalBeforeSale": { "type": "string" }, "subtotalWithoutTaxes": { "type": "string" }, "discountPercentage": { "type": "string" }, "discountsValue": { "type": "string" }, "subtotalIncludeDiscounts": { "type": "string" }, "taxesPercentage": { "type": "string" }, "taxValue": { "type": "string" }, "total": { "type": "string" }, "suggestedPrice": { "type": "string" } } },
-                                  "unitMeasurement": { "type": "string" }
+                                  "strategy": {
+                                    "type": "string"
+                                  },
+                                  "relatedProductId": {
+                                    "type": "string"
+                                  },
+                                  "redeemed": {
+                                    "type": "boolean"
+                                  },
+                                  "sort": {
+                                    "type": "integer"
+                                  },
+                                  "referenceUnitPrice": {
+                                    "type": "object",
+                                    "properties": {
+                                      "currencyCode": {
+                                        "type": "string"
+                                      },
+                                      "totalBeforeSale": {
+                                        "type": "string"
+                                      },
+                                      "subtotalWithoutTaxes": {
+                                        "type": "string"
+                                      },
+                                      "discountPercentage": {
+                                        "type": "string"
+                                      },
+                                      "discountsValue": {
+                                        "type": "string"
+                                      },
+                                      "subtotalIncludeDiscounts": {
+                                        "type": "string"
+                                      },
+                                      "taxesPercentage": {
+                                        "type": "string"
+                                      },
+                                      "taxValue": {
+                                        "type": "string"
+                                      },
+                                      "total": {
+                                        "type": "string"
+                                      },
+                                      "suggestedPrice": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "referenceTotalPrice": {
+                                    "type": "object",
+                                    "properties": {
+                                      "currencyCode": {
+                                        "type": "string"
+                                      },
+                                      "totalBeforeSale": {
+                                        "type": "string"
+                                      },
+                                      "subtotalWithoutTaxes": {
+                                        "type": "string"
+                                      },
+                                      "discountPercentage": {
+                                        "type": "string"
+                                      },
+                                      "discountsValue": {
+                                        "type": "string"
+                                      },
+                                      "subtotalIncludeDiscounts": {
+                                        "type": "string"
+                                      },
+                                      "taxesPercentage": {
+                                        "type": "string"
+                                      },
+                                      "taxValue": {
+                                        "type": "string"
+                                      },
+                                      "total": {
+                                        "type": "string"
+                                      },
+                                      "suggestedPrice": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "unitMeasurement": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             }
                           }
-                        }, 
+                        },
                         "stock": {
                           "type": "object",
                           "properties": {
-                            "productId": { "type": "string" },
-                            "stock": { "type": "integer" }
+                            "productId": {
+                              "type": "string"
+                            },
+                            "stock": {
+                              "type": "integer"
+                            }
                           }
                         }
                       }
@@ -1234,52 +1565,113 @@
                         "delivery": {
                           "type": "object",
                           "properties": {
-                            "deliveryDate": { "type": "string" },
-                            "latitude": { "type": "string" },
-                            "longitude": { "type": "string" },
-                            "country": { "type": "string" },
-                            "city": { "type": "string" },
-                            "mainStreet": { "type": "string" },
-                            "number": { "type": "string" },
-                            "secondaryStreet": { "type": "string" },
-                            "reference": { "type": "string" },
-                            "propertyId": { "type": "integer" },
-                            "observationsAddress": { "type": "string" },
-                            "numberContactAddress": { "type": "string" },
-                            "zipCode": { "type": "string" },
-                            "nickName": { "type": "string" },
-                            "externalId": { "type": "string" },
-                            "id": { "type": "string" },
-                            "driverArrivalDateInStore": { "type": "string" },
-                            "additionalInfo": { 
-                              "type": "object", 
-                              "properties": { "deliveryConfirmationCode": { "type": "string" } } }
+                            "deliveryDate": {
+                              "type": "string"
+                            },
+                            "latitude": {
+                              "type": "string"
+                            },
+                            "longitude": {
+                              "type": "string"
+                            },
+                            "country": {
+                              "type": "string"
+                            },
+                            "city": {
+                              "type": "string"
+                            },
+                            "mainStreet": {
+                              "type": "string"
+                            },
+                            "number": {
+                              "type": "string"
+                            },
+                            "secondaryStreet": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            },
+                            "propertyId": {
+                              "type": "integer"
+                            },
+                            "observationsAddress": {
+                              "type": "string"
+                            },
+                            "numberContactAddress": {
+                              "type": "string"
+                            },
+                            "zipCode": {
+                              "type": "string"
+                            },
+                            "nickName": {
+                              "type": "string"
+                            },
+                            "externalId": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "driverArrivalDateInStore": {
+                              "type": "string"
+                            },
+                            "additionalInfo": {
+                              "type": "object",
+                              "properties": {
+                                "deliveryConfirmationCode": {
+                                  "type": "string"
+                                }
+                              }
+                            }
                           }
-                        },  
-                        "pickup":{
+                        },
+                        "pickup": {
                           "type": "object",
                           "properties": {
-                            "pickupDate": { "type": "string", "format": "date-time" },
-                            "prepDate": { "type": "string", "format": "date-time" },
-                            "prepTimeUnit": { "type": "string" },
-                            "prepTime": { "type": "integer" },
-                            "propertyId": { "type": "integer" },
-                            "carryOutOptions": { "type": "string" },
+                            "pickupDate": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "prepDate": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "prepTimeUnit": {
+                              "type": "string"
+                            },
+                            "prepTime": {
+                              "type": "integer"
+                            },
+                            "propertyId": {
+                              "type": "integer"
+                            },
+                            "carryOutOptions": {
+                              "type": "string"
+                            },
                             "contactMethods": {
                               "type": "array",
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "type": { "type": "string" },
-                                  "identifier": { "type": "string" },
-                                  "countryCode": { "type": "string" },
-                                  "phoneNumber": { "type": "string" }
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "identifier": {
+                                    "type": "string"
+                                  },
+                                  "countryCode": {
+                                    "type": "string"
+                                  },
+                                  "phoneNumber": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             }
-                          }        
+                          }
                         }
-                      }  
+                      }
                     },
                     "payments": {
                       "type": "object",
@@ -1287,154 +1679,330 @@
                         "totals": {
                           "type": "array",
                           "items": {
-                            "type":"object",
-                            "properties":{
-                              "rewardId": { "type": "string" },
-                              "currencyCode": { "type": "string" },
-                              "totalBeforeSale": { "type": "string" },
-                              "subtotalWithoutTaxes": { "type": "string" },
-                              "discountPercentage": { "type": "string" },
-                              "discountsValue": { "type": "string" },
-                              "subtotalIncludeDiscounts": { "type": "string" },
-                              "taxesPercentage": { "type": "string" },
-                              "taxValue": { "type": "string" },
-                              "total": { "type": "string" }
+                            "type": "object",
+                            "properties": {
+                              "rewardId": {
+                                "type": "string"
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "totalBeforeSale": {
+                                "type": "string"
+                              },
+                              "subtotalWithoutTaxes": {
+                                "type": "string"
+                              },
+                              "discountPercentage": {
+                                "type": "string"
+                              },
+                              "discountsValue": {
+                                "type": "string"
+                              },
+                              "subtotalIncludeDiscounts": {
+                                "type": "string"
+                              },
+                              "taxesPercentage": {
+                                "type": "string"
+                              },
+                              "taxValue": {
+                                "type": "string"
+                              },
+                              "total": {
+                                "type": "string"
+                              }
                             }
                           }
-                        },  
+                        },
                         "shippingCost": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "quantity": { "type": "integer" },
-                              "productId": { "type": "string" },
-                              "rewardId": { "type": "string" },
-                              "currencyCode": { "type": "string" },
-                              "subtotalWithoutTaxes": { "type": "string" },
-                              "discountPercentage": { "type": "string" },
-                              "discountsValue": { "type": "string" },
-                              "subtotalIncludeDiscounts": { "type": "string" },
-                              "taxesPercentage": { "type": "string" },
-                              "taxValue": { "type": "string" },
-                              "total": { "type": "string" }
-                            }  
-                          }
-                        },
-                        "extraCharges": {
-                          "type":"array",
-                          "items":{
-                            "type":"object",
-                            "properties":{
-                              "quantity": { "type": "integer" },
-                              "productId": { "type": "string", "nullable": true },
-                              "description": { "type": "string" },
-                              "currencyCode": { "type": "string" },
-                              "subtotalWithoutTaxes": { "type": "string" },
-                              "discountPercentage": { "type": "string" },
-                              "discountsValue": { "type": "string" },
-                              "subtotalIncludeDiscounts": { "type": "string" },
-                              "taxesPercentage": { "type": "string" },
-                              "taxValue": { "type": "string" },
-                              "total": { "type": "string" }
+                              "quantity": {
+                                "type": "integer"
+                              },
+                              "productId": {
+                                "type": "string"
+                              },
+                              "rewardId": {
+                                "type": "string"
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "subtotalWithoutTaxes": {
+                                "type": "string"
+                              },
+                              "discountPercentage": {
+                                "type": "string"
+                              },
+                              "discountsValue": {
+                                "type": "string"
+                              },
+                              "subtotalIncludeDiscounts": {
+                                "type": "string"
+                              },
+                              "taxesPercentage": {
+                                "type": "string"
+                              },
+                              "taxValue": {
+                                "type": "string"
+                              },
+                              "total": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
-                        "discounts":{
+                        "extraCharges": {
                           "type": "array",
                           "items": {
                             "type": "object",
-                            "properties":{
-                              "rewardId": { "type": "string" },
-                              "productId": { "type": "string" },
-                              "currencyCode": { "type": "string" },
-                              "totalBeforeSale": { "type": "string" },
-                              "subtotalWithoutTaxes": { "type": "string" },
-                              "discountPercentage": { "type": "string" },
-                              "discountsValue": { "type": "string" },
-                              "subtotalIncludeDiscounts": { "type": "string" }
+                            "properties": {
+                              "quantity": {
+                                "type": "integer"
+                              },
+                              "productId": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "subtotalWithoutTaxes": {
+                                "type": "string"
+                              },
+                              "discountPercentage": {
+                                "type": "string"
+                              },
+                              "discountsValue": {
+                                "type": "string"
+                              },
+                              "subtotalIncludeDiscounts": {
+                                "type": "string"
+                              },
+                              "taxesPercentage": {
+                                "type": "string"
+                              },
+                              "taxValue": {
+                                "type": "string"
+                              },
+                              "total": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "discounts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "rewardId": {
+                                "type": "string"
+                              },
+                              "productId": {
+                                "type": "string"
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "totalBeforeSale": {
+                                "type": "string"
+                              },
+                              "subtotalWithoutTaxes": {
+                                "type": "string"
+                              },
+                              "discountPercentage": {
+                                "type": "string"
+                              },
+                              "discountsValue": {
+                                "type": "string"
+                              },
+                              "subtotalIncludeDiscounts": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
                         "taxes": {
-                          "type":"array",
-                          "items":{
-                            "type":"object",
+                          "type": "array",
+                          "items": {
+                            "type": "object",
                             "properties": {
-                              "name": { "type": "string" },
-                              "currencyCode": { "type": "string" },
-                              "subtotalWithoutTaxes": { "type": "string" },
-                              "percentage": { "type": "string" },
-                              "total": { "type": "string" }
+                              "name": {
+                                "type": "string"
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "subtotalWithoutTaxes": {
+                                "type": "string"
+                              },
+                              "percentage": {
+                                "type": "string"
+                              },
+                              "total": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
                         "paymentMethods": {
                           "type": "array",
                           "items": {
-                            "type":"object",
+                            "type": "object",
                             "properties": {
-                              "processor": { "type": "string" },
-                              "currencyCode": { "type": "string" },
-                              "paymentMethodCode": { "type": "string" },
-                              "transactionType": { "type": "string", "nullable": true },
-                              "transactionId": { "type": "string", "nullable": true },
-                              "transactionStatus": { "type": "string", "nullable": true },
-                              "tid": { "type": "string", "nullable": true },
-                              "mid": { "type": "string", "nullable": true },
-                              "authorizationCode": { "type": "string", "nullable": true },
-                              "voucher": { "type": "string", "nullable": true },
-                              "referenceNumber": { "type": "string", "nullable": true },
-                              "exactPayment": { "type": "boolean" },
-                              "customerCashAmount": { "type": "string" },
-                              "totalBill": { "type": "string" },
+                              "processor": {
+                                "type": "string"
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "paymentMethodCode": {
+                                "type": "string"
+                              },
+                              "transactionType": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "transactionId": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "transactionStatus": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "tid": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "mid": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "authorizationCode": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "voucher": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "referenceNumber": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "exactPayment": {
+                                "type": "boolean"
+                              },
+                              "customerCashAmount": {
+                                "type": "string"
+                              },
+                              "totalBill": {
+                                "type": "string"
+                              },
                               "acquirer": {
                                 "type": "object",
-                                "nullable":true,
+                                "nullable": true,
                                 "properties": {
-                                  "code": { "type": "string" },
-                                  "name": { "type": "string" }
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "card": {
                                 "type": "object",
                                 "nullable": true,
                                 "properties": {
-                                  "mask": { "type": "string" },
-                                  "bin": { "type": "string" },
-                                  "lastFourDigits": { "type": "string" },
-                                  "brand": { "type": "string" },
-                                  "externalCardBrandId": { "type": "string" },
-                                  "holder": { "type": "string" },
-                                  "cardCountry": { "type": "string" }
+                                  "mask": {
+                                    "type": "string"
+                                  },
+                                  "bin": {
+                                    "type": "string"
+                                  },
+                                  "lastFourDigits": {
+                                    "type": "string"
+                                  },
+                                  "brand": {
+                                    "type": "string"
+                                  },
+                                  "externalCardBrandId": {
+                                    "type": "string"
+                                  },
+                                  "holder": {
+                                    "type": "string"
+                                  },
+                                  "cardCountry": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "transactionDate": {
+                                "type": "object",
+                                "properties": {
+                                  "date": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "timeZoneType": {
+                                    "type": "integer"
+                                  },
+                                  "timeZoneName": {
+                                    "type": "string"
+                                  },
+                                  "weekNumber": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "metadata": {
+                                "type": "object",
+                                "properties": {
+                                  "aid": {
+                                    "type": "string"
+                                  },
+                                  "responseCode": {
+                                    "type": "string"
+                                  },
+                                  "transactionDate": {
+                                    "type": "string"
+                                  },
+                                  "transactionTime": {
+                                    "type": "string"
+                                  },
+                                  "cardBrand": {
+                                    "type": "string"
+                                  },
+                                  "batch": {
+                                    "type": "string"
+                                  },
+                                  "rrn": {
+                                    "type": "string"
+                                  },
+                                  "taxAmount": {
+                                    "type": "string"
+                                  },
+                                  "totalPurchaseAmount": {
+                                    "type": "string"
+                                  },
+                                  "responseMessage": {
+                                    "type": "string"
+                                  },
+                                  "authorizationResponseMessage": {
+                                    "type": "string"
+                                  }
+                                }
                               }
-                            },  
-                            "transactionDate": {
-                              "type": "object",
-                              "properties": {
-                                "date": { "type": "string", "format": "date-time" },
-                                "timeZoneType": { "type": "integer" },
-                                "timeZoneName": { "type": "string" },
-                                "weekNumber": { "type": "integer" }
-                              }
-                            },  
-                            "metadata": {
-                              "type": "object",
-                              "properties": {
-                                "aid": { "type": "string" },
-                                "responseCode": { "type": "string" },
-                                "transactionDate": { "type": "string" },
-                                "transactionTime": { "type": "string" },
-                                "cardBrand": { "type": "string" },
-                                "batch": { "type": "string" },
-                                "rrn": { "type": "string" },
-                                "taxAmount": { "type": "string" },
-                                "totalPurchaseAmount": { "type": "string" },
-                                "responseMessage": { "type": "string" },
-                                "authorizationResponseMessage": { "type": "string" }
-                                }  
-                              }
-                            }  
+                            }
                           }
                         }
                       }
@@ -1448,20 +2016,34 @@
                             "accumulation": {
                               "type": "object",
                               "properties": {
-                                "storeCost": { "type": "string" },
-                                "marketingCost": { "type": "string" },
-                                "totalPoints": { "type": "string" }
+                                "storeCost": {
+                                  "type": "string"
+                                },
+                                "marketingCost": {
+                                  "type": "string"
+                                },
+                                "totalPoints": {
+                                  "type": "string"
+                                }
                               }
                             },
-                            "redemption" :{
+                            "redemption": {
                               "type": "object",
                               "properties": {
-                                "storeCost": { "type": "string" },
-                                "marketingCost": { "type": "string" },
-                                "totalPoints": { "type": "string" }
+                                "storeCost": {
+                                  "type": "string"
+                                },
+                                "marketingCost": {
+                                  "type": "string"
+                                },
+                                "totalPoints": {
+                                  "type": "string"
+                                }
                               }
                             },
-                            "accountBalancePoints":{"type":"string"}
+                            "accountBalancePoints": {
+                              "type": "string"
+                            }
                           }
                         },
                         "coupons": {
@@ -1469,21 +2051,29 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "rewardId": { "type": "string" },
-                              "name": { "type": "string" },
-                              "additionalInfo": { "type": "object" }
+                              "rewardId": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "additionalInfo": {
+                                "type": "object"
+                              }
                             }
-                          }  
+                          }
                         }
                       }
                     },
                     "additionalInfo": {
                       "type": "object",
                       "properties": {
-                        "kiosk":{
+                        "kiosk": {
                           "type": "object",
-                          "properties":{
-                            "ip":{"type":"string"}
+                          "properties": {
+                            "ip": {
+                              "type": "string"
+                            }
                           }
                         }
                       }
@@ -2224,7 +2814,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": { "type": "string", "example": "Unauthorized" }
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
                   }
                 }
               }
@@ -2236,7 +2829,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": { "error": { "type": "string", "example": "Order not found" } }
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Order not found"
+                    }
+                  }
                 }
               }
             }
@@ -2304,7 +2902,12 @@
                     "description": "Future date on which you want to inactivate the product"
                   }
                 },
-                "required": ["storeId", "productId", "active", "priceInfo"]
+                "required": [
+                  "storeId",
+                  "productId",
+                  "active",
+                  "priceInfo"
+                ]
               }
             }
           }
@@ -2405,7 +3008,10 @@
                       "example": "success"
                     }
                   },
-                  "required": ["message", "status"]
+                  "required": [
+                    "message",
+                    "status"
+                  ]
                 },
                 "examples": {
                   "success": {
@@ -2476,10 +3082,16 @@
                   },
                   "grant_type": {
                     "type": "string",
-                    "enum": ["client_credentials"]
+                    "enum": [
+                      "client_credentials"
+                    ]
                   }
                 },
-                "required": ["client_id", "client_secret", "grant_type"]
+                "required": [
+                  "client_id",
+                  "client_secret",
+                  "grant_type"
+                ]
               }
             }
           }
@@ -2601,7 +3213,10 @@
                       "example": "success"
                     }
                   },
-                  "required": ["message", "status"]
+                  "required": [
+                    "message",
+                    "status"
+                  ]
                 },
                 "examples": {
                   "success": {
@@ -2648,7 +3263,10 @@
                     "example": "Canceled"
                   }
                 },
-                "required": ["order_id", "status"]
+                "required": [
+                  "order_id",
+                  "status"
+                ]
               }
             }
           }
@@ -2744,7 +3362,13 @@
                     "example": ""
                   }
                 },
-                "required": ["order", "from_store", "to_store", "processed_by", "transfer_reason"]
+                "required": [
+                  "order",
+                  "from_store",
+                  "to_store",
+                  "processed_by",
+                  "transfer_reason"
+                ]
               }
             }
           }
@@ -2819,7 +3443,10 @@
                     "example": "XH4TDASD7812LDTST"
                   }
                 },
-                "required": ["codigo_app", "id_transaccion"]
+                "required": [
+                  "codigo_app",
+                  "id_transaccion"
+                ]
               }
             }
           }
@@ -2880,69 +3507,143 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "productId": { "type": "string", "example": "Coffee-product-id" },
-                  "name": { "type": "string", "example": "Small Coffee" },
-                  "type": { "type": "string", "example": "PRODUCT" },
-                  "description": { "type": "string", "example": "The bestest Coffee" },
-                  "standardTime": { "type": "boolean", "example": true },
-                  "featured": { "type": "boolean", "example": true },
+                  "productId": {
+                    "type": "string",
+                    "example": "Coffee-product-id"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Small Coffee"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "PRODUCT"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "The bestest Coffee"
+                  },
+                  "standardTime": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "featured": {
+                    "type": "boolean",
+                    "example": true
+                  },
                   "schedules": {
                     "type": "array",
                     "items": {
                       "type": "object",
                       "properties": {
-                        "day": { "type": "string", "example": "MONDAY" },
-                        "startDate": { "type": "string", "format": "date", "example": "2019-02-24" },
-                        "endDate": { "type": "string", "format": "date", "example": "2019-02-25" },
-                        "startTime": { "type": "string", "format": "time", "example": "08:00" },
-                        "endTime": { "type": "string", "format": "time", "example": "12:00" }
+                        "day": {
+                          "type": "string",
+                          "example": "MONDAY"
+                        },
+                        "startDate": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2019-02-24"
+                        },
+                        "endDate": {
+                          "type": "string",
+                          "format": "date",
+                          "example": "2019-02-25"
+                        },
+                        "startTime": {
+                          "type": "string",
+                          "format": "time",
+                          "example": "08:00"
+                        },
+                        "endTime": {
+                          "type": "string",
+                          "format": "time",
+                          "example": "12:00"
+                        }
                       }
                     }
                   },
                   "tags": {
                     "type": "array",
-                    "items": { "type": "string", "example": "to share" }
+                    "items": {
+                      "type": "string",
+                      "example": "to share"
+                    }
                   },
                   "upselling": {
                     "type": "array",
-                    "items": { "type": "string", "example": "lg-coffee" }
+                    "items": {
+                      "type": "string",
+                      "example": "lg-coffee"
+                    }
                   },
                   "images": {
                     "type": "array",
                     "items": {
                       "type": "object",
                       "properties": {
-                        "imageCategoryId": { "type": "string", "example": "product" },
-                        "fileUrl": { "type": "string", "format": "uri", "example": "https://path/to/file.png" }
+                        "imageCategoryId": {
+                          "type": "string",
+                          "example": "product"
+                        },
+                        "fileUrl": {
+                          "type": "string",
+                          "format": "uri",
+                          "example": "https://path/to/file.png"
+                        }
                       }
                     }
                   },
                   "taxesInfo": {
                     "type": "object",
                     "properties": {
-                      "taxRate": { "type": "number", "example": 0 },
-                      "vatRatePercentage": { "type": "number", "example": 0 }
+                      "taxRate": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "vatRatePercentage": {
+                        "type": "number",
+                        "example": 0
+                      }
                     }
                   },
                   "priceInfo": {
                     "type": "object",
                     "properties": {
-                      "price": { "type": "number", "example": 4.99 },
-                      "pointPrice": { "type": "number", "nullable": true, "example": null }
+                      "price": {
+                        "type": "number",
+                        "example": 4.99
+                      },
+                      "pointPrice": {
+                        "type": "number",
+                        "nullable": true,
+                        "example": null
+                      }
                     }
                   },
                   "categories": {
                     "type": "array",
-                    "items": { "type": "string", "example": "Coffes-category-id" }
+                    "items": {
+                      "type": "string",
+                      "example": "Coffes-category-id"
+                    }
                   },
                   "additionalInfo": {
                     "type": "object",
                     "properties": {
-                      "menu_level": { "type": "integer", "example": 0 }
+                      "menu_level": {
+                        "type": "integer",
+                        "example": 0
+                      }
                     }
                   }
                 },
-                "required": ["productId", "name", "type", "description"]
+                "required": [
+                  "productId",
+                  "name",
+                  "type",
+                  "description"
+                ]
               }
             }
           }
@@ -2955,8 +3656,14 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string", "example": "Producto actualizado exitosamente." },
-                    "productId": { "type": "string", "example": "Coffee-product-id" }
+                    "message": {
+                      "type": "string",
+                      "example": "Producto actualizado exitosamente."
+                    },
+                    "productId": {
+                      "type": "string",
+                      "example": "Coffee-product-id"
+                    }
                   }
                 }
               }
@@ -2969,7 +3676,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": { "type": "string", "example": "Invalid data" }
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid data"
+                    }
                   }
                 }
               }
@@ -2977,7 +3687,7 @@
           }
         }
       }
-    },                        
+    },
     "/api/order/infoPayments": {
       "get": {
         "summary": "Orders - payment information",
@@ -3271,31 +3981,59 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": { "type": "string" },
-                    "status": { "type": "string" },
-                    "message": { "type": "string" },
+                    "code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "measure": { "type": "string" },
-                        "stock": { "type": "integer" },
-                        "name": { "type": "string" },
-                        "suggestedPrice": { "type": "string" },
+                        "measure": {
+                          "type": "string"
+                        },
+                        "stock": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "suggestedPrice": {
+                          "type": "string"
+                        },
                         "prices": {
                           "type": "object",
                           "additionalProperties": {
                             "type": "object",
                             "properties": {
-                              "category": { "type": "string" },
-                              "symbol": { "type": "string" },
-                              "grossPrice": { "type": "number" },
-                              "netPrice": { "type": "number" }
+                              "category": {
+                                "type": "string"
+                              },
+                              "symbol": {
+                                "type": "string"
+                              },
+                              "grossPrice": {
+                                "type": "number"
+                              },
+                              "netPrice": {
+                                "type": "number"
+                              }
                             }
                           }
                         },
-                        "description": { "type": "string" },
-                        "isPriceVip": { "type": "boolean" },
-                        "hasModifiers": { "type": "boolean" }
+                        "description": {
+                          "type": "string"
+                        },
+                        "isPriceVip": {
+                          "type": "boolean"
+                        },
+                        "hasModifiers": {
+                          "type": "boolean"
+                        }
                       }
                     }
                   }
@@ -3678,6 +4416,1042 @@
           }
         ]
       }
+    },
+    "/enrich-order": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Enriquecer orden con impuestos",
+        "description": "Calcula impuestos sobre líneas principales (`order.products[].price.totalPrice`) y modificadores según reglas fiscales\ny guarda la orden en base de datos (upsert por `orderId`).\nEl cuerpo puede ser `OrderPayload` en la raíz o envuelto en un objeto con propiedad `payload`.\nRequisitos: body no vacío; `orderId` presente en el payload para respuesta 200.\n",
+        "operationId": "enrichOrder",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrichOrderRequest"
+              },
+              "examples": {
+                "simple": {
+                  "summary": "Payload mínimo",
+                  "description": "Una orden, una tienda, un ítem con precio; mismo cuerpo válido para `/enrich-order-forward`.",
+                  "value": {
+                    "payload": {
+                      "orderId": "ord-001",
+                      "store": {
+                        "id": "21"
+                      },
+                      "order": {
+                        "products": [
+                          {
+                            "modifierGroups": [
+                              {
+                                "selectedModifiers": [
+                                  {
+                                    "productId": "sku-001",
+                                    "price": {
+                                      "totalPrice": {
+                                        "total": 10.5
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "conPayload": {
+                  "summary": "Forma recomendada — payload anidado",
+                  "description": "Orden bajo la propiedad `payload` (compatible con envoltorios upstream).",
+                  "value": {
+                    "payload": {
+                      "orderId": "ord-2025-001",
+                      "source": "pos",
+                      "store": {
+                        "id": "store-br-01",
+                        "code": "BR01",
+                        "name": "Tienda Centro"
+                      },
+                      "order": {
+                        "products": [
+                          {
+                            "productId": "sku-burger-001",
+                            "modifierGroups": [
+                              {
+                                "selectedModifiers": [
+                                  {
+                                    "productId": "mod-cheese",
+                                    "quantity": 1,
+                                    "price": {
+                                      "unitPrice": {
+                                        "currencyCode": "BRL",
+                                        "subtotalWithoutTaxes": 2.5
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "payments": {
+                        "totals": [
+                          {
+                            "currencyCode": "BRL",
+                            "total": 32.9
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "plano": {
+                  "summary": "OrderPayload en la raíz",
+                  "description": "Mismo contrato sin envoltorio `payload` (el handler acepta ambos).",
+                  "value": {
+                    "orderId": "ord-2025-002",
+                    "source": "kiosk",
+                    "store": {
+                      "id": "store-br-02"
+                    },
+                    "order": {
+                      "products": [
+                        {
+                          "productId": "sku-drink-010"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Orden enriquecida y persistida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderSuccessResponse"
+                },
+                "examples": {
+                  "ok": {
+                    "summary": "Respuesta exitosa",
+                    "value": {
+                      "message": "Orden enriquecida exitosamente.",
+                      "orderDbId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                      "orderId": "ord-2025-001",
+                      "payload": {
+                        "orderId": "ord-2025-001",
+                        "source": "pos",
+                        "store": {
+                          "id": "store-br-01"
+                        },
+                        "order": {
+                          "products": []
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Body ausente, validación (p. ej. sin orderId), o datos fiscales incompletos:\nsin NCM/catálogo para un `productId`, sin regla en la matriz de la tienda para el NCM, o sin bloque `price.totalPrice` (null/undefined). Importes 0 en `totalPrice` no son error.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderErrorResponse"
+                },
+                "examples": {
+                  "sinBody": {
+                    "summary": "Sin cuerpo",
+                    "value": {
+                      "message": "Body requerido."
+                    }
+                  },
+                  "sinOrderId": {
+                    "summary": "Falta orderId",
+                    "value": {
+                      "message": "No se encontro orderId en el payload."
+                    }
+                  },
+                  "fiscalProducto": {
+                    "summary": "Producto sin NCM en catálogo",
+                    "value": {
+                      "message": "No se encontró categoría fiscal (NCM) para el producto con productId=\"sku-123\".",
+                      "code": "FISCAL_PRODUCTO_SIN_NCM"
+                    }
+                  },
+                  "fiscalMatriz": {
+                    "summary": "NCM sin regla en matriz de la tienda",
+                    "value": {
+                      "message": "No hay regla fiscal en la matriz de la tienda (store_id=21) para NCM=\"21069090\" (producto productId=\"sku-123\").",
+                      "code": "FISCAL_MATRIZ_SIN_NCM"
+                    }
+                  },
+                  "fiscalPrecio": {
+                    "summary": "Falta bloque totalPrice",
+                    "value": {
+                      "message": "Falta el bloque price.totalPrice para el producto productId=\"sku-123\".",
+                      "code": "FISCAL_PRECIO_AUSENTE"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al enriquecer o al persistir",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderErrorResponse"
+                },
+                "examples": {
+                  "error": {
+                    "summary": "Error interno",
+                    "value": {
+                      "message": "No se pudo enriquecer la orden.",
+                      "error": "Error: ..."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enrich-order-forward": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Enriquecer, guardar y notificar por webhook",
+        "description": "Mismo cuerpo que `POST /enrich-order`. Tras enriquecer y persistir, envía un POST JSON al webhook\n(`ORDER_WEBHOOK_URL`) con **únicamente el payload enriquecido** (misma forma que el campo `payload`\nde la respuesta 200 de `/enrich-order`).\nLa respuesta HTTP de **esta** API solo indica si el flujo y el webhook respondieron bien; no devuelve la orden.\n",
+        "operationId": "enrichOrderForward",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrichOrderRequest"
+              },
+              "examples": {
+                "simple": {
+                  "summary": "Payload mínimo (igual que en /enrich-order)",
+                  "value": {
+                    "payload": {
+                      "orderId": "ord-001",
+                      "store": {
+                        "id": "21"
+                      },
+                      "order": {
+                        "products": [
+                          {
+                            "modifierGroups": [
+                              {
+                                "selectedModifiers": [
+                                  {
+                                    "productId": "sku-001",
+                                    "price": {
+                                      "totalPrice": {
+                                        "total": 10.5
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "igualQueEnrichOrder": {
+                  "summary": "Mismo contrato que /enrich-order",
+                  "value": {
+                    "payload": {
+                      "orderId": "ord-2025-001",
+                      "source": "pos",
+                      "store": {
+                        "id": "store-br-01"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Orden persistida y webhook respondió 2xx",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichForwardOkResponse"
+                },
+                "examples": {
+                  "ok": {
+                    "summary": "Notificación entregada",
+                    "value": {
+                      "message": "Orden enriquecida, guardada y notificada al destino."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Igual que `POST /enrich-order` (body, orderId, o errores fiscales con `code`).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno, ORDER_WEBHOOK_URL vacía, o fallo al enriquecer/persistir",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderErrorResponse"
+                },
+                "examples": {
+                  "sinWebhook": {
+                    "summary": "URL de webhook no configurada",
+                    "value": {
+                      "message": "ORDER_WEBHOOK_URL no configurada."
+                    }
+                  },
+                  "proceso": {
+                    "summary": "Error genérico tras validación del webhook",
+                    "value": {
+                      "message": "No se pudo completar el proceso.",
+                      "error": "Error: ..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "El destino no respondió, error de red, o respuesta HTTP no 2xx del webhook",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichOrderErrorResponse"
+                },
+                "examples": {
+                  "badGateway": {
+                    "summary": "Webhook 4xx/5xx",
+                    "value": {
+                      "message": "El webhook de destino respondió con error.",
+                      "error": "HTTP 503: Service Unavailable"
+                    }
+                  },
+                  "red": {
+                    "summary": "Sin respuesta HTTP / fallo de red",
+                    "value": {
+                      "message": "No se pudo contactar el webhook de destino.",
+                      "error": "TypeError: fetch failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/orders": {
+      "get": {
+        "tags": [
+          "Admin",
+          "Orders"
+        ],
+        "operationId": "listOrders",
+        "summary": "Listar órdenes persistidas (paginado)",
+        "description": "Orden por `created_at` descendente. Filtros opcionales por tienda, origen, estado, texto en `order_id`,\nrango de fechas de creación e intentos de webhook.\n",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "description": "Página (base 1)."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "description": "Tamaño de página (máximo 100)."
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por `store_id`."
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por origen (ej. pos)."
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado (ej. ENRICHED)."
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Subcadena en `order_id` (búsqueda case-insensitive; `%` y `_` literales escapados)."
+          },
+          {
+            "name": "createdFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Inclusive: filtra `created_at` >= este instante. Usar ISO 8601 con zona explícita\n(ej. `2025-06-15T00:00:00.000Z`) para evitar ambigüedad local vs UTC.\nSi se envían `createdFrom` y `createdTo`, debe cumplirse `createdFrom` <= `createdTo` (si no, 400).\n"
+          },
+          {
+            "name": "createdTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Inclusive: filtra `created_at` <= este instante. Un día calendario completo suele requerir\nel fin del día en UTC (ej. `2025-06-15T23:59:59.999Z`), no solo `T00:00:00`, para no excluir\nórdenes creadas después de medianoche ese día. Misma regla de orden que `createdFrom`.\n"
+          },
+          {
+            "name": "webhookAttemptsMin",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Mínimo de `webhook_attempts`."
+          },
+          {
+            "name": "webhookAttemptsMax",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Máximo de `webhook_attempts`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Página de resultados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parámetros de query inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Método no permitido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al consultar la base de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/fiscal-groups": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "listFiscalGroups",
+        "summary": "Listar fiscal_groups",
+        "responses": {
+          "200": {
+            "description": "Lista ordenada por fecha de creación descendente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FiscalGroup"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "createFiscalGroup",
+        "summary": "Crear fiscal_group",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FiscalGroupCreate"
+              },
+              "example": {
+                "externalId": "3s-group-8891",
+                "name": "KFC ABC MARUM (SP)",
+                "uf": "SP",
+                "taxRegime": "Simples",
+                "stores": [
+                  {
+                    "store_id": "store_101",
+                    "store_name": "KFC Paulista"
+                  },
+                  {
+                    "store_id": "store_102",
+                    "store_name": "KFC Campinas"
+                  }
+                ],
+                "taxMatrix": {
+                  "21069090": {
+                    "NCM": "21069090",
+                    "CEST": "17.047.00",
+                    "CST_ICMS": "00",
+                    "ICMS_rate": 18,
+                    "CST_PIS": "01",
+                    "PIS_rate": 1.65,
+                    "CST_COFINS": "01",
+                    "COFINS_rate": 7.6,
+                    "CFOP": "5102"
+                  },
+                  "22021000": {
+                    "NCM": "22021000",
+                    "CEST": "03.007.00",
+                    "CST_ICMS": "00",
+                    "ICMS_rate": 18,
+                    "CST_PIS": "01",
+                    "PIS_rate": 1.65,
+                    "CST_COFINS": "01",
+                    "COFINS_rate": 7.6
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FiscalGroup"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Body inválido o campos requeridos ausentes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Violación de unicidad (Postgres 23505)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/fiscal-groups/{id}": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "getFiscalGroup",
+        "summary": "Obtener fiscal_group por UUID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fiscal_group encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FiscalGroup"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "id no UUID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "updateFiscalGroup",
+        "summary": "Actualizar fiscal_group (parcial)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FiscalGroupPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FiscalGroup"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "deleteFiscalGroup",
+        "summary": "Eliminar fiscal_group",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Eliminado"
+          },
+          "400": {
+            "description": "id no UUID u otra validación fallida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/product-fiscal-categories": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "listProductFiscalCategories",
+        "summary": "Listar product_fiscal_category",
+        "responses": {
+          "200": {
+            "description": "Lista de categorías fiscales",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductFiscalCategory"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "createProductFiscalCategory",
+        "summary": "Crear categoría fiscal de producto",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductFiscalCategoryCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductFiscalCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Body inválido o campos requeridos ausentes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflicto (unicidad)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/product-fiscal-categories/{productId}": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "getProductFiscalCategory",
+        "summary": "Obtener por productId (texto)",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categoría encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductFiscalCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "productId inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "updateProductFiscalCategory",
+        "summary": "Actualizar categoría (no se puede enviar productId en body)",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductFiscalCategoryPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductFiscalCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "deleteProductFiscalCategory",
+        "summary": "Eliminar categoría por productId",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Eliminado"
+          },
+          "400": {
+            "description": "productId inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -4033,6 +5807,469 @@
           },
           "message": {
             "type": "string"
+          }
+        }
+      },
+      "EnrichOrderRequest": {
+        "description": "Raíz flexible: puede incluir `payload` u omitirse (entonces los campos de orden van en la raíz).\nSe permiten propiedades adicionales no listadas.\n",
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/OrderPayload"
+          }
+        }
+      },
+      "OrderPayload": {
+        "type": "object",
+        "additionalProperties": true,
+        "description": "Datos de la orden (productos, tienda, pagos). `orderId` obligatorio para 200.",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "example": "ord-2025-001"
+          },
+          "source": {
+            "type": "string",
+            "example": "pos"
+          },
+          "store": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "order": {
+            "type": "object",
+            "properties": {
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "payments": {
+            "type": "object"
+          }
+        }
+      },
+      "EnrichOrderSuccessResponse": {
+        "type": "object",
+        "required": [
+          "message",
+          "orderDbId",
+          "orderId",
+          "payload"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Orden enriquecida exitosamente."
+          },
+          "orderDbId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID interno en Postgres (tabla de órdenes)."
+          },
+          "orderId": {
+            "type": "string",
+            "description": "Identificador de negocio recibido en la petición."
+          },
+          "payload": {
+            "description": "Payload enriquecido: OrderPayload en la raíz, u objeto con propiedad `payload` anidando OrderPayload.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/OrderPayload"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "payload"
+                ],
+                "properties": {
+                  "payload": {
+                    "$ref": "#/components/schemas/OrderPayload"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "EnrichOrderErrorResponse": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string",
+            "description": "Detalle encadenado en errores 500 o 502."
+          },
+          "code": {
+            "type": "string",
+            "description": "Presente en 400 por datos fiscales: FISCAL_PRODUCTO_SIN_NCM, FISCAL_MATRIZ_SIN_NCM, FISCAL_PRECIO_AUSENTE (solo si falta el bloque `totalPrice`, no por importes en 0).\n"
+          }
+        }
+      },
+      "EnrichForwardOkResponse": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Orden enriquecida, guardada y notificada al destino."
+          }
+        }
+      },
+      "ApiErrorMessage": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "OrderListItem": {
+        "type": "object",
+        "description": "Fila de `orders` tal como la devuelve Postgres/Drizzle (payloads JSON).",
+        "required": [
+          "id",
+          "orderId",
+          "status",
+          "payload",
+          "enrichedPayload",
+          "webhookAttempts"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "orderId": {
+            "type": "string"
+          },
+          "storeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "nullable": true
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "enrichedPayload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "webhookAttempts": {
+            "type": "integer"
+          },
+          "webhookLastResponse": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": true,
+            "description": "Última respuesta del webhook (JSON) o null."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "OrderListResponse": {
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "page",
+          "pageSize",
+          "totalPages"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderListItem"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Total de filas que cumplen los filtros (sin paginar)."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "totalPages": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Número de páginas; 0 si no hay resultados."
+          }
+        }
+      },
+      "FiscalGroupStoreEntry": {
+        "type": "object",
+        "description": "Elemento del arreglo JSON `stores` (asociación tienda ↔ grupo fiscal).",
+        "required": [
+          "store_id"
+        ],
+        "properties": {
+          "store_id": {
+            "type": "string",
+            "description": "Identificador de tienda; el motor fiscal busca coincidencia por este valor (string)."
+          },
+          "store_name": {
+            "type": "string",
+            "description": "Nombre legible (opcional, no usado en el cálculo de impuestos)."
+          }
+        }
+      },
+      "StoresJson": {
+        "type": "array",
+        "description": "Arreglo JSON persistido en `fiscal_groups.stores`. Debe incluir al menos un objeto con `store_id`\npara que `findFiscalGroupByStoreId` pueda resolver la tienda desde `payload.store.id`.\n",
+        "items": {
+          "$ref": "#/components/schemas/FiscalGroupStoreEntry"
+        }
+      },
+      "TaxMatrixEntry": {
+        "type": "object",
+        "description": "Reglas por NCM; misma forma que `src/types/fiscal.ts` (`TaxMatrixEntry`).",
+        "properties": {
+          "NCM": {
+            "type": "string",
+            "description": "Código NCM (suele coincidir con la clave del mapa)."
+          },
+          "CEST": {
+            "type": "string",
+            "nullable": true
+          },
+          "CST_ICMS": {
+            "type": "string"
+          },
+          "ICMS_rate": {
+            "type": "number"
+          },
+          "ICMS_reduction": {
+            "type": "number",
+            "nullable": true
+          },
+          "CST_PIS": {
+            "type": "string"
+          },
+          "PIS_rate": {
+            "type": "number"
+          },
+          "CST_COFINS": {
+            "type": "string"
+          },
+          "COFINS_rate": {
+            "type": "number"
+          },
+          "CFOP": {
+            "type": "string"
+          },
+          "FCP_rate": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "additionalProperties": true
+      },
+      "TaxMatrixJson": {
+        "type": "object",
+        "description": "Mapa código NCM → reglas (`tax_matrix` en BD). Claves típicamente numéricas de 8 dígitos (string).\nEl motor usa `taxMatrix[ncm]` tras resolver el NCM del catálogo de producto.\n",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/TaxMatrixEntry"
+        }
+      },
+      "FiscalGroup": {
+        "type": "object",
+        "additionalProperties": true,
+        "description": "Propiedades en camelCase según respuesta Drizzle/JSON.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "uf": {
+            "type": "string"
+          },
+          "taxRegime": {
+            "type": "string"
+          },
+          "stores": {
+            "$ref": "#/components/schemas/StoresJson"
+          },
+          "taxMatrix": {
+            "$ref": "#/components/schemas/TaxMatrixJson"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FiscalGroupCreate": {
+        "type": "object",
+        "required": [
+          "externalId",
+          "name",
+          "uf",
+          "taxRegime",
+          "stores",
+          "taxMatrix"
+        ],
+        "properties": {
+          "externalId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "uf": {
+            "type": "string"
+          },
+          "taxRegime": {
+            "type": "string"
+          },
+          "stores": {
+            "$ref": "#/components/schemas/StoresJson"
+          },
+          "taxMatrix": {
+            "$ref": "#/components/schemas/TaxMatrixJson"
+          }
+        }
+      },
+      "FiscalGroupPatch": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "externalId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "uf": {
+            "type": "string"
+          },
+          "taxRegime": {
+            "type": "string"
+          },
+          "stores": {
+            "$ref": "#/components/schemas/StoresJson"
+          },
+          "taxMatrix": {
+            "$ref": "#/components/schemas/TaxMatrixJson"
+          }
+        }
+      },
+      "ProductFiscalCategory": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "externalProductId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ncm": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProductFiscalCategoryCreate": {
+        "type": "object",
+        "required": [
+          "productId",
+          "productName",
+          "ncm"
+        ],
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "ncm": {
+            "type": "string"
+          },
+          "externalProductId": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ProductFiscalCategoryPatch": {
+        "type": "object",
+        "properties": {
+          "productName": {
+            "type": "string"
+          },
+          "ncm": {
+            "type": "string"
+          },
+          "externalProductId": {
+            "type": "string",
+            "nullable": true
           }
         }
       }
